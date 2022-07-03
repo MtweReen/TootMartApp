@@ -9,8 +9,22 @@ class AppCubit extends Cubit<AppState> {
 
   static AppCubit get(context)=>BlocProvider.of(context);
 
-bool selectCountry = false;
-  void seledctCountry(){
+bool saudiCountry = false;
+bool kuwaitCountry = false;
+  void seledctCountry({required bool saudi, required bool kuwait}){
+    kuwaitCountry = kuwait;
+    saudiCountry = saudi;
+    emit(CountrySelection());
 
   }
+
+bool arLanguage = false;
+bool enLanguage = false;
+  void seledctLanguage({required bool en, required bool ar}){
+    arLanguage = ar;
+    enLanguage = en;
+    emit(LanguageSelection());
+
+  }
+
 }

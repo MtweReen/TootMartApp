@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/features/layout/layout.dart';
 import '../../core/constants/constants.dart';
@@ -43,6 +44,7 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SizedBox(

@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/colors.dart';
-import 'package:toot_mart/features/onboarding/onboarding.dart';
-
+import 'package:toot_mart/features/country/country.dart';
 import 'core/constants/constants.dart';
 
 class SplshScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _SplshScreenState extends State<SplshScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
+          MaterialPageRoute(builder: (context) => const CountryScreen()),
           (route) => false),
     );
     super.initState();

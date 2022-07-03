@@ -4,22 +4,24 @@ import '../constants/constants.dart';
 import '../helper/extentions.dart';
 import '../utiles/size_config.dart';
 
-
 class CustomGeneralButton extends StatelessWidget {
   const CustomGeneralButton(
       {Key? key,
       required this.text,
       required this.onTap,
       this.color,
+      this.borderColor,
       this.textColor,
       this.iconImage,
-      this.withBorder, this.size})
+      this.withBorder,
+      this.size})
       : super(key: key);
   final String text;
   final VoidCallback onTap;
   final Color? color;
   final String? iconImage;
   final Color? textColor;
+  final Color? borderColor;
   final bool? withBorder;
   final double? size;
   @override
@@ -32,7 +34,9 @@ class CustomGeneralButton extends StatelessWidget {
         height: h * 0.08,
         width: w,
         decoration: BoxDecoration(
-            color: color ?? kMainColor, borderRadius: BorderRadius.circular(50)),
+            border: Border.all(color: borderColor ?? kMainColor),
+            color: color ?? kMainColor,
+            borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +48,7 @@ class CustomGeneralButton extends StatelessWidget {
                   style: TextStyle(
                       color: textColor ?? Colors.white,
                       fontWeight: FontWeight.w400,
-                      fontSize: size ?? SizeConfig.defaultSize!*1.8,
+                      fontSize: size ?? SizeConfig.defaultSize! * 1.8,
                       fontFamily: 'URW DIN Arabic'),
                 ),
               ),
@@ -106,13 +110,17 @@ class CustomButtonWithIcon extends StatelessWidget {
   const CustomButtonWithIcon(
       {Key? key,
       this.color,
+      required this.textColor,
       required this.icon,
       required this.text,
+      required this.borderColor,
       required this.onTap})
       : super(key: key);
   final Color? color;
   final String icon;
   final String text;
+  final Color textColor;
+  final Color borderColor;
   final VoidCallback onTap;
 
   @override
@@ -124,28 +132,29 @@ class CustomButtonWithIcon extends StatelessWidget {
       child: Container(
         height: h * 0.08,
         width: w,
+        padding: EdgeInsets.symmetric(horizontal: w * 0.02, vertical: h * 0.02),
         decoration: BoxDecoration(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(50),
           border: Border.all(
-            color: colorRed,
+            color: borderColor,
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-          
-            Text(
-              text,
-              style: headingStyle,
-              textAlign: TextAlign.left,
-            ),
-             SizedBox(width: w*0.02,),
-               Image.asset(
+            Image.asset(
               icon,
               color: color,
             ),
-           
+            SizedBox(
+              width: w * 0.02,
+            ),
+            Text(
+              text,
+              style: headingStyle.copyWith(color: textColor),
+              textAlign: TextAlign.left,
+            ),
           ],
         ),
       ),
@@ -190,7 +199,7 @@ class CustomTextButton extends StatelessWidget {
               style: headingStyle.copyWith(
                 color: color,
                 fontWeight: FontWeight.bold,
-                fontSize: size ?? SizeConfig.defaultSize!*1.8,
+                fontSize: size ?? SizeConfig.defaultSize! * 1.8,
               ),
             ),
           );
