@@ -18,8 +18,8 @@ import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
 import 'forget_password_body.dart';
 
-class LoginBody extends StatelessWidget {
-  LoginBody({
+class LoginView extends StatelessWidget {
+  LoginView({
     Key? key,
   }) : super(key: key);
 
@@ -30,87 +30,88 @@ class LoginBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
-      listener: (context, state) {
-        if (state is LoginUserLoaded) {
-          CasheHelper.SaveUser(user: AuthCubit.get(context).user!);
-          kUser = AuthCubit.get(context).user;
-        }
-      },
-      builder: (context, state) {
-        var cubit = AuthCubit.get(context);
-        return Container(
-          height: SizeConfig.screenHeight,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Text(
-                  LocaleKeys.login.tr(),
-                  style: TextStyle(color: kMainColor, fontSize: 30),
-                ),
-                VerticalSpace(value: SizeConfig.defaultSize! * 0.5),
-                CustomTextFormField(
-                  label: LocaleKeys.email.tr(),
-                  controller: userNameController,
-                  inputType: TextInputType.emailAddress,
-                  validator: (String? value) {
-                    return validateEmail(userNameController.text);
-                  },
-                ),
-                VerticalSpace(value: SizeConfig.defaultSize! * 0.3),
-                CustomTextFormField(
-                  label: LocaleKeys.password.tr(),
-                  isPassword: true,
-                  controller: passwordController,
-                  validator: (String? value) {
-                    return validatePassword(value!);
-                  },
-                ),
-                Row(
-                  children: [
-                    CustomCheckBoxWithText(
-                      text: LocaleKeys.remember_me.tr(),
-                    ),
-                    const Spacer(),
-                    CustomTextButton(
-                      onPressed: () {
-                        MagicRouter.navigateTo(ForgetPasswordBody());
-                      },
-                      text: LocaleKeys.forget_password.tr(),
-                      size: SizeConfig.defaultSize! * 1.8,
-                    )
-                  ],
-                ),
-                (state is! LoginUserLoadingstate)
-                    ? CustomGeneralButton(
-                        text: LocaleKeys.login.tr(),
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            cubit.LoginUser(userNameController.text,
-                                passwordController.text);
-                          }
-                        })
-                    : CircularProgressIndicator(color: kMainColor),
-                const VerticalSpace(value: 2),
-                CustomStrockButton(
-                    text: LocaleKeys.sign_up.tr(),
-                    onTap: () {
-                      MagicRouter.navigateTo(RegisterBody());
-                    }),
-                const VerticalSpace(value: 5),
-                SizedBox(
-                    height: SizeConfig.defaultSize! * 2,
-                    child: Image.asset(
-                      'assets/images/social.png',
-                      color: kMainColor,
-                    )),
-                const VerticalSpace(value: 2),
-              ],
+        listener: (context, state) {
+          if (state is LoginUserLoaded) {
+            CasheHelper.SaveUser(user: AuthCubit.get(context).user!);
+            kUser = AuthCubit.get(context).user;
+          }
+        },
+        builder: (context, state) {
+          var cubit = AuthCubit.get(context);
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  VerticalSpace(value: 3),
+                  Text(
+                    LocaleKeys.login.tr(),
+                    style: TextStyle(color: Colors.black, fontSize: 30),
+                  ),
+                  VerticalSpace(value: SizeConfig.defaultSize! * 0.5),
+                  CustomTextFormField(
+                    label: LocaleKeys.email.tr(),
+                    controller: userNameController,
+                    inputType: TextInputType.emailAddress,
+                    validator: (String? value) {
+                      return validateEmail(userNameController.text);
+                    },
+                  ),
+                  VerticalSpace(value: SizeConfig.defaultSize! * 0.3),
+                  CustomTextFormField(
+                    label: LocaleKeys.password.tr(),
+                    isPassword: true,
+                    controller: passwordController,
+                    validator: (String? value) {
+                      return validatePassword(value!);
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomCheckBoxWithText(
+                        text: LocaleKeys.remember_me.tr(),
+                      ),
+                      CustomTextButton(
+                        onPressed: () {
+                          MagicRouter.navigateTo(ForgetPasswordBody());
+                        },
+                        text: LocaleKeys.forget_password.tr(),
+                        size: SizeConfig.defaultSize! * 1.5,
+                      )
+                    ],
+                  ),
+                  (state is! LoginUserLoadingstate)
+                      ? CustomGeneralButton(
+                          text: LocaleKeys.login.tr(),
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              cubit.LoginUser(userNameController.text,
+                                  passwordController.text);
+                            }
+                          })
+                      : CircularProgressIndicator(color: kMainColor),
+                  const VerticalSpace(value: 2),
+                  CustomStrockButton(
+                      text: LocaleKeys.sign_up.tr(),
+                      onTap: () {
+                        MagicRouter.navigateTo(RegisterBody());
+                      }),
+                  const VerticalSpace(value: 5),
+                  SizedBox(
+                      height: SizeConfig.defaultSize! * 2,
+                      child: Image.asset(
+                        'asset/images/social.png',
+                        color: kMainColor,
+                      )),
+                  const VerticalSpace(value: 2),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+
   }
 }

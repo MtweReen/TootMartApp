@@ -130,9 +130,13 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
-
-  FavouritesModel? favouritesModel;
-
+  int? currentUserState;
+  changeUserState(int userState){
+    currentUserState = userState;
+    print(currentUserState.toString());
+    emit(ChangeUserState());
+  }
+  // FavouritesModel? favouritesModel;
   // List<Product>? getFavouteProducts() {
   //   emit(FavouteProductsLoadingState());
   //   AuthRepositoryImpl().getFavouriteProducts().then((value) {

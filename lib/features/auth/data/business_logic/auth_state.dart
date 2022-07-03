@@ -31,3 +31,4 @@ class AllRefundOrdersLoadingState extends AuthStates {}
 class AllRefundOrdersSuccessState extends AuthStates {}
 
 class AllRefundOrdersErrorState extends AuthStates {}
+class ChangeUserState extends AuthStates {}
