@@ -96,7 +96,7 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
                   });
                     pageController!.animateToPage(currentPage+1,
                 duration: const Duration(microseconds: 500),
-                curve: Curves.fastOutSlowIn);
+                curve: Curves.easeInOut);
                  }else{
                    prefs.setBool('is_onboearding', true);
                   Navigator.push(

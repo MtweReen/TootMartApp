@@ -9,7 +9,8 @@ class AppCubit extends Cubit<AppState> {
 
   static AppCubit get(context)=>BlocProvider.of(context);
 
+bool selectCountry = false;
   void seledctCountry(){
-    
+
   }
 }
