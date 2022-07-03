@@ -12,12 +12,12 @@ class CustomTextFormField extends StatelessWidget {
     this.focusNode,
     this.onEditingComplete,
     this.maxLines,
-    required this.label,
+    this.label,
     this.controller,
     this.suffix,
     this.suffixPressed,
     this.prefix,
-    required this.hint,
+    this.hint,
     this.validator,
   }) : super(key: key);
   final TextEditingController? controller;
@@ -27,8 +27,8 @@ class CustomTextFormField extends StatelessWidget {
   final ValueSetter? onSaved;
   final FocusNode? focusNode;
   final int? maxLines;
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final bool? isPassword;
   final IconData? suffix;
   final IconData? prefix;

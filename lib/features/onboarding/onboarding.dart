@@ -43,6 +43,7 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
 
   @override
   Widget build(BuildContext context) {
+  SizeConfig().init(context);
     double h = MediaQuery.of(context).size.height;
      SizeConfig().init(context);
     return Scaffold(
