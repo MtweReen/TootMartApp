@@ -1,6 +1,6 @@
-// ignore_for_file: avoid_print
-
 import 'package:dio/dio.dart';
+
+import '../../constants/constants.dart';
 import '../end_points.dart';
 
 class DioHelper {
@@ -10,7 +10,9 @@ class DioHelper {
     dio = Dio(BaseOptions(
         baseUrl: kBaseUrl,
         headers: {
-          'Accept-Language': 'en',
+          'Accept-Language': 'ar',
+          'Accept': 'application/json',
+
         },
         // isEn(MagicRouter.currentContext)?'en':
         receiveDataWhenStatusError: true,
@@ -20,15 +22,28 @@ class DioHelper {
         }));
   }
 
-  // static Future<Response> getData({
-  //   required url,
-  //   Map<String, dynamic>? qurey,
-  // }) async {
-  //   dio.options.headers["Authorization"] =
-  //       "Bearer ${CasheHelper.getToken}";
-  //
-  //   return await dio.get(url, queryParameters: qurey);
-  // }
+  static Future<Response> getData({
+    required url,
+    Map<String, dynamic>? qurey,
+  }) async {
+    dio.options.headers["device-uuid"] = deviceId;
+
+    return await dio.get(url, queryParameters: qurey);
+  }
+
+  static Future<Response> getLoggedUserData({
+    required url,
+    Map<String, dynamic>? qurey,
+  }) async {
+    var headers = {
+      "device-uuid": deviceId,
+      "Authorization":kUser !=null ? "Bearer ${kUser!.data!.token}":''
+    };
+
+    dio.options.headers.addAll(headers);
+
+    return await dio.get(url, queryParameters: qurey);
+  }
 
   static Future<Response> postData({
     required String url,
@@ -36,12 +51,24 @@ class DioHelper {
     Map<String, dynamic>? data,
     // Map<String, dynamic>? query,
   }) async {
-    // dio.options.headers["Authorization"] =
-    //     "Bearer ${CasheHelper.getToken}";
-
+    dio.options.headers["device-uuid"] = deviceId;
     return dio.post(
       url,
       //  queryParameters: query,
+      data: formData ?? data,
+    );
+  }
+
+  static Future<Response> postLoggedUser({
+    required String url,
+    FormData? formData,
+    Map<String, dynamic>? data,
+    // Map<String, dynamic>? query,
+  }) async {
+    dio.options.headers["device-uuid"] = deviceId;
+    dio.options.headers["Authorization"] = "Bearer ${kUser!.data!.token}";
+    return dio.post(
+      url,
       data: formData ?? data,
     );
   }
@@ -78,13 +105,13 @@ class DioHelper {
         print("dio TimeOut");
         break;
       case DioErrorType.receiveTimeout:
-     
+        // TODO: Handle this case.
         break;
       case DioErrorType.cancel:
-        
+        // TODO: Handle this case.
         break;
       case DioErrorType.other:
-        
+        // TODO: Handle this case.
         break;
     }
   }

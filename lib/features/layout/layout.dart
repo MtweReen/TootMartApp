@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/colors.dart';
 import '../../translations/locale_keys.g.dart';
 import '../account/account.dart';
+import '../auth/presentation/account_view.dart';
 import '../cart/cart.dart';
 import '../category/category.dart';
 import '../favourite/favourite.dart';
@@ -23,8 +24,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
     const HomeScreen(),
     const CategoryScreen(),
     const CartScreen(),
-    const AccountScreen(),
     const FavouriteScreen(),
+    const AccountScreen(),
   ];
   getIndex() {
     if (widget.index != null) {
@@ -83,6 +84,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
               icon: const Icon(Icons.person_outline),
               label: translateString("my account", "الحساب"),),
         ],
+      ),
+      body: Center(
+        child:screens[currentIndex],
       ),
     );
   }

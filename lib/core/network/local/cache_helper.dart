@@ -1,72 +1,85 @@
-// import 'dart:async';
-//
-//
-// import 'package:shared_preferences/shared_preferences.dart';
-//
-// class CasheHelper {
-// //   static late SharedPreferences sharedPreferences;
-// //
-// //   static init() async {
-// //     sharedPreferences = await SharedPreferences.getInstance();
-// //   }
-// //
-// //   static Future<bool> putData({
-// //     required String key,
-// //     required bool boolValue,
-// //   }) async {
-// //     return await sharedPreferences.setBool(key, boolValue);
-// //   }
-// //
-// //   static dynamic getData({
-// //     required String key,
-// //   }) {
-// //     return sharedPreferences.get(key);
-// //   }
-// //   static Future<bool> saveData({
-// //     required String key,
-// //     required dynamic value,
-// //   }) async {
-// //
-// //     if(value is String) return await sharedPreferences.setString(key, value);
-// //     if(value is int) return await sharedPreferences.setInt(key, value);
-// //     if(value is bool) return await sharedPreferences.setBool(key, value);
-// //     return await sharedPreferences.setDouble(key, value);
-// //   }
-// // //   static Future<bool> saveModel({
-// // //   required Data data,
-// // // })async{
-// // //     return await sharedPreferences.set
-// // //   }
-// //   static Future<bool>  removeData({
-// //     required String key,
-// //   })async{
-// //     return await sharedPreferences.remove(key);
-// //   }
-// //
-// //   static SaveUserLogin({required LoginModel dataloginModel})async{
-// //     await  sharedPreferences.setString('name', dataloginModel.data!.name!);
-// //     await  sharedPreferences.setInt('id', dataloginModel.data!.id!);
-// //     await  sharedPreferences.setString('phone', dataloginModel.data!.phone!);
-// //     await  sharedPreferences.setString('profile', dataloginModel.data!.profile!);
-// //     await  sharedPreferences.setString('email', dataloginModel.data!.email!);
-// //   }
-//
-//   // Future<Data> getUserLogin({required Data dataloginModel})async{
-//   //  final name= await  sharedPreferences.getString('name');
-//   //  final id=  await  sharedPreferences.getInt('id');
-//   //  final phone= await  sharedPreferences.getString('phone');
-//   //  final profile= await  sharedPreferences.getString('profile');
-//   //  final email=await  sharedPreferences.getString('email');
-//   //
-//   //   return Data(
-//   //     name:name,
-//   //     id: id,
-//   //     phone: phone,
-//   //     profile: profile,
-//   //     email: email
-//   //   );
-//   // }
-//
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../features/auth/data/model/user_model.dart';
+import '../../constants/constants.dart';
+
+class CasheHelper {
+  static late SharedPreferences sharedPreferences;
+
+  static init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  static Future<bool> putData({
+    required String key,
+    required bool boolValue,
+  }) async {
+    return await sharedPreferences.setBool(key, boolValue);
+  }
+
+  static dynamic getData({
+    required String key,
+  }) {
+    return sharedPreferences.get(key);
+  }
+
+  static Future<bool> saveData({
+    required String key,
+    required dynamic value,
+  }) async {
+    if (value is String) return await sharedPreferences.setString(key, value);
+    if (value is int) return await sharedPreferences.setInt(key, value);
+    if (value is bool) return await sharedPreferences.setBool(key, value);
+    return await sharedPreferences.setDouble(key, value);
+  }
+
+  static Future<bool> removeData({
+    required String key,
+  }) async {
+    return await sharedPreferences.remove(key);
+  }
+
+  static SaveUser({required User user}) async {
+    print('User Saved ');
+    return await sharedPreferences.setString('User', userToJson(user));
+  }
+
+  static getUser() async {
+    String? json= sharedPreferences.getString('User');
+    if(json == null){
+      print('No Data Saved');
+    }else{
+      Map<String,dynamic> map=jsonDecode(json);
+      kUser = User.fromJson(map);
+      print('Data Passed');
+    }
+
+
+    return 'user';
+  }
+
+  // static SaveUserLogin({required User userData}) async {
+  //   await sharedPreferences.setString('name', userData.data!.user!.name!);
+  //   await sharedPreferences.setInt('id', userData.data!.user!.id!);
+  //   await sharedPreferences.setString('image', userData.data!.user!.image!);
+  //   await sharedPreferences.setString('email', userData.data!.user!.email!);
+  //   await sharedPreferences.setString('token', userData.data!.token!);
+  // }
+  //
+  // Future<Data> getUserLogin({required Data dataloginModel}) async {
+  //   final name = await sharedPreferences.getString('name');
+  //   final id = await sharedPreferences.getInt('id');
+  //   final token = await sharedPreferences.getString('token');
+  //   final image = await sharedPreferences.getString('image');
+  //   final email = await sharedPreferences.getString('email');
+  //
+  //   return Data();
+  // }
+
+}
 //
 //   static Future<void> inits() async => await GetStorage.init();
 //   static final GetStorage _box = GetStorage();

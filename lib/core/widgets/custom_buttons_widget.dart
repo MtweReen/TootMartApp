@@ -11,6 +11,7 @@ class CustomGeneralButton extends StatelessWidget {
       required this.text,
       required this.onTap,
       this.color,
+        this.isActive,
       this.textColor,
       this.iconImage,
       this.withBorder, this.size})
@@ -18,6 +19,7 @@ class CustomGeneralButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final Color? color;
+  final bool? isActive;
   final String? iconImage;
   final Color? textColor;
   final bool? withBorder;
@@ -27,7 +29,7 @@ class CustomGeneralButton extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: onTap,
+      onTap: isActive != false ? onTap : null,
       child: Container(
         height: h * 0.08,
         width: w,
@@ -85,16 +87,16 @@ class CustomStrockButton extends StatelessWidget {
         height: h * 0.08,
         width: w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(50),
           border: Border.all(
-            color: HexColor.fromHex('#8B8B8B'),
+            color: kMainColor,
           ),
         ),
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: kMainColor, fontWeight: FontWeight.bold),
           ),
         ),
       ),

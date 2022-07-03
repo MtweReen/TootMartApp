@@ -3,9 +3,8 @@ import 'package:toot_mart/core/constants/constants.dart';
 import '../constants/colors.dart';
 
 class ProfileCardItem extends StatelessWidget {
-  final String image;
   final String title;
-  const ProfileCardItem({Key? key, required this.image, required this.title})
+  const ProfileCardItem({Key? key, required this.title})
       : super(key: key);
 
   @override
@@ -36,12 +35,6 @@ class ProfileCardItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.asset(
-                image,
-              ),
-              SizedBox(
-                width: w * 0.02,
-              ),
               Text(
                 title,
                 style: headingStyle,
@@ -49,7 +42,7 @@ class ProfileCardItem extends StatelessWidget {
             ],
           ),
           Icon(
-           (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_right:Icons.keyboard_arrow_left,
+           (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_left:Icons.keyboard_arrow_right,
             size: w * 0.1,
             color: colordeepGrey,
           ),
