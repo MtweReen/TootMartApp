@@ -5,7 +5,6 @@ import 'package:toot_mart/features/onboarding/onboarding.dart';
 
 import 'core/constants/constants.dart';
 
-
 class SplshScreen extends StatefulWidget {
   const SplshScreen({Key? key}) : super(key: key);
 
@@ -28,12 +27,23 @@ class _SplshScreenState extends State<SplshScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        color: kMainColor,
-        height: MediaQuery.of(context).size.height,
-        child:  Center(child: Image.asset(kLogo),),
+    return PreferredSize(
+      preferredSize: Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height),
+      child: Scaffold(
+        body: Container(
+          width: double.infinity,
+          color: kMainColor,
+          height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: Image.asset(
+              kLogo,
+              width: 200,
+              height: 200,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
       ),
     );
   }

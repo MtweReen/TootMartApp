@@ -47,14 +47,14 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
       backgroundColor: Colors.white,
       body: SizedBox(
         width: double.infinity,
-        height: h * 0.8,
+        height: h,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: h * 0.2),
             Expanded(
-              flex: 3,
+              // flex: 7,
               child: PageView.builder(
                 controller: pageController,
                 physics: const BouncingScrollPhysics(),
@@ -84,23 +84,29 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
             SizedBox(
               height: h * 0.05,
             ),
-            CustomGeneralButton(
-              textColor: Colors.white,
-              color: kMainColor,
-              onTap: () async {
-               if(currentPage != title.length-1){
-                  pageController!.animateToPage(currentPage,
-              duration: const Duration(microseconds: 500),
-              curve: Curves.fastOutSlowIn);
-               }else{
-                 prefs.setBool('is_onboearding', true);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LayoutScreen()));
-               }
-              },
-              text: translateString("Next", "التالي"),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomGeneralButton(
+                textColor: Colors.white,
+                color: kMainColor,
+                onTap: () async {
+                 if(currentPage != title.length-1){
+                  setState(() {
+                    currentPage = currentPage;
+                  });
+                    pageController!.animateToPage(currentPage+1,
+                duration: const Duration(microseconds: 500),
+                curve: Curves.fastOutSlowIn);
+                 }else{
+                   prefs.setBool('is_onboearding', true);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LayoutScreen()));
+                 }
+                },
+                text: translateString("Next", "التالي"),
+              ),
             ),
 
              SizedBox(
@@ -140,7 +146,7 @@ class SplashContent extends StatelessWidget {
           image,
           height: h * 0.3,
           width: w * 1,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
          SizedBox(
           height: h * 0.02,
@@ -179,17 +185,17 @@ class SplashContent extends StatelessWidget {
 
 AnimatedContainer buildOnBoardingDot(
     {required int index, required int currentPage, required context}) {
-  // double h = MediaQuery.of(context).size.height;
+  double h = MediaQuery.of(context).size.height;
   double w = MediaQuery.of(context).size.width;
 
   return AnimatedContainer(
     duration: const Duration(milliseconds: 250),
-    margin: EdgeInsets.only(right: w * 0.03),
-    height: 5,
-    width: currentPage == index ? w * 0.06 : w * 0.03,
+    margin: const EdgeInsets.all(5),
+    height: 10,
+    width: currentPage == index ? 10 : 10,
     decoration: BoxDecoration(
+      shape: BoxShape.circle,
       color: currentPage == index ? kMainColor : Colors.white,
-      borderRadius: BorderRadius.circular(30),
       border: Border.all(color: kMainColor),
     ),
   );
