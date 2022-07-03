@@ -13,7 +13,7 @@ class CustomGeneralButton extends StatelessWidget {
       this.color,
       this.textColor,
       this.iconImage,
-      this.withBorder})
+      this.withBorder, this.size})
       : super(key: key);
   final String text;
   final VoidCallback onTap;
@@ -21,7 +21,7 @@ class CustomGeneralButton extends StatelessWidget {
   final String? iconImage;
   final Color? textColor;
   final bool? withBorder;
-
+  final double? size;
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -32,7 +32,7 @@ class CustomGeneralButton extends StatelessWidget {
         height: h * 0.08,
         width: w,
         decoration: BoxDecoration(
-            color: color ?? kMainColor, borderRadius: BorderRadius.circular(8)),
+            color: color ?? kMainColor, borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,6 +44,7 @@ class CustomGeneralButton extends StatelessWidget {
                   style: TextStyle(
                       color: textColor ?? Colors.white,
                       fontWeight: FontWeight.w400,
+                      fontSize: size ?? SizeConfig.defaultSize!*1.8,
                       fontFamily: 'URW DIN Arabic'),
                 ),
               ),
@@ -169,6 +170,7 @@ class CustomTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return isUnderLine == true
         ? TextButton(
             onPressed: onPressed,
@@ -187,7 +189,8 @@ class CustomTextButton extends StatelessWidget {
               text,
               style: headingStyle.copyWith(
                 color: color,
-                fontSize: size ?? 10,
+                fontWeight: FontWeight.bold,
+                fontSize: size ?? SizeConfig.defaultSize!*1.8,
               ),
             ),
           );

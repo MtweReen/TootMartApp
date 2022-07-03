@@ -52,7 +52,7 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: h * 0.2),
+          //  SizedBox(height: h * 0.2),
             Expanded(
               // flex: 7,
               child: PageView.builder(
@@ -95,8 +95,8 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
                     currentPage = currentPage;
                   });
                     pageController!.animateToPage(currentPage+1,
-                duration: const Duration(microseconds: 500),
-                curve: Curves.easeInOut);
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.fastLinearToSlowEaseIn);
                  }else{
                    prefs.setBool('is_onboearding', true);
                   Navigator.push(
@@ -119,7 +119,9 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
                     context,
                     MaterialPageRoute(
                         builder: (context) => const LayoutScreen()));
-            },),
+            },
+            ),
+             SizedBox(height: h * 0.02),
           ],
         ),
       ),
