@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:toot_mart/features/all_products/component/product_card.dart';
 
 class ProductGridData extends StatelessWidget {
-  const ProductGridData({Key? key}) : super(key: key);
+  bool? fromfav;
+   ProductGridData({Key? key, this.fromfav}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ProductGridData extends StatelessWidget {
         crossAxisSpacing: 20,
         crossAxisCount: 2,
       ),
-      itemBuilder: (context, index) => const ProductCardData(),
+      itemBuilder: (context, index) =>  ProductCardData(fromfav: fromfav!,),
     );
   }
 }

@@ -5,7 +5,8 @@ import 'package:toot_mart/core/constants/constants.dart';
 import '../../detail/product_detail.dart';
 
 class ProductCardData extends StatelessWidget {
-  const ProductCardData({Key? key}) : super(key: key);
+  bool? fromfav;
+   ProductCardData({Key? key, this.fromfav}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +47,13 @@ class ProductCardData extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {},
-                        child: Icon(
+                        child: (fromfav != true)?Icon(
                           Icons.favorite_border_outlined,
                           color: Colors.black87,
+                          size: w * 0.08,
+                        ):Icon(
+                          Icons.favorite,
+                          color: colorRed,
                           size: w * 0.08,
                         ),
                       ),

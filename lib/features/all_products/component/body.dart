@@ -22,9 +22,9 @@ class _AllProductBodyState extends State<AllProductBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
-          FilterProducts(),
-          VerticalSpace(value: 4),
+        children:  [
+         const FilterProducts(),
+         const VerticalSpace(value: 4),
           ProductGridData(),
         ],
       ),
