@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 
 import '../../../../core/constants/constants.dart';
@@ -43,12 +44,14 @@ class GuestView extends StatelessWidget {
                     child: CustomGeneralButton(
                         text: translateString('Log in', 'تسجيل الدخول'),
                         onTap: () {
-                          AuthCubit.get(context).changeUserState(1) ;
+                          AuthCubit.get(context).changeUserState(AccountStates.LOGIN) ;
                         })),
                 Container(
                   width: SizeConfig.defaultSize! * 18,
                   child: CustomStrockButton(
-                      text: translateString('Register', 'تسجيل'), onTap: () {}),
+                      text: translateString('Register', 'تسجيل'), onTap: () {
+                        AuthCubit.get(context).changeUserState(AccountStates.REGISTER);
+                  }),
                 ),
               ],
             ),

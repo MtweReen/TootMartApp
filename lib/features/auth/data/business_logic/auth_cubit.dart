@@ -5,6 +5,7 @@ import 'package:toot_mart/core/constants/constants.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../../../../core/network/local/cache_helper.dart';
 import '../../../../../translations/locale_keys.g.dart';
+import '../../../account/account.dart';
 import '../model/favourites_model.dart';
 import '../model/user_model.dart';
 import '../repositories/auth_repository_imp.dart';
@@ -130,10 +131,9 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
-  int? currentUserState;
-  changeUserState(int userState){
+  AccountStates? currentUserState;
+  changeUserState(AccountStates userState){
     currentUserState = userState;
-    print(currentUserState.toString());
     emit(ChangeUserState());
   }
   // FavouritesModel? favouritesModel;
