@@ -38,8 +38,7 @@ class LanguageSelectWidget extends StatelessWidget {
             const VerticalSpace(value: 5),
             Row(
               children: [
-                SizedBox(
-                  width: SizeConfig.screenWidth! * 0.3,
+                Expanded(
                   child: CustomGeneralButton(
                       borderColor: (AppCubit.get(context).arLanguage)
                   ? kMainColor
@@ -56,8 +55,7 @@ class LanguageSelectWidget extends StatelessWidget {
                   ),
                 ),
                 const HorizontalSpace(value: 3),
-                SizedBox(
-                  width: SizeConfig.screenWidth! * 0.3,
+                Expanded(
                   child: CustomGeneralButton(
                     borderColor: (AppCubit.get(context).enLanguage)
                   ? kMainColor
