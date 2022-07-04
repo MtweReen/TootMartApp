@@ -35,7 +35,7 @@ class _CustomCheckBoxWithTextState extends State<CustomCheckBoxWithText> {
         Text(widget.text,
             style: TextStyle(
               color: kMainColor,
-              fontSize: SizeConfig.defaultSize!*1.8,
+              fontSize: SizeConfig.defaultSize!*1.5,
             )),
       ],
     );
