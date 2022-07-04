@@ -49,14 +49,14 @@ class _LayoutScreenState extends State<LayoutScreen> {
       appBar: appbarNoTitle(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        unselectedItemColor: kMainColor.withOpacity(0.4),
+        unselectedItemColor: Colors.black,
         elevation: 10.0,
         iconSize: w * 0.08,
         selectedItemColor: kMainColor,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         unselectedLabelStyle: headingStyle.copyWith(
-            color: kMainColor, fontWeight: FontWeight.w400, fontSize: w * 0.03),
+            color: Colors.black, fontWeight: FontWeight.w400, fontSize: w * 0.03),
         selectedLabelStyle: headingStyle.copyWith(
             color: kMainColor, fontWeight: FontWeight.w400, fontSize: w * 0.03),
         currentIndex: currentIndex,
@@ -67,20 +67,26 @@ class _LayoutScreenState extends State<LayoutScreen> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: const Icon(Icons.home_outlined),
+            activeIcon: Image.asset("asset/images/homecolor.png", width: 100, height: 30,),
+              icon: Image.asset("asset/images/home.png", width: 100, height: 30,),
               label: LocaleKeys.home.tr()),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.receipt_long_outlined),
+            activeIcon: Image.asset("asset/images/deps-1.png", width: 100, height: 30,),
+              icon:  Image.asset("asset/images/deps.png",  width: 100, height: 30,),
               label: translateString("Category", "الأقسام")),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.chat_outlined),
+              activeIcon: Image.asset("asset/images/cartcolor.png", width: 100, height: 30,),
+              icon:  Image.asset("asset/images/cart.png",  width: 100, height: 30,),
+              
               label: translateString("cart", "عربة التسوق"),),
           
           BottomNavigationBarItem(
-              icon: const Icon(Icons.notifications_none_outlined),
+              activeIcon: Image.asset("asset/images/heartcolor.png", width: 100, height: 30,),
+              icon:  Image.asset("asset/images/heart.png",  width: 100, height: 30,),
               label: translateString("favourite", "المفضلة"),),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.person_outline),
+             activeIcon: Image.asset("asset/images/profilecolor.png", width: 100, height: 30,),
+              icon:  Image.asset("asset/images/profile.png",  width: 100, height: 30,),
               label: translateString("my account", "الحساب"),),
         ],
       ),

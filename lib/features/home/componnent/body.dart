@@ -8,6 +8,7 @@ import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../all_products/all_products.dart';
 import 'category_list.dart';
 
 class HomeBody extends StatefulWidget {
@@ -43,7 +44,10 @@ class _HomeBodyState extends State<HomeBody> {
                 fontSize: SizeConfig.screenWidth! * 0.05),
           ),
           const VerticalSpace(value: 4),
-          const ProductsGridView(itemCount: 8, isScrollable: false),
+           ProductsGridView(itemCount: 8, isScrollable: false, press: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllProducts())),),
         ],
       ),
     );

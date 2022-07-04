@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../helper/extentions.dart';
 
 Color kMainColor = HexColor.fromHex('#C49E37');
-Color colordeepGreen = HexColor.fromHex('#00806E');
+Color colordeepGreen = HexColor.fromHex('#1CB90A');
 Color colorRed = HexColor.fromHex('#D80000');
 Color colorGrey = HexColor.fromHex('#939393');
 Color colordeepGrey = HexColor.fromHex('#3C3C3B');

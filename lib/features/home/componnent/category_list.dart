@@ -3,6 +3,8 @@ import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 
+import '../../all_products/all_products.dart';
+
 class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
 
@@ -20,7 +22,10 @@ class _CategoryListState extends State<CategoryList> {
       itemCount: 6,
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {},
+            onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllProducts())),
           child: Stack(
             children: [
               Container(
