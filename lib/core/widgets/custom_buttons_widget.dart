@@ -144,9 +144,12 @@ class CustomButtonWithIcon extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              icon,
-              color: color,
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Image.asset(
+                icon,
+                color: color,
+              ),
             ),
             SizedBox(
               width: w * 0.02,
