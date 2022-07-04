@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:toot_mart/core/constants/constants.dart';
+
+import '../../core/constants/colors.dart';
+import 'componnent/shopping_cart_body.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({ Key? key }) : super(key: key);
@@ -10,8 +14,9 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: customAppbar(title: 'عربة التسوق', context: context),
+      body: const ShoppingCartBody(),
     );
   }
 }

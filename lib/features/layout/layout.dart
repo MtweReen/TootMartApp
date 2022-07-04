@@ -22,7 +22,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   List<Widget> screens = [
     const HomeScreen(),
     const CategoryScreen(),
-    const CartScreen(),
+    CartScreen(),
     const FavouriteScreen(),
     AccountScreen(),
   ];

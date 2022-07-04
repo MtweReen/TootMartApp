@@ -25,7 +25,7 @@ class _AllProductBodyState extends State<AllProductBody> {
         children:  [
          const FilterProducts(),
          const VerticalSpace(value: 4),
-          ProductGridData(),
+          ProductGridData(fromfav: false,),
         ],
       ),
     );
