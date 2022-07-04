@@ -14,4 +14,5 @@ Color greyText = HexColor.fromHex('#8B8B8B');
 Color greyBorder = HexColor.fromHex('#707070');
 Color colorBetrolly = HexColor.fromHex("#00806E");
 Color textFieldBorder = HexColor.fromHex("#BFBDBD");
+Color colorGreyLight = HexColor.fromHex("##BEC1C4");
 

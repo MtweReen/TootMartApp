@@ -3,19 +3,20 @@ import 'product_item.dart';
 
 class ProductsGridView extends StatelessWidget {
   const ProductsGridView(
-      {Key? key, required this.itemCount, required this.isScrollable})
+      {Key? key, required this.itemCount, required this.isScrollable, this.press})
       : super(key: key);
   final int itemCount;
   final bool isScrollable;
+  final VoidCallback? press;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 2 / 3,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 1,
+          childAspectRatio: 0.9,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 3,
         ),
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
@@ -24,6 +25,8 @@ class ProductsGridView extends StatelessWidget {
         itemBuilder: ((ctx, index) {
           return ProductItem(
             index: index,
+            press: press,
+          
           );
         }));
   }

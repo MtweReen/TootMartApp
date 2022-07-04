@@ -42,7 +42,28 @@ String translateString(String a,String b){
   return prefs.getString("lang")=='en'?a:b;
 }
 
+////////////////////////////////////////////////////////////
 
+customAppbar({required String title,required context, VoidCallback? press}){
+  return AppBar(
+elevation: 3,
+backgroundColor: Colors.white,
+centerTitle: false,
+automaticallyImplyLeading: false,
+title: Text(title, style: headingStyle.copyWith(
+  color: Colors.black,
+  fontWeight: FontWeight.w700,
+  fontSize: MediaQuery.of(context).size.width*0.04
+),),
+leading: InkWell(
+  onTap: press,
+  child: const Icon(Icons.arrow_back_ios, color: Colors.black,),
+
+),
+  );
+}
+
+////////////////////////////////////////////////////////////
 var deviceId;
 User? kUser;
 const kBgImage = 'assets/images/splash_bg.png';
