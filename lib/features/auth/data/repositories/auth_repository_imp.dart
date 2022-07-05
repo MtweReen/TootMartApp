@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/network/remote/dio_helper.dart';
-import 'package:toot_mart/translations/locale_keys.g.dart';
-
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../domain/repositories/auth_repo.dart';
 import '../model/favourites_model.dart';
@@ -12,6 +9,7 @@ import '../model/user_model.dart';
 class AuthRepositoryImpl extends AuthRepo {
   @override
   Future<Either<Exception, User>> loginWithEmailAndPassword(
+      // ignore: non_constant_identifier_names
       {required String Username, required String Password}) async {
     try {
       var response = await DioHelper.postData(

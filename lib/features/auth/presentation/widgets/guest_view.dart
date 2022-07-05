@@ -1,12 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
-
+import 'package:toot_mart/features/profile%20screens/contact_us.dart';
+import 'package:toot_mart/features/profile%20screens/exhibitions/exhibitions.dart';
+import 'package:toot_mart/features/profile%20screens/info.dart';
+import 'package:toot_mart/features/profile%20screens/setting.dart';
+import 'package:toot_mart/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
 import '../../../../core/widgets/profile_item.dart';
+import '../../../profile_detail/profile_detail.dart';
 
 class GuestView extends StatelessWidget {
   const GuestView({Key? key}) : super(key: key);
@@ -29,8 +34,14 @@ class GuestView extends StatelessWidget {
                       color: Colors.black,
                       fontSize: SizeConfig.defaultSize! * 3),
                 ),
-                Icon(Icons.settings_outlined,
-                    size: SizeConfig.defaultSize! * 4),
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingScreen())),
+                  child: Icon(Icons.settings_outlined,
+                      size: SizeConfig.defaultSize! * 4),
+                ),
               ],
             ),
           ),
@@ -39,65 +50,102 @@ class GuestView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                     width: SizeConfig.defaultSize! * 18,
                     child: CustomGeneralButton(
                         text: translateString('Log in', 'تسجيل الدخول'),
                         onTap: () {
-                          AuthCubit.get(context).changeUserState(AccountStates.LOGIN) ;
+                          AuthCubit.get(context)
+                              .changeUserState(AccountStates.LOGIN);
                         })),
-                Container(
+                SizedBox(
                   width: SizeConfig.defaultSize! * 18,
                   child: CustomStrockButton(
-                      text: translateString('Register', 'تسجيل'), onTap: () {
-                        AuthCubit.get(context).changeUserState(AccountStates.REGISTER);
-                  }),
+                      text: translateString('Register', 'تسجيل'),
+                      onTap: () {
+                        AuthCubit.get(context)
+                            .changeUserState(AccountStates.REGISTER);
+                      }),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.02),
+            padding:
+                EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const InkWell(
+                  InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileDetails())),
                   child: ProfileCardItem(
-                    title: 'تتبع الطلب',
+                    title: LocaleKeys.account_details.tr(),
                   ),
                 ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                const InkWell(
+                InkWell(
+                  onTap: () {},
                   child: ProfileCardItem(
-                    title: ' تواصل معنا',
+                    title: translateString("My orders", "طلباتي"),
                   ),
                 ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                const InkWell(
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContactusScreen())),
                   child: ProfileCardItem(
-                    title: 'مواقع المعارض',
+                    title: LocaleKeys.CONTACT_US.tr(),
                   ),
                 ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                const InkWell(
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ExhibitionsScreen())),
                   child: ProfileCardItem(
-                    title: 'التوصيل والمرتجعات',
+                    title: translateString("Exhibition sites", "مواقع المعارض"),
                   ),
                 ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                const InkWell(
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InformationScreen(
+                              title: translateString('Delivery and Returns',
+                                  'التوصيل والمرتجعات')))),
                   child: ProfileCardItem(
-                    title: 'سياسة الخصوصية',
-                  ),
+                      title: translateString(
+                          'Delivery and Returns', 'التوصيل والمرتجعات')),
+                ),
+                SizedBox(
+                  height: h * 0.04,
+                ),
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InformationScreen(
+                              title: translateString(
+                                  'privacy policy', 'سياسة الخصوصية')))),
+                  child: ProfileCardItem(
+                      title:
+                          translateString('privacy policy', 'سياسة الخصوصية')),
                 ),
                 // SizedBox(
                 //   height: h * 0.06,

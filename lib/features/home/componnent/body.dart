@@ -30,10 +30,14 @@ class _HomeBodyState extends State<HomeBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomTextFormField(label: "", hint: LocaleKeys.search_for_products.tr(), prefix: Icons.search_outlined,),
+          CustomTextFormField(
+            label: "",
+            hint: LocaleKeys.search_for_products.tr(),
+            prefix: Image.asset("asset/images/search.png", width: 20, height: 20,),
+          ),
           const VerticalSpace(value: 2),
           const HomeSlider(),
-           const VerticalSpace(value: 2),
+          const VerticalSpace(value: 2),
           const CategoryList(),
           const VerticalSpace(value: 4),
           Text(
@@ -44,10 +48,12 @@ class _HomeBodyState extends State<HomeBody> {
                 fontSize: SizeConfig.screenWidth! * 0.05),
           ),
           const VerticalSpace(value: 4),
-           ProductsGridView(itemCount: 8, isScrollable: false, press: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllProducts())),),
+          ProductsGridView(
+            itemCount: 8,
+            isScrollable: false,
+            press: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AllProducts())),
+          ),
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
 
 import '../../../core/utiles/size_config.dart';
+import '../../../core/widgets/custom_quantity.dart';
 import 'similar_product.dart';
 
 class ProductDetailBody extends StatefulWidget {
@@ -40,10 +41,33 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
           ),
           const VerticalSpace(value: 3),
           Row(
+             crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 translateString("Quantity", "الكمية"),
                 style: headingStyle,
+              ),
+              Row(
+               
+                children: [
+                  CustomQuantity(
+                    child: Image.asset(
+                      'asset/images/mince.png',
+                    ),
+                    onTap: () {},
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('1'),
+                  ),
+                  CustomQuantity(
+                    child: Image.asset(
+                      'asset/images/plus.png',
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
             ],
           ),
@@ -65,14 +89,13 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                   ),
                 ],
               ),
-
               Text(
-            "150 R.S",
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w600,
-                color: kMainColor,
-                fontSize: SizeConfig.screenWidth! * 0.05),
-          ),
+                "150 R.S",
+                style: headingStyle.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: kMainColor,
+                    fontSize: SizeConfig.screenWidth! * 0.05),
+              ),
             ],
           ),
           const VerticalSpace(value: 2),

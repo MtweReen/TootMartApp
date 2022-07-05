@@ -1,4 +1,6 @@
 
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 
@@ -32,7 +34,7 @@ class ShoppingItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: colorLightGrey),

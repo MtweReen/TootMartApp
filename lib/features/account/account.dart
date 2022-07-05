@@ -15,11 +15,12 @@ import '../../core/constants/constants.dart';
 import '../auth/data/business_logic/auth_state.dart';
 
 class AccountScreen extends StatefulWidget {
-  AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({Key? key}) : super(key: key);
 
   @override
   State<AccountScreen> createState() => _AccountScreenState();
 }
+// ignore: constant_identifier_names
 enum AccountStates { GUEST, LOGIN, REGISTER,FORGET_PASSWORD,RESET_PASSWORD}
 
 class _AccountScreenState extends State<AccountScreen> {
@@ -34,7 +35,7 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Column(
               children: [
                 if(AuthCubit.get(context).currentUserState == AccountStates.GUEST ||AuthCubit.get(context).currentUserState ==null)
-                  GuestView(),
+                  const GuestView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.LOGIN)
                   LoginView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.REGISTER)

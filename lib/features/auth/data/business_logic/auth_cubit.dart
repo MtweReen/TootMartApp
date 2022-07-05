@@ -1,12 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
+
+// ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/constants.dart';
-
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../../../../core/network/local/cache_helper.dart';
-import '../../../../../translations/locale_keys.g.dart';
 import '../../../account/account.dart';
-import '../model/favourites_model.dart';
 import '../model/user_model.dart';
 import '../repositories/auth_repository_imp.dart';
 import 'auth_state.dart';
@@ -18,6 +17,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   User? user;
 
+  // ignore: non_constant_identifier_names
   User? LoginUser(String Username, String Password) {
     emit(LoginUserLoadingstate());
     AuthRepositoryImpl()

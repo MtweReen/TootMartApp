@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? hint;
   final bool? isPassword;
   final IconData? suffix;
-  final IconData? prefix;
+  final Widget? prefix;
 
   final FormFieldValidator<String>? validator;
   final Function()? onEditingComplete;
@@ -65,12 +65,12 @@ class CustomTextFormField extends StatelessWidget {
                 },
                 icon: Icon(suffix))
             : null,
-        // labelText: label,
+        prefixIcon: prefix,
         filled: true,
         fillColor: Colors.transparent,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorLightGrey),
+          borderSide: BorderSide(color: colorGreyLight),
         ),
       ),
     );
@@ -150,13 +150,13 @@ class CustomTextFormFieldEditProfile extends StatelessWidget {
         fillColor: textFieldBorder,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-         borderSide: BorderSide(color:textFieldBorder )
+         borderSide: BorderSide(color:colorGreyLight )
          
         ),
         border: 
         OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-         borderSide: BorderSide(color:textFieldBorder )
+         borderSide: BorderSide(color:colorGreyLight )
          
         ),
       ),

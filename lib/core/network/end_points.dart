@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const kBaseUrl = 'https://abaiat-ksa.com/api/';
 
 //Auth

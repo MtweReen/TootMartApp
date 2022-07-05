@@ -11,6 +11,7 @@ void showToast({required String msg, required ToastStates state}) =>
         textColor: Colors.white,
         fontSize: 16.0);
 
+// ignore: constant_identifier_names
 enum ToastStates { SUCCESS, ERROR, WARNING }
 
 Color chooseToastColor(ToastStates state) {

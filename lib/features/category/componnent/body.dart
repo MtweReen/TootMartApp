@@ -33,7 +33,7 @@ class _CategoryBodyState extends State<CategoryBody> {
           CustomTextFormField(
             label: "",
             hint: LocaleKeys.search_for_products.tr(),
-            prefix: Icons.search_outlined,
+            prefix: Image.asset("asset/images/search.png", width: 20, height: 20,),
           ),
           const VerticalSpace(value: 2),
           const CategorySlider(),
