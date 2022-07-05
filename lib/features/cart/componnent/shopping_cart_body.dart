@@ -3,6 +3,7 @@ import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/cart/componnent/checkout_bill.dart';
+import 'package:toot_mart/features/checkout/checkout.dart';
 
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -139,7 +140,7 @@ class ShoppingCartBody extends StatelessWidget {
                   ],
                 ),
               ),
-                    CheckOutBill(),
+                    const CheckOutBill(),
                     const VerticalSpace(value: 5),
                     // if (AppCubit.get(context)
                     //     .cartModel!
@@ -150,6 +151,7 @@ class ShoppingCartBody extends StatelessWidget {
                         text: 'إتمام عملية الشراء',
                         withBorder: true,
                         onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const CheckoutScreen()));
                           // if (kUser != null) {
                           //   MagicRouter.navigateAndPopUntilFirstPage(
                           //       const CheckOutView());
