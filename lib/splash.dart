@@ -6,6 +6,7 @@ import 'package:toot_mart/features/country/country.dart';
 import 'core/constants/constants.dart';
 import 'features/map/map_provider.dart';
 import 'features/map/add_address.dart';
+
 class SplshScreen extends StatefulWidget {
   const SplshScreen({Key? key}) : super(key: key);
 
@@ -21,9 +22,7 @@ class _SplshScreenState extends State<SplshScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const AddAddress()
-          // const CountryScreen()
-          ),
+          MaterialPageRoute(builder: (context) => const CountryScreen()),
           (route) => false),
     );
     super.initState();
