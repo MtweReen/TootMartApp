@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/features/country/country.dart';
 import 'core/constants/constants.dart';
-
+import 'features/map/map_provider.dart';
+import 'features/map/add_address.dart';
 class SplshScreen extends StatefulWidget {
   const SplshScreen({Key? key}) : super(key: key);
 
@@ -14,11 +16,14 @@ class SplshScreen extends StatefulWidget {
 class _SplshScreenState extends State<SplshScreen> {
   @override
   void initState() {
+    Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const CountryScreen()),
+          MaterialPageRoute(builder: (context) => const AddAddress()
+          // const CountryScreen()
+          ),
           (route) => false),
     );
     super.initState();
