@@ -22,7 +22,7 @@ class _SplshScreenState extends State<SplshScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const CountryScreen()),
+          MaterialPageRoute(builder: (context) => const CountryScreen(fromSetting: false,)),
           (route) => false),
     );
     super.initState();

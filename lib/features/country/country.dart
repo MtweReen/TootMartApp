@@ -4,7 +4,8 @@ import 'package:toot_mart/core/constants/constants.dart';
 import 'componnent/body.dart';
 
 class CountryScreen extends StatefulWidget {
-  const CountryScreen({ Key? key }) : super(key: key);
+  final bool fromSetting;
+  const CountryScreen({ Key? key,required this.fromSetting }) : super(key: key);
 
   @override
   State<CountryScreen> createState() => _CountryScreenState();
@@ -15,7 +16,7 @@ class _CountryScreenState extends State<CountryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarNoTitle(),
-      body: const CountrySelectionBody(),
+      body:  CountrySelectionBody(fromSetting: widget.fromSetting,),
       
     );
   }

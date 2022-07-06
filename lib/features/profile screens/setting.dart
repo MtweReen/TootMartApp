@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/colors.dart';
 import '../../core/utiles/size_config.dart';
 import '../../core/widgets/space_widget.dart';
+import '../country/country.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -49,7 +50,10 @@ class SettingScreen extends StatelessWidget {
                   ],
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CountryScreen(fromSetting: true,))),
                   child: Text(
                     translateString("Edit", "تعديل"),
                     style: headingStyle.copyWith(
@@ -67,7 +71,7 @@ class SettingScreen extends StatelessWidget {
               color: colorBetrolly,
             ),
             const VerticalSpace(value: 2),
-                        Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +79,7 @@ class SettingScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                     translateString("Country", "الدولة"),
+                      translateString("Country", "الدولة"),
                       style: headingStyle.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -92,7 +96,10 @@ class SettingScreen extends StatelessWidget {
                   ],
                 ),
                 TextButton(
-                  onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>  const CountryScreen(fromSetting: true,))),
                   child: Text(
                     translateString("Edit", "تعديل"),
                     style: headingStyle.copyWith(
