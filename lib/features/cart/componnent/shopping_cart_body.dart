@@ -3,7 +3,7 @@ import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/cart/componnent/checkout_bill.dart';
-import 'package:toot_mart/features/checkout/checkout.dart';
+import 'package:toot_mart/features/checkout/presentation/checkout.dart';
 
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';

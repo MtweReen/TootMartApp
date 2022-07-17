@@ -90,7 +90,9 @@ class GuestView extends StatelessWidget {
                   height: h * 0.04,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    AuthCubit.get(context).changeUserState(AccountStates.ORDERS_VIEW);
+                  },
                   child: ProfileCardItem(
                     title: translateString("My orders", "طلباتي"),
                   ),

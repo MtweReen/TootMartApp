@@ -8,6 +8,7 @@ import 'package:toot_mart/features/auth/presentation/widgets/guest_view.dart';
 import 'package:toot_mart/features/auth/presentation/widgets/login_body.dart';
 import 'package:toot_mart/features/auth/presentation/widgets/register_body.dart';
 import 'package:toot_mart/features/auth/presentation/widgets/reset_password_body.dart';
+import 'package:toot_mart/features/orders/presentation/orders_view.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 
 
@@ -21,14 +22,16 @@ class AccountScreen extends StatefulWidget {
   State<AccountScreen> createState() => _AccountScreenState();
 }
 // ignore: constant_identifier_names
-enum AccountStates { GUEST, LOGIN, REGISTER,FORGET_PASSWORD,RESET_PASSWORD}
+enum AccountStates { GUEST, LOGIN, REGISTER,FORGET_PASSWORD,RESET_PASSWORD,ORDERS_VIEW}
 
 class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: customAppbar(context: context,title: LocaleKeys.account.tr()),
+      appBar: customAppbar(context: context,title: LocaleKeys.account.tr(),press: (){
+        AuthCubit.get(context).changeUserState(AccountStates.GUEST);
+      }),
       body:BlocBuilder<AuthCubit,AuthStates>(
         builder: (context,state){
           return SingleChildScrollView(
@@ -44,6 +47,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   ForgetPasswordView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.RESET_PASSWORD)
                   ResetPasswordBody(),
+                if(AuthCubit.get(context).currentUserState == AccountStates.ORDERS_VIEW)
+                  OrdersView(),
               ],
             ),
           );
