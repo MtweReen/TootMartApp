@@ -50,12 +50,12 @@ class _CheckoutBodyState extends State<CheckoutBody> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              VerticalSpace(value: 2),
+              const VerticalSpace(value: 2),
               SizedBox(
-                height: SizeConfig.defaultSize!*9,
+                height: SizeConfig.defaultSize!*10,
                 // width: SizeConfig.defaultSize!*30,
                 child: Timeline.custom(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   primary: false,
                   scrollDirection: Axis.horizontal,
@@ -106,13 +106,13 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                   ),
                 ),
               ),
-              VerticalSpace(value: 1),
+              const VerticalSpace(value: 1),
               if (widget.currentPage == 0)
-                AddLocationView(),
+                const AddLocationView(),
               if (widget.currentPage == 1)
                 ShippingView(),
               if (widget.currentPage == 2)
-                CheckOutCompleteView(),
+                const CheckOutCompleteView(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
