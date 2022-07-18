@@ -52,7 +52,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
             children: [
               VerticalSpace(value: 2),
               SizedBox(
-                height: SizeConfig.defaultSize!*9,
+                height: SizeConfig.defaultSize!*10,
                 // width: SizeConfig.defaultSize!*30,
                 child: Timeline.custom(
                   physics: NeverScrollableScrollPhysics(),
