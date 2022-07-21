@@ -1,22 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:toot_mart/business_logic/social/socialCubit.dart';
+import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/splash.dart';
 import 'business_logic/app_cubit/app_cubit.dart';
 import 'core/constants/colors.dart';
 import 'core/constants/constants.dart';
 import 'core/router/router.dart';
 import 'core/utiles/bloc_observer.dart';
-import 'features/auth/data/business_logic/auth_cubit.dart';
-
 import 'features/map/map_provider.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
   await startShared();
   await mapIcon();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (BuildContext context) => AppCubit()),
         BlocProvider(create: (BuildContext context) => AuthCubit()),
+        BlocProvider(create: (BuildContext context) => SocialCubit()),
       ],
       child: ChangeNotifierProvider(
         create: (context) => MapProvider(),

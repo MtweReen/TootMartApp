@@ -4,20 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/local/cache_helper.dart';
-import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
-import 'package:toot_mart/features/auth/presentation/widgets/register_body.dart';
-
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
+import '../../../../business_logic/social/socialCubit.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
-import 'forget_password_body.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({
@@ -48,7 +45,7 @@ class LoginView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                VerticalSpace(value: 3),
+                const VerticalSpace(value: 3),
                 Center(
                   child: Text(
                     LocaleKeys.login.tr(),
@@ -56,12 +53,12 @@ class LoginView extends StatelessWidget {
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                 ),
-                VerticalSpace(value: 3),
+                const VerticalSpace(value: 3),
                 Text(
                   LocaleKeys.email.tr(),
                   style: headingStyle.copyWith(color: colorGrey),
                 ),
-                VerticalSpace(value: 1),
+                const VerticalSpace(value: 1),
                 CustomTextFormField(
                   focusNode: emailFocusNode,
                   controller: userNameController,
@@ -74,12 +71,12 @@ class LoginView extends StatelessWidget {
                     FocusScope.of(context).requestFocus(passwordFocusNode);
                   },
                 ),
-                VerticalSpace(value: 2),
+                const VerticalSpace(value: 2),
                 Text(
                   LocaleKeys.password.tr(),
                   style: headingStyle.copyWith(color: colorGrey),
                 ),
-                VerticalSpace(value: 1),
+                const VerticalSpace(value: 1),
                 CustomTextFormField(
                   focusNode: passwordFocusNode,
                   isPassword: true,
@@ -91,7 +88,7 @@ class LoginView extends StatelessWidget {
                     passwordFocusNode.unfocus();
                   },
                 ),
-                VerticalSpace(value: 0.2),
+                const VerticalSpace(value: 0.2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -100,14 +97,15 @@ class LoginView extends StatelessWidget {
                     ),
                     CustomTextButton(
                       onPressed: () {
-                        AuthCubit.get(context).changeUserState(AccountStates.FORGET_PASSWORD);
+                        AuthCubit.get(context)
+                            .changeUserState(AccountStates.FORGET_PASSWORD);
                       },
                       text: LocaleKeys.forget_password.tr(),
                       size: SizeConfig.defaultSize! * 1.3,
                     )
                   ],
                 ),
-                VerticalSpace(value: 2),
+                const VerticalSpace(value: 2),
                 (state is! LoginUserLoadingstate)
                     ? CustomGeneralButton(
                         text: LocaleKeys.login.tr(),
@@ -128,8 +126,8 @@ class LoginView extends StatelessWidget {
                       color: colorGrey,
                       height: 1,
                     )),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text('Or'),
                     ),
                     Expanded(
@@ -144,16 +142,43 @@ class LoginView extends StatelessWidget {
                 CustomStrockButton(
                     text: LocaleKeys.sign_up.tr(),
                     onTap: () {
-                      AuthCubit.get(context).changeUserState(AccountStates.REGISTER);
+                      AuthCubit.get(context)
+                          .changeUserState(AccountStates.REGISTER);
                     }),
-                const VerticalSpace(value: 5),
-                Center(
-                  child: SizedBox(
-                      height: SizeConfig.defaultSize! * 2,
-                      child: Image.asset(
-                        'asset/images/social.png',
-                        color: kMainColor,
-                      )),
+                const VerticalSpace(value: 3),
+                BlocConsumer<SocialCubit, SocialState>(
+                  listener: (context, state) {
+                 
+                  },
+                  builder: (context, state) {
+                    return Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            SocialCubit.get(context).googleSignUp(context);
+                          },
+                         child: SizedBox(
+                          width: SizeConfig.screenWidth!*0.1,
+                          height: SizeConfig.screenHeight!*0.08,
+                          child: Image.asset("asset/images/google.png", fit: BoxFit.contain,),
+                          ),
+                        ),
+
+                          InkWell(
+                          onTap: () {
+                              SocialCubit.get(context).signInWithApple(context);
+                          },
+                         child: SizedBox(
+                          width: SizeConfig.screenWidth!*0.1,
+                          height: SizeConfig.screenHeight!*0.08,
+                          child: Image.asset("asset/images/apple.png", fit: BoxFit.contain,),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const VerticalSpace(value: 2),
               ],

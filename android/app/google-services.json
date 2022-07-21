@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "759113208281",
+    "project_id": "tootmart-5d427",
+    "storage_bucket": "tootmart-5d427.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759113208281:android:4a4350b3c57b24cab089c8",
+        "android_client_info": {
+          "package_name": "com.tootmart.toot_mart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759113208281-v0khn7tmhpevqo1k8ggt6253jr1951ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN4pTIOZ3bfPZ3amWTIVVGQxOElwhP27s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759113208281-v0khn7tmhpevqo1k8ggt6253jr1951ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

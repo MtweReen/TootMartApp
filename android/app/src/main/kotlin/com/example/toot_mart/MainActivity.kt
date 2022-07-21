@@ -1,4 +1,4 @@
-package com.example.toot_mart
+package com.tootmart.toot_mart
 
 import io.flutter.embedding.android.FlutterActivity
 
