@@ -2,9 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/network/remote/dio_helper.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
+import '../../../../translations/locale_keys.g.dart';
 import '../../domain/repositories/auth_repo.dart';
 import '../model/favourites_model.dart';
 import '../model/user_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AuthRepositoryImpl extends AuthRepo {
   @override
@@ -21,7 +23,7 @@ class AuthRepositoryImpl extends AuthRepo {
       return Right(result!);
     } catch (error) {
       showToast(
-          msg: 'LocaleKeys.error_in_sign_in.tr()', state: ToastStates.ERROR);
+          msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
       return Left(Exception(error));
     }
   }
@@ -58,7 +60,7 @@ class AuthRepositoryImpl extends AuthRepo {
       );
       //
 
-      return Right('LocaleKeys.signed_out_successfully.tr()');
+      return Right(LocaleKeys.signed_out_successfully.tr());
     } catch (error) {
       return Left(Exception(error));
     }

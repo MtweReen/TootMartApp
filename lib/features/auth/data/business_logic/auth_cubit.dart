@@ -1,10 +1,11 @@
 
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../../../../core/network/local/cache_helper.dart';
+import '../../../../translations/locale_keys.g.dart';
 import '../../../account/account.dart';
 import '../model/user_model.dart';
 import '../repositories/auth_repository_imp.dart';
@@ -29,7 +30,7 @@ class AuthCubit extends Cubit<AuthStates> {
         });
 
         if (user!.data!.token == null || user!.data!.token == '') {
-          showToast(msg: 'LocaleKeys.error_in_sign_in.tr()', state: ToastStates.ERROR);
+          showToast(msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
           emit(LoginUserErrorstate());
         } else {
           showToast(
@@ -53,7 +54,7 @@ class AuthCubit extends Cubit<AuthStates> {
         user = value.getOrElse(() => User.fromJson({}));
         if(user!.data!.token !=''){
           showToast(
-              msg: 'LocaleKeys.signed_in_successfully.tr()',
+              msg: LocaleKeys.signed_in_successfully.tr(),
               state: ToastStates.SUCCESS);
           emit(RegisterUserSuccessState());
         }else{
