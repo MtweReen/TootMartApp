@@ -44,7 +44,7 @@ class ShoppingCartBody extends StatelessWidget {
                               index: index,
                             ),
                         separatorBuilder: (context, index) =>
-                            VerticalSpace(value: 1),
+                            const VerticalSpace(value: 1),
                         itemCount: 2),
                     const VerticalSpace(value: 1.5),
                     Text(

@@ -12,7 +12,7 @@ class CheckOutCompleteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Divider(
@@ -20,18 +20,18 @@ class CheckOutCompleteView extends StatelessWidget {
               thickness: 1,
               color: colorLightGrey,
             ),
-            VerticalSpace(value: 2),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const VerticalSpace(value: 2),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: PaymentType(),
             ),
-            VerticalSpace(value: 2),
+            const VerticalSpace(value: 2),
             Divider(
               height: 1,
               thickness: 1,
               color: colorLightGrey,
             ),
-            VerticalSpace(value: 2),
+            const VerticalSpace(value: 2),
             const CheckOutBill(),
           ],
         ),

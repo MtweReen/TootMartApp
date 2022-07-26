@@ -2,9 +2,7 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toot_mart/core/constants/constants.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
-import '../../../../../core/network/local/cache_helper.dart';
 import '../../../../translations/locale_keys.g.dart';
 import '../../../account/account.dart';
 import '../model/user_model.dart';
@@ -16,20 +14,20 @@ class AuthCubit extends Cubit<AuthStates> {
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
-  User? user;
+  UserModel? user;
 
   // ignore: non_constant_identifier_names
-  User? LoginUser(String Username, String Password) {
+  UserModel? LoginUser(String Username, String Password) {
     emit(LoginUserLoadingstate());
     AuthRepositoryImpl()
         .loginWithEmailAndPassword(Username: Username, Password: Password)
         .then((value) {
       if (value != []) {
         user = value.getOrElse(() {
-          return User.fromJson({});
+          return UserModel.fromJson({});
         });
-
-        if (user!.data!.token == null || user!.data!.token == '') {
+        print('skdhfbalksdfaksdf'+userModelToJson(user!));
+        if (user!.body!.accessToken == null || user!.body!.accessToken == '') {
           showToast(msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
           emit(LoginUserErrorstate());
         } else {
@@ -37,22 +35,22 @@ class AuthCubit extends Cubit<AuthStates> {
               msg: 'LocaleKeys.signed_in_successfully.tr()',
               state: ToastStates.SUCCESS);
           emit(LoginUserLoaded());
-          print(user!.data!.token);
+          print(user!.body!.accessToken);
         }
       }
     });
     return null;
   }
 
-  User? RegisterUser(String name, String phone, String email, String password) {
+  UserModel? RegisterUser(String name, String phone, String email, String password) {
     emit(RegisterUserLoadingState());
     AuthRepositoryImpl()
         .registerWithEmailAndPassword(
             name: name, phone: phone, email: email, password: password)
         .then((value) {
       if (value != null) {
-        user = value.getOrElse(() => User.fromJson({}));
-        if(user!.data!.token !=''){
+        user = value.getOrElse(() => UserModel.fromJson({}));
+        if(user!.body!.accessToken !=''){
           showToast(
               msg: LocaleKeys.signed_in_successfully.tr(),
               state: ToastStates.SUCCESS);
@@ -71,7 +69,6 @@ class AuthCubit extends Cubit<AuthStates> {
                 msg:'البريد الالكترني و رقم الهاتف تم استخدامهم من قبل',
                 state: ToastStates.ERROR);
           }
-
           emit(RegisterUserErrorState());
         }
 
@@ -85,58 +82,61 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
-
-  User? editProfile({required String name,required String phone,required String email}) {
-    emit(EditProfileLoadingState());
-    AuthRepositoryImpl()
-        .editProfile(
-            name: name, phone: phone, email: email)
-        .then((value) {
-      if (value != []) {
-        user = value.getOrElse(() => User.fromJson({}));
-        showToast(
-            msg: 'تم تعديل البيانات بنجاح',
-            state: ToastStates.SUCCESS);
-        kUser =user;
-        emit(EditProfileSuccessState());
-      }
-    });
-    return null;
-  }
-
-  Future<User>? SignOut() {
-    AuthRepositoryImpl().SignOut().then((value) {
-      if (value != []) {
-        kUser = null;
-        CasheHelper.removeData(key: 'User');
-        showToast(
-            msg: value.getOrElse(() => 'not signed out'),
-            state: ToastStates.SUCCESS);
-        emit(UserSignedOutSuccessfully());
-      }
-    });
-    return null;
-  }
-  Future<User>? changePassword({
-  required String oldPassword,
-  required String newPassword,
-  required String newPasswordConfirmation,
-}) {
-    AuthRepositoryImpl().changePassword(oldPassword, newPassword, newPasswordConfirmation).then((value) {
-      if (value != []) {
-        showToast(
-            msg: value.getOrElse(() => 'not signed out'),
-            state: ToastStates.SUCCESS);
-        emit(PasswordChangedSuccessfully());
-      }
-    });
-    return null;
-  }
+//
+//   User? editProfile({required String name,required String phone,required String email}) {
+//     emit(EditProfileLoadingState());
+//     AuthRepositoryImpl()
+//         .editProfile(
+//             name: name, phone: phone, email: email)
+//         .then((value) {
+//       if (value != []) {
+//         user = value.getOrElse(() => User.fromJson({}));
+//         showToast(
+//             msg: 'تم تعديل البيانات بنجاح',
+//             state: ToastStates.SUCCESS);
+//         kUser =user;
+//         emit(EditProfileSuccessState());
+//       }
+//     });
+//     return null;
+//   }
+//
+//   Future<User>? SignOut() {
+//     AuthRepositoryImpl().SignOut().then((value) {
+//       if (value != []) {
+//         kUser = null;
+//         CasheHelper.removeData(key: 'User');
+//         showToast(
+//             msg: value.getOrElse(() => 'not signed out'),
+//             state: ToastStates.SUCCESS);
+//         emit(UserSignedOutSuccessfully());
+//       }
+//     });
+//     return null;
+//   }
+//   Future<User>? changePassword({
+//   required String oldPassword,
+//   required String newPassword,
+//   required String newPasswordConfirmation,
+// }) {
+//     AuthRepositoryImpl().changePassword(oldPassword, newPassword, newPasswordConfirmation).then((value) {
+//       if (value != []) {
+//         showToast(
+//             msg: value.getOrElse(() => 'not signed out'),
+//             state: ToastStates.SUCCESS);
+//         emit(PasswordChangedSuccessfully());
+//       }
+//     });
+//     return null;
+//   }
   AccountStates? currentUserState;
   changeUserState(AccountStates userState){
     currentUserState = userState;
     emit(ChangeUserState());
   }
+//
+//
+
   // FavouritesModel? favouritesModel;
   // List<Product>? getFavouteProducts() {
   //   emit(FavouteProductsLoadingState());

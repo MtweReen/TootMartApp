@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 
-import '../../core/constants/colors.dart';
 import 'componnent/shopping_cart_body.dart';
 
 class CartScreen extends StatefulWidget {

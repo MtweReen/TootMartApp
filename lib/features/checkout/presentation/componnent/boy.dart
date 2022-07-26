@@ -110,7 +110,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
               if (widget.currentPage == 0)
                 const AddLocationView(),
               if (widget.currentPage == 1)
-                ShippingView(),
+                const ShippingView(),
               if (widget.currentPage == 2)
                 const CheckOutCompleteView(),
               Padding(
@@ -126,7 +126,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                             .moveInTimeLine(widget.currentPage++);
                       }
                       if (widget.currentPage == 3) {
-                        MagicRouter.navigateTo(LayoutScreen(index: 0));
+                        MagicRouter.navigateTo(const LayoutScreen(index: 0));
                       }
                     }),
               ),

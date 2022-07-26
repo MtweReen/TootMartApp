@@ -14,6 +14,8 @@ import 'package:toot_mart/translations/locale_keys.g.dart';
 
 import '../../core/constants/constants.dart';
 import '../auth/data/business_logic/auth_state.dart';
+import '../profile_detail/componnent/form.dart';
+import '../profile_detail/profile_detail.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class AccountScreen extends StatefulWidget {
   State<AccountScreen> createState() => _AccountScreenState();
 }
 // ignore: constant_identifier_names
-enum AccountStates { GUEST, LOGIN, REGISTER,FORGET_PASSWORD,RESET_PASSWORD,ORDERS_VIEW}
+enum AccountStates { GUEST, LOGIN, REGISTER,FORGET_PASSWORD,RESET_PASSWORD,ORDERS_VIEW , ACCOUNT_DETAILS}
 
 class _AccountScreenState extends State<AccountScreen> {
   @override
@@ -37,18 +39,20 @@ class _AccountScreenState extends State<AccountScreen> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                if(AuthCubit.get(context).currentUserState == AccountStates.GUEST ||AuthCubit.get(context).currentUserState ==null)
+                if(AuthCubit.get(context).currentUserState == AccountStates.GUEST || AuthCubit.get(context).currentUserState ==null)
                   const GuestView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.LOGIN)
                   LoginView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.REGISTER)
-                  RegisterView(),
+                  const RegisterView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.FORGET_PASSWORD)
                   ForgetPasswordView(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.RESET_PASSWORD)
                   ResetPasswordBody(),
                 if(AuthCubit.get(context).currentUserState == AccountStates.ORDERS_VIEW)
-                  OrdersView(),
+                  const OrdersView(),
+                if(AuthCubit.get(context).currentUserState == AccountStates.ACCOUNT_DETAILS)
+                  const EditProfileForm(),
               ],
             ),
           );

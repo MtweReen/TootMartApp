@@ -1,9 +1,5 @@
 
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 
-import '../../../../core/network/end_points.dart';
-import '../../../../core/network/remote/dio_helper.dart';
 import '../../domain/repositories/check_out_repo.dart';
 
 class CeckOutRepositoryImpl extends CheckOutRepo {

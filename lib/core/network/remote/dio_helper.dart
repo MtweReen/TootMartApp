@@ -15,6 +15,7 @@ class DioHelper {
           'Accept-Language': 'ar',
           'Accept': 'application/json',
 
+
         },
         // isEn(MagicRouter.currentContext)?'en':
         receiveDataWhenStatusError: true,
@@ -39,7 +40,7 @@ class DioHelper {
   }) async {
     var headers = {
       "device-uuid": deviceId,
-      "Authorization":kUser !=null ? "Bearer ${kUser!.data!.token}":''
+      "Authorization":kUser !=null ? "Bearer ${kUser!.body!.accessToken}":''
     };
 
     dio.options.headers.addAll(headers);
@@ -53,7 +54,9 @@ class DioHelper {
     Map<String, dynamic>? data,
     // Map<String, dynamic>? query,
   }) async {
-    dio.options.headers["device-uuid"] = deviceId;
+   // dio.options.headers["device-uuid"] = deviceId;
+  //  dio.options.headers["Authorization"] = "Bearer 50|o0l2ofgFUj813uzb3DFLTTijEBTFCNzyxvYtY5ci";
+
     return dio.post(
       url,
       //  queryParameters: query,
@@ -68,7 +71,7 @@ class DioHelper {
     // Map<String, dynamic>? query,
   }) async {
     dio.options.headers["device-uuid"] = deviceId;
-    dio.options.headers["Authorization"] = "Bearer ${kUser!.data!.token}";
+    dio.options.headers["Authorization"] = "Bearer ${kUser!.body!.accessToken}";
     return dio.post(
       url,
       data: formData ?? data,

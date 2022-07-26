@@ -71,11 +71,11 @@ class OrdersBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              VerticalSpace(value: 2),
+                              const VerticalSpace(value: 2),
                               // if (OrdersCubit.get(context).ordersModel != null)
                                 SizedBox(
                                   height: SizeConfig.screenHeight,
-                                  child: TabBarView(
+                                  child: const TabBarView(
                                     children: [
                                       CurrentOrders(),
                                       FinishedOrders(),

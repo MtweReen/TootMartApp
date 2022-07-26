@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/all_products/all_products.dart';
 
 import '../../../core/utiles/size_config.dart';

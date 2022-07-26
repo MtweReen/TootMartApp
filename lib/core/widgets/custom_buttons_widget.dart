@@ -36,7 +36,7 @@ class CustomGeneralButton extends StatelessWidget {
         width: w,
         decoration: BoxDecoration(
             border: Border.all(color: borderColor ?? kMainColor),
-            color: color ?? kMainColor,
+            color: isActive != false ? color ?? kMainColor : Colors.grey,
             borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Row(

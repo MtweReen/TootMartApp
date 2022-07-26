@@ -7,7 +7,7 @@ import '../../../../translations/locale_keys.g.dart';
 import 'order_item.dart';
 
 class FinishedOrders extends StatelessWidget {
-  FinishedOrders({Key? key,}) : super(key: key);
+  const FinishedOrders({Key? key,}) : super(key: key);
   //List<Orders>? ordersCompleted;
 
   @override

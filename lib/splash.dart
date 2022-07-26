@@ -5,7 +5,6 @@ import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/features/country/country.dart';
 import 'core/constants/constants.dart';
 import 'features/map/map_provider.dart';
-import 'features/map/add_address.dart';
 
 class SplshScreen extends StatefulWidget {
   const SplshScreen({Key? key}) : super(key: key);

@@ -76,7 +76,7 @@ class _AddAddressState extends State<AddAddress> {
           ),
         ),
         body: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: SizedBox(
             height: h,
             width: w,

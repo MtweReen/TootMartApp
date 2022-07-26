@@ -25,7 +25,7 @@ class CheckOutBill extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 Text('المجموع الفرعي'),
                 Text(
                     '400 رس'),
@@ -34,7 +34,7 @@ class CheckOutBill extends StatelessWidget {
             const VerticalSpace(value: 1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 Text('رسوم الشحن'),
                 Text(
                     '400 رس'),
@@ -44,10 +44,10 @@ class CheckOutBill extends StatelessWidget {
          //   if (CheckOutCubit.get(context).value != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'رسوم الدفع عند الاستلام',
-                    style: const TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.grey),
                   ),
                   Text(
                       '200 رس'),
@@ -58,7 +58,7 @@ class CheckOutBill extends StatelessWidget {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 Text('خصم'),
                 Text(
                     '00 رس'),
