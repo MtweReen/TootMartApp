@@ -53,6 +53,27 @@ class AuthRepositoryImpl extends AuthRepo {
       return Left(Exception(error));
     }
   }
+  @override
+  Future<Either<Exception, UserModel>> editProfile(
+      {required String name,
+        required String phone,
+        required String email}) async {
+    try {
+      var response = await DioHelper.postLoggedUser(url: EDIT_PROFILE, data: {
+        'name': name,
+        'mobile': phone,
+        'email': email,
+      });
+
+      UserModel? result;
+      if (response.statusCode == 200) {
+        result = UserModel.fromJson(response.data);
+      }
+      return Right(result!);
+    } catch (error) {
+      return Left(Exception(error));
+    }
+  }
   //
   // @override
   // Future<Either<Exception, String>> SignOut() async {
@@ -97,27 +118,7 @@ class AuthRepositoryImpl extends AuthRepo {
   //   }
   // }
 
-  // @override
-  // Future<Either<Exception, User>> editProfile(
-  //     {required String name,
-  //     required String phone,
-  //     required String email}) async {
-  //   try {
-  //     var response = await DioHelper.postLoggedUser(url: EDIT_PROFILE, data: {
-  //       'name': name,
-  //       'mobile': phone,
-  //       'email': email,
-  //     });
-  //
-  //     User? result;
-  //     if (response.statusCode == 200) {
-  //       result = User.fromJson(response.data);
-  //     }
-  //     return Right(result!);
-  //   } catch (error) {
-  //     return Left(Exception(error));
-  //   }
-  // }
+
   //
   // @override
   // Future<Either<Exception, String>> changePassword(

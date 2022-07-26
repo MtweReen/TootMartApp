@@ -20,9 +20,11 @@ class EditProfileForm extends StatefulWidget {
 class _EditProfileFormState extends State<EditProfileForm> {
 
  TextEditingController name = TextEditingController();
-  TextEditingController message = TextEditingController();
+ TextEditingController phone = TextEditingController();
+  TextEditingController email = TextEditingController();
   FocusNode nameFocuse = FocusNode();
-  FocusNode messageFocuse = FocusNode();
+  FocusNode phoneFocuse = FocusNode();
+  FocusNode emailFocuse = FocusNode();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -38,6 +40,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const VerticalSpace(value: 2),
+              Center(
+                child: Text(
+                  LocaleKeys.account_details.tr(),
+                  style: headingStyle.copyWith(color: Colors.black),
+                ),
+              ),
+              const VerticalSpace(value: 3),
               Text(
                 LocaleKeys.user_name.tr(),
                 style: headingStyle.copyWith(
@@ -50,12 +60,13 @@ class _EditProfileFormState extends State<EditProfileForm> {
               CustomTextFormField(
                 controller: name,
                 focusNode: nameFocuse,
+                hint: kUser!.body!.user!.name,
                 onEditingComplete: () {
                   nameFocuse.unfocus();
-                  FocusScope.of(context).requestFocus(messageFocuse);
+                  FocusScope.of(context).requestFocus(emailFocuse);
                 },
               ),
-              const VerticalSpace(value: 3),
+              const VerticalSpace(value: 2),
               Text(
                 LocaleKeys.email.tr(),
                 style: headingStyle.copyWith(
@@ -66,15 +77,41 @@ class _EditProfileFormState extends State<EditProfileForm> {
               ),
               const VerticalSpace(value: 1.5),
               CustomTextFormField(
-                controller: message,
-                focusNode: messageFocuse,
+                controller: email,
+                focusNode: emailFocuse,
+                hint: kUser!.body!.user!.email,
+
                 onEditingComplete: () {
-                  messageFocuse.unfocus();
+                  emailFocuse.unfocus();
+                  FocusScope.of(context).requestFocus(phoneFocuse);
+                },
+              ),
+              const VerticalSpace(value: 2),
+
+              Text(
+                LocaleKeys.phone_number.tr(),
+                style: headingStyle.copyWith(
+                    color: colorGrey,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    fontSize: SizeConfig.screenWidth! * 0.04),
+              ),
+              const VerticalSpace(value: 1.5),
+              CustomTextFormField(
+                controller: phone,
+                focusNode: phoneFocuse,
+                hint: kUser!.body!.user!.phone,
+
+                onEditingComplete: () {
+                  phoneFocuse.unfocus();
+
                 },
               ),
               const VerticalSpace(value: 3),
-              CustomGeneralButton(text: LocaleKeys.save_edits.tr(), onTap: () {}),
-              const VerticalSpace(value: 2),
+              CustomGeneralButton(text: LocaleKeys.save_edits.tr(), onTap: () {
+
+              }),
+              const VerticalSpace(value: 1.5),
                Center(
                  child: TextButton(
                     onPressed: () {
