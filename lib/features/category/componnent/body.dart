@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:toot_mart/core/utiles/size_config.dart';
-import 'package:toot_mart/core/widgets/custom_text_field.dart';
-import 'package:toot_mart/core/widgets/products_grid_view.dart';
-import 'package:toot_mart/core/widgets/space_widget.dart';
-import 'package:toot_mart/features/category/componnent/slider.dart';
-import 'package:toot_mart/features/subCategory/sub_categrory.dart';
-import 'package:toot_mart/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
+// ignore_for_file: avoid_print
 
+import 'dart:convert';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/core/utiles/size_config.dart';
+import 'package:toot_mart/core/widgets/space_widget.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
+import '../../../core/widgets/product_item.dart';
+import '../../../data/model/category.dart';
+import '../../subCategory/sub_categrory.dart';
 
 class CategoryBody extends StatefulWidget {
   const CategoryBody({Key? key}) : super(key: key);
@@ -19,41 +21,206 @@ class CategoryBody extends StatefulWidget {
 }
 
 class _CategoryBodyState extends State<CategoryBody> {
+  late ScrollController scrollController;
+  int page = 1;
+  bool hasNextPage = true;
+  bool isFirstLoadRunning = false;
+  bool isLoadMoreRunning = false;
+  List categories = [];
+
+  String lang = '';
+  String currency = '';
+
+  void firstLoad() async {
+    CategoryModel? categoryModel;
+    String url = "https://site.modern-it.net/TOOT/public/api/categories";
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    try {
+      Map<String, String> headers = {
+        "Accept-Language": prefs.getString("lang") ?? "ar",
+        "paginate": "$page"
+      };
+      var response = await http.get(Uri.parse(url), headers: headers);
+      var data = jsonDecode(response.body);
+      if (data['status'] == true) {
+        categoryModel = CategoryModel.fromJson(data);
+        setState(() {
+          categories = categoryModel!.body!.categories!;
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    setState(() {
+      isFirstLoadRunning = false;
+    });
+  }
+
+  void loadMore() async {
+    if (hasNextPage == true &&
+        isFirstLoadRunning == false &&
+        isLoadMoreRunning == false &&
+        scrollController.position.extentAfter < 15) {
+      String url = "https://site.modern-it.net/TOOT/public/api/categories";
+      Map<String, String> headers = {
+        "Accept-Language": prefs.getString("lang") ?? "en",
+        "paginate": "$page"
+      };
+      setState(() {
+        isLoadMoreRunning = true;
+        page++;
+      });
+      List fetchedPosts = [];
+      try {
+        var response = await http.get(Uri.parse(url), headers: headers);
+        var data = jsonDecode(response.body);
+        if (data['status'] == 1) {
+          CategoryModel categoryModel = CategoryModel.fromJson(data);
+          setState(() {
+            fetchedPosts = categoryModel.body!.categories!;
+          });
+        }
+        if (fetchedPosts.isNotEmpty) {
+          setState(() {
+            categories.addAll(fetchedPosts);
+          });
+        } else {
+          setState(() {
+            hasNextPage = false;
+          });
+        }
+      } catch (error) {
+        print("product error ----------------------" + error.toString());
+      }
+      setState(() {
+        isLoadMoreRunning = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    firstLoad();
+    scrollController = ScrollController()..addListener(loadMore);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth! * 0.03,
-          vertical: SizeConfig.screenHeight! * 0.03),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CustomTextFormField(
-            label: "",
-            hint: LocaleKeys.search_for_products.tr(),
-            prefix: Image.asset("asset/images/search.png", width: 20, height: 20,),
-          ),
-          const VerticalSpace(value: 2),
-          const CategorySlider(),
-          const VerticalSpace(value: 4),
-          Text(
-            translateString("formations", "تشكيلات"),
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w700,
-                color: colordeepGrey,
-                fontSize: SizeConfig.screenWidth! * 0.05),
-          ),
-          const VerticalSpace(value: 2),
-          ProductsGridView(
-            itemCount: 8,
-            isScrollable: false,
-            press: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SubCategoryScreen())),
-          ),
-        ],
-      ),
-    );
+    return isFirstLoadRunning
+        ? Center(
+            child: CircularProgressIndicator(
+              color: kMainColor,
+            ),
+          )
+        : Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.screenWidth! * 0.03,
+                vertical: SizeConfig.screenHeight! * 0.03),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  translateString("formations", "تشكيلات"),
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: colordeepGrey,
+                      fontSize: SizeConfig.screenWidth! * 0.05),
+                ),
+                const VerticalSpace(value: 2),
+                (categories.isNotEmpty)
+                    ? Expanded(
+                        child: GridView.builder(
+                          controller: scrollController,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.9,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 3,
+                          ),
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: categories.length,
+                          itemBuilder: ((ctx, index) {
+                            return BlocConsumer<CategoryCubit, CategoryState>(
+                              listener: (context, state) {
+                               
+                              },
+                              builder: (context, state) {
+                                return ProductItem(
+                                  name: categories[index].title!,
+                                  image: categories[index].image!,
+                                  index: index,
+                                  press: () {
+                                    CategoryCubit.get(context).getSubsCategory(id: categories[index].id!);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SubCategoryScreen(
+                                          id: categories[index].id!,
+                                          name: categories[index].title!,
+                                          image: categories[index].image!,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          }),
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(
+                            top: SizeConfig.screenHeight! * 0.3),
+                        child: Center(
+                          child: Text(
+                            translateString(
+                                "No products here", "لا توجد منتجات"),
+                            style: TextStyle(
+                                color: kMainColor,
+                                fontFamily:
+                                    (lang == 'en') ? 'Nunito' : 'Almarai',
+                                fontSize: SizeConfig.screenWidth! * 0.05,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                if (isLoadMoreRunning == true)
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: SizeConfig.screenHeight! * 0.01,
+                        bottom: SizeConfig.screenHeight! * 0.01),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: kMainColor,
+                      ),
+                    ),
+                  ),
+
+                // When nothing else to load
+                if (hasNextPage == false)
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: SizeConfig.screenHeight! * 0.01,
+                        bottom: SizeConfig.screenHeight! * 0.01),
+                    color: Colors.white,
+                    child: Center(
+                      child: Text(
+                        translateString(
+                            "no more products", "لا يوجد مزيد من المنتجات "),
+                        style: TextStyle(
+                            fontFamily: (lang == 'en') ? 'Nunito' : 'Alamrai'),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
   }
 }

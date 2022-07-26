@@ -47,18 +47,18 @@ class CountrySelectWidget extends StatelessWidget {
               },
               icon: "asset/images/saudi.png"),
           const VerticalSpace(value: 3),
-          CustomButtonWithIcon(
-              textColor: (AppCubit.get(context).kuwaitCountry)
-                  ? kMainColor
-                  : kMainColor.withOpacity(0.4),
-              borderColor: (AppCubit.get(context).kuwaitCountry)
-                  ? kMainColor
-                  : kMainColor.withOpacity(0.4),
-              text: "الكويت",
-              onTap: () {
-                AppCubit.get(context).seledctCountry(saudi: false, kuwait: true);
-              },
-              icon: "asset/images/kweit.png"),
+          // CustomButtonWithIcon(
+          //     textColor: (AppCubit.get(context).kuwaitCountry)
+          //         ? kMainColor
+          //         : kMainColor.withOpacity(0.4),
+          //     borderColor: (AppCubit.get(context).kuwaitCountry)
+          //         ? kMainColor
+          //         : kMainColor.withOpacity(0.4),
+          //     text: "الكويت",
+          //     onTap: () {
+          //       AppCubit.get(context).seledctCountry(saudi: false, kuwait: true);
+          //     },
+          //     icon: "asset/images/kweit.png"),
         ],
       ),
       listener: (context, state) {},

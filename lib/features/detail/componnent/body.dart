@@ -1,4 +1,7 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
@@ -19,121 +22,133 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth! * 0.03,
-          vertical: SizeConfig.screenHeight! * 0.03),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const HomeSlider(),
-          const VerticalSpace(value: 3),
-          Text(
-            "شحن مجانى عند تسوقك ب 350 رس واكثر",
-            style: headingStyle,
+    return BlocConsumer<CategoryCubit, CategoryState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: state is! ProductDetailLoadingState,
+          fallback: (context) => Center(
+            child: CircularProgressIndicator(
+              color: kMainColor,
+            ),
           ),
-          const VerticalSpace(value: 2),
-          Text(
-            "فازه",
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: SizeConfig.screenWidth! * 0.05),
-          ),
-          const VerticalSpace(value: 3),
-          Row(
-             crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                translateString("Quantity", "الكمية"),
-                style: headingStyle,
-              ),
-              Row(
-               
-                children: [
-                  CustomQuantity(
-                    child: Image.asset(
-                      'asset/images/mince.png',
+          builder: (context) => SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.screenWidth! * 0.03,
+                vertical: SizeConfig.screenHeight! * 0.03),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                 HomeSlider(images:   CategoryCubit.get(context).productDetailModel!.body!.products!.images!,),
+                const VerticalSpace(value: 3),
+                Text(
+                  "شحن مجانى عند تسوقك ب 350 رس واكثر",
+                  style: headingStyle,
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                  CategoryCubit.get(context).productDetailModel!.body!.products!.title!,
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: SizeConfig.screenWidth! * 0.05),
+                ),
+                const VerticalSpace(value: 3),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      translateString("Quantity", "الكمية"),
+                      style: headingStyle,
                     ),
-                    onTap: () {},
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('1'),
-                  ),
-                  CustomQuantity(
-                    child: Image.asset(
-                      'asset/images/plus.png',
+                    Row(
+                      children: [
+                        CustomQuantity(
+                          child: Image.asset(
+                            'asset/images/mince.png',
+                          ),
+                          onTap: () {},
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('1'),
+                        ),
+                        CustomQuantity(
+                          child: Image.asset(
+                            'asset/images/plus.png',
+                          ),
+                          onTap: () {},
+                        ),
+                      ],
                     ),
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                const VerticalSpace(value: 2),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   ( CategoryCubit.get(context).productDetailModel!.body!.products!.stock != "0")? Row(
+                      children: [
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth! * 0.02,
+                          backgroundColor: colordeepGreen,
+                        ),
+                        const HorizontalSpace(value: 1),
+                        Text(
+                          translateString("available", "متوفر"),
+                          style: headingStyle,
+                        ),
+                      ],
+                    ):const SizedBox(),
+                    Text(
+                      "${ CategoryCubit.get(context).productDetailModel!.body!.products!.price} R.S",
+                      style: headingStyle.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: kMainColor,
+                          fontSize: SizeConfig.screenWidth! * 0.05),
+                    ),
+                  ],
+                ),
+                const VerticalSpace(value: 2),
+                Divider(
+                  color: colorGrey,
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                  translateString("product description", "وصف المنتج"),
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: SizeConfig.screenWidth! * 0.05),
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                   CategoryCubit.get(context).productDetailModel!.body!.products!.description!,
+                    maxLines: 6,
+                  overflow: TextOverflow.ellipsis,
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeConfig.screenWidth! * 0.04,
+                      color: colorGrey),
+                ),
+                const VerticalSpace(value: 3),
+                Text(
+                  translateString("similar products", "المنتجات المشابهة"),
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: SizeConfig.screenWidth! * 0.05),
+                ),
+                const VerticalSpace(value: 2),
+                Divider(
+                  color: colorGrey,
+                ),
+                const VerticalSpace(value: 2),
+                const SimilarProduct(),
+              ],
+            ),
           ),
-          const VerticalSpace(value: 2),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: SizeConfig.screenWidth! * 0.02,
-                    backgroundColor: colordeepGreen,
-                  ),
-                  const HorizontalSpace(value: 1),
-                  Text(
-                    translateString("available", "متوفر"),
-                    style: headingStyle,
-                  ),
-                ],
-              ),
-              Text(
-                "150 R.S",
-                style: headingStyle.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: kMainColor,
-                    fontSize: SizeConfig.screenWidth! * 0.05),
-              ),
-            ],
-          ),
-          const VerticalSpace(value: 2),
-          Divider(
-            color: colorGrey,
-          ),
-          const VerticalSpace(value: 2),
-          Text(
-            translateString("product description", "وصف المنتج"),
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: SizeConfig.screenWidth! * 0.05),
-          ),
-          const VerticalSpace(value: 2),
-          Text(
-            "فاظه ورد شفافه مصنوعه من خامه الاكريليك الشفافه بيها نباتات رقيقه و جميله و ارضيه صغيره من الصخوره الملونه بلون البحر الفاظه تتميزبرقتها و مناسبه للديكور اضافه رقيقه و مبهجه لديكور منزلك او حتي مكتبك هديه رائعه لمن تحبون",
-            maxLines: 6,
-            overflow: TextOverflow.ellipsis,
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: SizeConfig.screenWidth! * 0.04,
-                color: colorGrey),
-          ),
-          const VerticalSpace(value: 3),
-          Text(
-            translateString("similar products", "المنتجات المشابهة"),
-            style: headingStyle.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: SizeConfig.screenWidth! * 0.05),
-          ),
-          const VerticalSpace(value: 2),
-          Divider(
-            color: colorGrey,
-          ),
-          const VerticalSpace(value: 2),
-          const SimilarProduct(),
-        ],
-      ),
+        );
+      },
     );
   }
 }

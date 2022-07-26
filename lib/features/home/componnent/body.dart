@@ -33,10 +33,14 @@ class _HomeBodyState extends State<HomeBody> {
           CustomTextFormField(
             label: "",
             hint: LocaleKeys.search_for_products.tr(),
-            prefix: Image.asset("asset/images/search.png", width: 20, height: 20,),
+            prefix: Image.asset(
+              "asset/images/search.png",
+              width: 20,
+              height: 20,
+            ),
           ),
           const VerticalSpace(value: 2),
-          const HomeSlider(),
+           HomeSlider(images: [],),
           const VerticalSpace(value: 2),
           const CategoryList(),
           const VerticalSpace(value: 4),
@@ -48,11 +52,8 @@ class _HomeBodyState extends State<HomeBody> {
                 fontSize: SizeConfig.screenWidth! * 0.05),
           ),
           const VerticalSpace(value: 4),
-          ProductsGridView(
-            itemCount: 8,
+          const ProductsGridView(
             isScrollable: false,
-            press: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AllProducts())),
           ),
         ],
       ),

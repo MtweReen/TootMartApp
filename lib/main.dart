@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/business_logic/social/socialCubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/splash.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => AppCubit()),
         BlocProvider(create: (BuildContext context) => AuthCubit()),
         BlocProvider(create: (BuildContext context) => SocialCubit()),
+        BlocProvider(
+          create: (BuildContext context) => CategoryCubit(),
+        ),
       ],
       child: ChangeNotifierProvider(
         create: (context) => MapProvider(),

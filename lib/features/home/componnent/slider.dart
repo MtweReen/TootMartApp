@@ -3,7 +3,8 @@ import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 
 class HomeSlider extends StatefulWidget {
-  const HomeSlider({Key? key}) : super(key: key);
+ final List<String> images ;
+  const HomeSlider({Key? key,required this.images}) : super(key: key);
 
   @override
   State<HomeSlider> createState() => _HomeSliderState();
@@ -25,7 +26,7 @@ class _HomeSliderState extends State<HomeSlider> {
         itemBuilder: (BuildContext context, int i) {
           return InkWell(
             child: Image.network(
-                "https://img.freepik.com/free-vector/art-exhibition-poster-with-abstract-background_107791-11712.jpg?w=1380",
+               widget.images[i],
                 fit: BoxFit.cover),
             focusColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -34,7 +35,7 @@ class _HomeSliderState extends State<HomeSlider> {
             onTap: () async {},
           );
         },
-        itemCount: 4,
+        itemCount: widget.images.length,
         autoplay: true,
         autoplayDelay: 5000,
       ),

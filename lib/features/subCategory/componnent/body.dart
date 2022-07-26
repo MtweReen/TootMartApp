@@ -1,13 +1,23 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/data/model/subcategory.dart';
 import 'package:toot_mart/features/subCategory/componnent/products.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../../core/widgets/space_widget.dart';
+import '../../all_products/all_products.dart';
 
 class SubCategoryBody extends StatefulWidget {
-  const SubCategoryBody({Key? key}) : super(key: key);
+  final String image;
+  final String name;
+  final int id;
+  const SubCategoryBody(
+      {Key? key, required this.image, required this.name, required this.id})
+      : super(key: key);
 
   @override
   State<SubCategoryBody> createState() => _SubCategoryBodyState();
@@ -27,7 +37,7 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                 width: double.infinity,
                 height: SizeConfig.screenHeight! * 0.3,
                 child: Image.network(
-                  "https://img.freepik.com/free-vector/realistic-3d-store-interior_1284-12763.jpg?w=1380",
+                  widget.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -47,7 +57,7 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                 ),
                 child: Center(
                   child: Text(
-                    "ابهريهم بفازتك",
+                    widget.name,
                     textAlign: TextAlign.center,
                     style: headingStyle.copyWith(
                         fontSize: SizeConfig.screenWidth! * 0.05,
@@ -65,28 +75,69 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
             padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.screenWidth! * 0.03,
                 vertical: SizeConfig.screenHeight! * 0.03),
-            child: ListView.separated(
-                shrinkWrap: true,
-                primary: false,
-                itemBuilder: (context, index) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const VerticalSpace(value: 2),
-                        Text(
-                          translateString("تشكيلة فازات", "تشكيلة فازات"),
-                          style: headingStyle.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: colordeepGrey,
-                              fontSize: SizeConfig.screenWidth! * 0.05),
-                        ),
-                        const VerticalSpace(value: 2),
-                        const SubCategoryProducts(),
-                      ],
+            child: BlocConsumer<CategoryCubit, CategoryState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return ConditionalBuilder(
+                  condition: state is! SubCategoryLoadingState,
+                  fallback: (context) => Center(
+                    child: CircularProgressIndicator(
+                      color: kMainColor,
                     ),
-                separatorBuilder: (context, index) =>
-                    const VerticalSpace(value: 2),
-                itemCount: 10),
+                  ),
+                  builder: (context) => ListView.separated(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemBuilder: (context, index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const VerticalSpace(value: 2),
+                              InkWell(
+                                onTap: () {
+                                  CategoryCubit.get(context).getSubsCategory(
+                                      id: CategoryCubit.get(context)
+                                          .subcategoryModel!
+                                          .body!
+                                          .subCategories![index]
+                                          .id!);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AllProducts()));
+                                },
+                                child: Text(
+                                  CategoryCubit.get(context)
+                                      .subcategoryModel!
+                                      .body!
+                                      .subCategories![index]
+                                      .title!,
+                                  style: headingStyle.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: colordeepGrey,
+                                      fontSize: SizeConfig.screenWidth! * 0.05),
+                                ),
+                              ),
+                              const VerticalSpace(value: 2),
+                              SubCategoryProducts(
+                                products: CategoryCubit.get(context)
+                                    .subcategoryModel!
+                                    .body!
+                                    .products!,
+                              ),
+                            ],
+                          ),
+                      separatorBuilder: (context, index) =>
+                          const VerticalSpace(value: 2),
+                      itemCount: CategoryCubit.get(context)
+                          .subcategoryModel!
+                          .body!
+                          .subCategories!
+                          .length),
+                );
+              },
+            ),
           ),
         ],
       ),

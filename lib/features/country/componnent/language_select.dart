@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/app_cubit/app_cubit.dart';
@@ -51,6 +54,8 @@ class LanguageSelectWidget extends StatelessWidget {
                     onTap: () {
                       AppCubit.get(context)
                           .seledctLanguage(ar: true, en: false);
+                            context.locale = const Locale('ar', '');
+                          prefs.setString("lang", "ar");
                     },
                   ),
                 ),
@@ -64,6 +69,8 @@ class LanguageSelectWidget extends StatelessWidget {
                     onTap: () {
                       AppCubit.get(context)
                           .seledctLanguage(ar: false, en: true);
+                          context.locale = const Locale('en', '');
+                          prefs.setString("lang", "en");
                     },
                     color: Colors.white,
                     textColor: (AppCubit.get(context).enLanguage)
