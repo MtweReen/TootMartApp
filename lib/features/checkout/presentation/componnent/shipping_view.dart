@@ -1,17 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/constants.dart';
-import 'package:toot_mart/core/widgets/custom_drop_down.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/cart/componnent/shopping_item.dart';
 
 import '../../../../core/constants/colors.dart';
-import '../../../../core/widgets/custom_buttons_widget.dart';
-import '../../../../core/widgets/custom_text_field.dart';
-import '../../../../translations/locale_keys.g.dart';
 
 class ShippingView extends StatefulWidget {
-  ShippingView({Key? key}) : super(key: key);
+  const ShippingView({Key? key}) : super(key: key);
 
   @override
   State<ShippingView> createState() => _ShippingViewState();
@@ -24,7 +19,7 @@ class _ShippingViewState extends State<ShippingView> {
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Divider(
@@ -32,7 +27,7 @@ class _ShippingViewState extends State<ShippingView> {
               thickness: 1,
               color: colorLightGrey,
             ),
-            VerticalSpace(value: 2),
+            const VerticalSpace(value: 2),
             Container(
               color: Colors.green,
               child: ExpansionPanelList(
@@ -75,7 +70,7 @@ class _ShippingViewState extends State<ShippingView> {
                 },
               ),
             ),
-            VerticalSpace(value: 2),
+            const VerticalSpace(value: 2),
             Divider(
               height: 1,
               thickness: 1,
@@ -92,7 +87,7 @@ class _ShippingViewState extends State<ShippingView> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    children: [
+                    children: const [
                       Text('تكاليف الشحن'),
                       Text('مجاني')
                     ],

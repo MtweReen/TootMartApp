@@ -45,7 +45,7 @@ final _formKey = GlobalKey<FormState>();
                 LocaleKeys.email.tr(),
                 style: headingStyle.copyWith(color: colorGrey),
               ),
-              VerticalSpace(value: 1),
+              const VerticalSpace(value: 1),
               CustomTextFormField(
                 label: LocaleKeys.phone_number.tr(),
                 inputType: TextInputType.phone,
@@ -53,7 +53,7 @@ final _formKey = GlobalKey<FormState>();
                   return validateMobile(value!);
                 },
               ),
-              VerticalSpace(value: 7),
+              const VerticalSpace(value: 7),
               CustomGeneralButton(text:LocaleKeys.send.tr(), onTap: () {
                 if (_formKey.currentState!.validate()) {
                   AuthCubit.get(context).changeUserState(AccountStates.RESET_PASSWORD);

@@ -1,12 +1,10 @@
 import 'package:toot_mart/core/constants/colors.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 
 
-import 'package:toot_mart/translations/locale_keys.g.dart';
 
 import '../../data/model/favourites_model.dart';
 

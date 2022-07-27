@@ -80,5 +80,5 @@ mapIcon() async {
 ////////////////////////////////////////////////////////////
 
 var deviceId;
-User? kUser;
+UserModel? kUser;
 const kBgImage = 'assets/images/splash_bg.png';

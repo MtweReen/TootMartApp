@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/constants.dart';
@@ -25,12 +24,12 @@ class AddLocationView extends StatelessWidget {
                   color: Colors.black,
                   height: SizeConfig.defaultSize! * 4,
                 ),
-                HorizontalSpace(value: 1),
+                const HorizontalSpace(value: 1),
                 Text(
                   'تحديد العنوان',
                   style: headingStyle,
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                     icon: Image.asset(
                       'asset/images/plus.png',

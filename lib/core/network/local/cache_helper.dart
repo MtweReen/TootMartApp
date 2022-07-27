@@ -44,9 +44,9 @@ class CasheHelper {
     return await sharedPreferences.remove(key);
   }
 
-  static SaveUser({required User user}) async {
+  static SaveUser({required UserModel user}) async {
     print('User Saved ');
-    return await sharedPreferences.setString('User', userToJson(user));
+    return await sharedPreferences.setString('User', userModelToJson(user));
   }
 
   static getUser() async {
@@ -55,7 +55,7 @@ class CasheHelper {
       print('No Data Saved');
     }else{
       Map<String,dynamic> map=jsonDecode(json);
-      kUser = User.fromJson(map);
+      kUser = UserModel.fromJson(map);
       print('Data Passed');
     }
 

@@ -11,6 +11,8 @@ import 'package:toot_mart/splash.dart';
 import 'business_logic/app_cubit/app_cubit.dart';
 import 'core/constants/colors.dart';
 import 'core/constants/constants.dart';
+import 'core/network/local/cache_helper.dart';
+import 'core/network/remote/dio_helper.dart';
 import 'core/router/router.dart';
 import 'core/utiles/bloc_observer.dart';
 import 'features/map/map_provider.dart';
@@ -20,6 +22,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
+  await DioHelper.init();
+  await CasheHelper.init();
   await startShared();
   await mapIcon();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

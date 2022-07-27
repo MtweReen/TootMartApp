@@ -15,7 +15,7 @@ class CustomQuantity extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           height: SizeConfig.defaultSize! * 3,
           width: SizeConfig.defaultSize! * 3,
           decoration: BoxDecoration(

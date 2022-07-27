@@ -52,7 +52,7 @@ class ResetPasswordBody extends StatelessWidget {
                 LocaleKeys.code_sent.tr(),
                 style: headingStyle.copyWith(color: colorGrey),
               ),
-              VerticalSpace(value: 1),
+              const VerticalSpace(value: 1),
               CustomTextFormField(
                 focusNode: codeFocusNode,
                 label:  LocaleKeys.code_sent.tr(),
@@ -71,7 +71,7 @@ class ResetPasswordBody extends StatelessWidget {
                 LocaleKeys.password.tr(),
                 style: headingStyle.copyWith(color: colorGrey),
               ),
-              VerticalSpace(value: 1),
+              const VerticalSpace(value: 1),
               CustomTextFormField(
                 focusNode: passwordFocusNode,
                 label: LocaleKeys.new_password.tr(),
@@ -91,7 +91,7 @@ class ResetPasswordBody extends StatelessWidget {
                 LocaleKeys.confirm_password.tr(),
                 style: headingStyle.copyWith(color: colorGrey),
               ),
-              VerticalSpace(value: 1),
+              const VerticalSpace(value: 1),
               CustomTextFormField(
                 focusNode: confirmPasswordFocusNode,
                 label:  LocaleKeys.confirm_password.tr(),
@@ -110,7 +110,7 @@ class ResetPasswordBody extends StatelessWidget {
                 // if (_formKey.currentState!.validate()) {
                 //  // MagicRouter.navigateTo(const HomeLayoutView());
                 // }
-                MagicRouter.navigateTo( LayoutScreen(index:0));
+                MagicRouter.navigateTo( const LayoutScreen(index:0));
               }),
             ],
           ),

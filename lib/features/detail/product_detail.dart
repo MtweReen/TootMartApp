@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 

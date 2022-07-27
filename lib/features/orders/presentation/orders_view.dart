@@ -11,6 +11,6 @@ class OrdersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => OrdersCubit(),
-        child:  OrdersBody());
+        child:  const OrdersBody());
   }
 }

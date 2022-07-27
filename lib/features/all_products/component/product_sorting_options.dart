@@ -39,7 +39,7 @@ class _BuildProductSortingOptionsState
         title: Container(
           padding:
               const EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             // color: kMainColor,
             // borderRadius: const BorderRadius.only(
             //   topLeft: Radius.circular(15.0),
@@ -51,9 +51,9 @@ class _BuildProductSortingOptionsState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'name',
-                style: const TextStyle(fontSize: 18, color: Colors.black),
+                style: TextStyle(fontSize: 18, color: Colors.black),
               ),
               Divider(
                 thickness: 1,

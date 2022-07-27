@@ -86,7 +86,7 @@ Widget _productItem({ int? index}) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'name',
                     maxLines: 2,
                   ),

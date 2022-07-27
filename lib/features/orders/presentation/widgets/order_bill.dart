@@ -28,7 +28,7 @@ class OrderBill extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(LocaleKeys.custom_price.tr()),
-                Text('100' + '  ${LocaleKeys.rs.tr()}'),
+                Text('100' '  ${LocaleKeys.rs.tr()}'),
               ],
             ),
             const VerticalSpace(value: 1),

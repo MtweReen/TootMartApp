@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/local/cache_helper.dart';
+import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
+import 'package:toot_mart/features/layout/layout.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
@@ -34,6 +36,8 @@ class LoginView extends StatelessWidget {
         if (state is LoginUserLoaded) {
           CasheHelper.SaveUser(user: AuthCubit.get(context).user!);
           kUser = AuthCubit.get(context).user;
+          // MagicRouter.navigateTo(const LayoutScreen(index: 0,));
+          AuthCubit.get(context).changeUserState(AccountStates.GUEST);
         }
       },
       builder: (context, state) {
@@ -115,7 +119,7 @@ class LoginView extends StatelessWidget {
                                 passwordController.text);
                           }
                         })
-                    : CircularProgressIndicator(color: kMainColor),
+                    : Center(child: CircularProgressIndicator(color: kMainColor)),
                 const VerticalSpace(value: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

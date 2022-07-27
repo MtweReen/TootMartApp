@@ -7,7 +7,7 @@ import '../../../../translations/locale_keys.g.dart';
 import 'order_item.dart';
 
 class CurrentOrders extends StatelessWidget {
-  CurrentOrders({Key? key }) : super(key: key);
+  const CurrentOrders({Key? key }) : super(key: key);
  // List<Orders>? ordersUnderProcess;
   @override
   Widget build(BuildContext context) {

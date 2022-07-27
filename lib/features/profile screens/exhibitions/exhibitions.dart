@@ -37,7 +37,7 @@ class ExhibitionsScreen extends StatelessWidget {
             const VerticalSpace(value: 1.5),
             CustomDropDown(
               text: translateString("All Area", "جميع المناطق"),
-              items: [],
+              items: const [],
             ),
             const VerticalSpace(value: 1.5),
             const GalleryListData(),

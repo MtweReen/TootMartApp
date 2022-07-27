@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/profile%20screens/contact_us.dart';
@@ -28,11 +29,23 @@ class GuestView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  translateString('Hello', 'مرحبا'),
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: SizeConfig.defaultSize! * 3),
+                Row(
+                  children: [
+                    if (kUser != null)
+                      Text(
+                        kUser!.body!.user!.name!,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: SizeConfig.defaultSize! * 3),
+                      ),
+                    if (kUser != null) const HorizontalSpace(value: 2),
+                    Text(
+                      translateString('Hello', 'مرحبا'),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: SizeConfig.defaultSize! * 3),
+                    ),
+                  ],
                 ),
                 InkWell(
                   onTap: () => Navigator.push(
@@ -45,31 +58,33 @@ class GuestView extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
+          if (kUser == null)
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                      width: SizeConfig.defaultSize! * 18,
+                      child: CustomGeneralButton(
+                          text: translateString('Log in', 'تسجيل الدخول'),
+                          onTap: () {
+                            AuthCubit.get(context)
+                                .changeUserState(AccountStates.LOGIN);
+                          })),
+                  SizedBox(
                     width: SizeConfig.defaultSize! * 18,
-                    child: CustomGeneralButton(
-                        text: translateString('Log in', 'تسجيل الدخول'),
+                    child: CustomStrockButton(
+                        text: translateString('Register', 'تسجيل'),
                         onTap: () {
                           AuthCubit.get(context)
-                              .changeUserState(AccountStates.LOGIN);
-                        })),
-                SizedBox(
-                  width: SizeConfig.defaultSize! * 18,
-                  child: CustomStrockButton(
-                      text: translateString('Register', 'تسجيل'),
-                      onTap: () {
-                        AuthCubit.get(context)
-                            .changeUserState(AccountStates.REGISTER);
-                      }),
-                ),
-              ],
+                              .changeUserState(AccountStates.REGISTER);
+                        }),
+                  ),
+                ],
+              ),
             ),
-          ),
           Padding(
             padding:
                 EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.02),
@@ -77,11 +92,11 @@ class GuestView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                  InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfileDetails())),
+                InkWell(
+                  onTap: () {
+                    AuthCubit.get(context)
+                        .changeUserState(AccountStates.ACCOUNT_DETAILS);
+                  },
                   child: ProfileCardItem(
                     title: LocaleKeys.account_details.tr(),
                   ),
@@ -91,7 +106,8 @@ class GuestView extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    AuthCubit.get(context).changeUserState(AccountStates.ORDERS_VIEW);
+                    AuthCubit.get(context)
+                        .changeUserState(AccountStates.ORDERS_VIEW);
                   },
                   child: ProfileCardItem(
                     title: translateString("My orders", "طلباتي"),
