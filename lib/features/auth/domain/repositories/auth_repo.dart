@@ -12,11 +12,11 @@ abstract class AuthRepo {
       required String email,
       required String password});
 
-  // Future<Either<Exception, User>> editProfile(
-  //     {required String name,
-  //     required String phone,
-  //     required String email,
-  //     });
+  Future<Either<Exception, UserModel>> editProfile(
+      {required String name,
+      required String phone,
+      required String email,
+      });
 
   // Future<Either<Exception, String>> SignOut();
   // Future<Either<Exception, String>> changePassword(String oldPassword,String newPassword,String newPasswordConfirmation);

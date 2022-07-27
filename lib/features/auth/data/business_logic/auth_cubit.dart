@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../translations/locale_keys.g.dart';
 import '../../../account/account.dart';
 import '../model/user_model.dart';
@@ -82,24 +83,24 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
-//
-//   User? editProfile({required String name,required String phone,required String email}) {
-//     emit(EditProfileLoadingState());
-//     AuthRepositoryImpl()
-//         .editProfile(
-//             name: name, phone: phone, email: email)
-//         .then((value) {
-//       if (value != []) {
-//         user = value.getOrElse(() => User.fromJson({}));
-//         showToast(
-//             msg: 'تم تعديل البيانات بنجاح',
-//             state: ToastStates.SUCCESS);
-//         kUser =user;
-//         emit(EditProfileSuccessState());
-//       }
-//     });
-//     return null;
-//   }
+
+  UserModel? editProfile({required String name,required String phone,required String email}) {
+    emit(EditProfileLoadingState());
+    AuthRepositoryImpl()
+        .editProfile(
+            name: name, phone: phone, email: email)
+        .then((value) {
+      if (value != []) {
+        user = value.getOrElse(() => UserModel.fromJson({}));
+        showToast(
+            msg: 'تم تعديل البيانات بنجاح',
+            state: ToastStates.SUCCESS);
+        kUser = user;
+        emit(EditProfileSuccessState());
+      }
+    });
+    return null;
+  }
 //
 //   Future<User>? SignOut() {
 //     AuthRepositoryImpl().SignOut().then((value) {
