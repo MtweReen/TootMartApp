@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toot_mart/features/favourite/componnent/products_list.dart';
 
 import '../../../core/utiles/size_config.dart';
 import '../../all_products/component/product_grid.dart';
@@ -18,7 +19,7 @@ class _FavouriteBodyState extends State<FavouriteBody> {
       padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.screenWidth! * 0.03,
           vertical: SizeConfig.screenHeight! * 0.03),
-      child:  ProductGridData(fromfav: true,),
+      child:  FavouriteProductList(fromfav: true,),
         
     );
   

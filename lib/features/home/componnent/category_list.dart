@@ -3,10 +3,12 @@ import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 
+import '../../../business_logic/category/category_cubit.dart';
 import '../../all_products/all_products.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({Key? key}) : super(key: key);
+  final List categories;
+  const CategoryList({Key? key, required this.categories}) : super(key: key);
 
   @override
   State<CategoryList> createState() => _CategoryListState();
@@ -19,13 +21,15 @@ class _CategoryListState extends State<CategoryList> {
     return ListView.separated(
       shrinkWrap: true,
       primary: false,
-      itemCount: 6,
+      itemCount: widget.categories.length,
       itemBuilder: (context, index) {
         return InkWell(
-            onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllProducts())),
+          onTap: () {
+            CategoryCubit.get(context)
+                .getSubsCategory(id: widget.categories[index].id!);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AllProducts()));
+          },
           child: Stack(
             children: [
               Container(
@@ -38,7 +42,7 @@ class _CategoryListState extends State<CategoryList> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    "https://img.freepik.com/free-vector/minimal-geometric-design-flyer-poster-brochure-cover-background-wallpaper-typography-other-printing-products-vector-illustration_6343-1020.jpg?w=1380",
+                    widget.categories[index].image.toString(),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -49,10 +53,9 @@ class _CategoryListState extends State<CategoryList> {
                   vertical: SizeConfig.screenHeight! * 0.03,
                 ),
                 child: Text(
-                  "ابهريهم بفازتك ",
+                  widget.categories[index].title.toString(),
                   style: headingStyle.copyWith(
-                      fontSize: SizeConfig.screenWidth!*0.05,
-                    
+                      fontSize: SizeConfig.screenWidth! * 0.05,
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
                         // ..strokeWidth = 1

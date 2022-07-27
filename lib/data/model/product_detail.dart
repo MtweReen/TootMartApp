@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class ProductDetailModel {
   int? code;
   bool? status;
@@ -35,7 +37,8 @@ class Products {
   String? title;
   String? stock;
   String? description;
-  String? price;
+  var price;
+  var beforePrice;
   List<Similar>? similar;
 
   Products(
@@ -49,17 +52,19 @@ class Products {
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    images = json['images'].cast<String>();
+    images = json['images'].cast<String>() ?? [];
     title = json['title'];
     stock = json['stock'];
     description = json['description'];
     price = json['price'];
+    beforePrice = json['price_before'];
     if (json['similar'] != null) {
       similar = <Similar>[];
       json['similar'].forEach((v) {
         similar!.add(Similar.fromJson(v));
       });
     }
+    
   }
 }
 

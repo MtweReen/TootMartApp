@@ -1,53 +1,61 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
-import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/all_products/component/product_card.dart';
+
+import '../../../business_logic/category/category_cubit.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
-import '../../../core/widgets/product_item.dart';
-import '../../../data/model/category.dart';
-import '../../subCategory/sub_categrory.dart';
+import '../../../core/widgets/space_widget.dart';
+import '../../../data/model/filter.dart';
 
-class CategoryBody extends StatefulWidget {
-  const CategoryBody({Key? key}) : super(key: key);
+class FilterResultScreen extends StatefulWidget {
+  final int categoryId;
+  const FilterResultScreen({Key? key, required this.categoryId})
+      : super(key: key);
 
   @override
-  State<CategoryBody> createState() => _CategoryBodyState();
+  State<FilterResultScreen> createState() => _FilterResultScreenState();
 }
 
-class _CategoryBodyState extends State<CategoryBody> {
+class _FilterResultScreenState extends State<FilterResultScreen> {
   late ScrollController scrollController;
   int page = 1;
   bool hasNextPage = true;
   bool isFirstLoadRunning = false;
   bool isLoadMoreRunning = false;
-  List categories = [];
+  List products = [];
 
-  String lang = '';
-  String currency = '';
-
-  void firstLoad() async {
-    CategoryModel? categoryModel;
-    String url = "https://site.modern-it.net/TOOT/public/api/categories";
+  void filterProducts() async {
+    FilterResultModel? filterResultModel;
+    String url = "https://site.modern-it.net/TOOT/public/api/product/filter";
     setState(() {
       isFirstLoadRunning = true;
     });
     try {
       Map<String, String> headers = {
-        "Accept-Language": prefs.getString("lang") ?? "ar",
-        "paginate": "$page"
+        "Accept-Language": prefs.getString("lang") ?? "en",
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
-      var data = jsonDecode(response.body);
-      if (data['status'] == true) {
-        categoryModel = CategoryModel.fromJson(data);
+      Map<String, dynamic> body = {
+        "min": 100,
+        "max": 200,
+        "sort": "asc",
+        "category_id": widget.categoryId,
+        "paginate": page,
+      };
+      Response response = await Dio().post(
+        url,
+        data: body,
+        options: Options(headers: headers),
+      );
+
+      if (response.data['status'] == true) {
+        filterResultModel = FilterResultModel.fromJson(response.data);
         setState(() {
-          categories = categoryModel!.body!.categories!;
+          products = filterResultModel!.body!.products!;
         });
       }
     } catch (e) {
@@ -63,28 +71,40 @@ class _CategoryBodyState extends State<CategoryBody> {
         isFirstLoadRunning == false &&
         isLoadMoreRunning == false &&
         scrollController.position.extentAfter < 15) {
-      String url = "https://site.modern-it.net/TOOT/public/api/categories";
-      Map<String, String> headers = {
-        "Accept-Language": prefs.getString("lang") ?? "en",
-        "paginate": "$page"
-      };
+      String url = "https://site.modern-it.net/TOOT/public/api/product/filter";
+
       setState(() {
         isLoadMoreRunning = true;
         page++;
       });
       List fetchedPosts = [];
       try {
-        var response = await http.get(Uri.parse(url), headers: headers);
-        var data = jsonDecode(response.body);
-        if (data['status'] == true) {
-          CategoryModel categoryModel = CategoryModel.fromJson(data);
+        Map<String, String> headers = {
+          "Accept-Language": prefs.getString("lang") ?? "en",
+        };
+        Map<String, dynamic> body = {
+          "min": 100,
+          "max": 200,
+          "sort": "asc",
+          "category_id": widget.categoryId,
+          "paginate": page,
+        };
+        Response response = await Dio().post(
+          url,
+          data: body,
+          options: Options(headers: headers),
+        );
+
+        if (response.data['status'] == true) {
+          FilterResultModel filterResultModel =
+              FilterResultModel.fromJson(response.data);
           setState(() {
-            fetchedPosts = categoryModel.body!.categories!;
+            fetchedPosts = filterResultModel.body!.products!;
           });
         }
         if (fetchedPosts.isNotEmpty) {
           setState(() {
-            categories.addAll(fetchedPosts);
+            products.addAll(fetchedPosts);
           });
         } else {
           setState(() {
@@ -102,7 +122,7 @@ class _CategoryBodyState extends State<CategoryBody> {
 
   @override
   void initState() {
-    firstLoad();
+    filterProducts();
     scrollController = ScrollController()..addListener(loadMore);
     super.initState();
   }
@@ -132,7 +152,7 @@ class _CategoryBodyState extends State<CategoryBody> {
                       fontSize: SizeConfig.screenWidth! * 0.05),
                 ),
                 const VerticalSpace(value: 2),
-                (categories.isNotEmpty)
+                (products.isNotEmpty)
                     ? Expanded(
                         child: GridView.builder(
                           controller: scrollController,
@@ -145,30 +165,16 @@ class _CategoryBodyState extends State<CategoryBody> {
                           ),
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
-                          itemCount: categories.length,
+                          itemCount: products.length,
                           itemBuilder: ((ctx, index) {
                             return BlocConsumer<CategoryCubit, CategoryState>(
-                              listener: (context, state) {
-                               
-                              },
+                              listener: (context, state) {},
                               builder: (context, state) {
-                                return ProductItem(
-                                  name: categories[index].title!,
-                                  image: categories[index].image!,
-                                  index: index,
-                                  press: () {
-                                    CategoryCubit.get(context).getSubsCategory(id: categories[index].id!);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => SubCategoryScreen(
-                                          id: categories[index].id!,
-                                          name: categories[index].title!,
-                                          image: categories[index].image!,
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                return ProductCardData(
+                                  name: products[index].title!,
+                                  imge: products[index].image!,
+                                  id: products[index].id,
+                                  price: products[index].price,
                                 );
                               },
                             );
@@ -184,7 +190,7 @@ class _CategoryBodyState extends State<CategoryBody> {
                                 "No products here", "لا توجد منتجات"),
                             style: TextStyle(
                                 color: kMainColor,
-                             
+                               
                                 fontSize: SizeConfig.screenWidth! * 0.05,
                                 fontWeight: FontWeight.bold),
                           ),

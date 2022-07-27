@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/features/country/country.dart';
+import 'business_logic/home/home_cubit_cubit.dart';
 import 'core/constants/constants.dart';
 import 'features/map/map_provider.dart';
 
@@ -16,6 +17,7 @@ class SplshScreen extends StatefulWidget {
 class _SplshScreenState extends State<SplshScreen> {
   @override
   void initState() {
+    HomeCubitCubit().getHomeItems();
     Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),

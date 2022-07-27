@@ -1,7 +1,9 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 
@@ -60,19 +62,33 @@ class ProductCardData extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: (fromfav != true)
-                            ? Icon(
-                                Icons.favorite_border_outlined,
-                                color: Colors.black87,
-                                size: w * 0.08,
-                              )
-                            : Icon(
-                                Icons.favorite,
-                                color: colorRed,
-                                size: w * 0.08,
-                              ),
+                      BlocConsumer<HomeCubitCubit, HomeCubitState>(
+                        listener: (context, state) {
+                          if(state is AddFavouriteCubitSuccessState){
+                            HomeCubitCubit.get(context).getFavourites();
+                          }
+                        },
+                        builder: (context, state) {
+                          return InkWell(
+                            onTap: () {
+                              HomeCubitCubit.get(context)
+                                  .addtoFavourites(productId: id);
+                            },
+                            child:
+                                (HomeCubitCubit.get(context).isFavourite[id] !=
+                                        true)
+                                    ? Icon(
+                                        Icons.favorite_border_outlined,
+                                        color: Colors.black87,
+                                        size: w * 0.08,
+                                      )
+                                    : Icon(
+                                        Icons.favorite,
+                                        color: colorRed,
+                                        size: w * 0.08,
+                                      ),
+                          );
+                        },
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
