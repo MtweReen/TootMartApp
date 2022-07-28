@@ -30,7 +30,7 @@ class _BestSellerHomeState extends State<BestSellerHome> {
           builder: (context) => GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.9,
+              childAspectRatio: 0.8,
               crossAxisSpacing: 15,
               mainAxisSpacing: 3,
             ),

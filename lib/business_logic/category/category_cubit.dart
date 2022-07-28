@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+import 'package:toot_mart/core/network/end_points.dart';
 
 import '../../core/constants/constants.dart';
 import '../../data/model/category.dart';
@@ -20,14 +21,14 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryModel? categoryModel;
   Future<CategoryModel>? getCategory({required int page}) async {
     emit(CategoryLoadingState());
-    String url = "https://site.modern-it.net/TOOT/public/api/categories";
 
     try {
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "en",
         "paginate": "$page"
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
+      var response =
+          await http.get(Uri.parse(kBaseUrl + CATEGORIES), headers: headers);
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         categoryModel = CategoryModel.fromJson(data);
@@ -43,19 +44,17 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   /////////////////////////////////////////////////////////////////////////////////
-  
-  
+
   SubcategoryModel? subcategoryModel;
   Future<SubcategoryModel>? getSubsCategory({required int id}) async {
     emit(SubCategoryLoadingState());
-    String url = "https://site.modern-it.net/TOOT/public/api/category/$id";
 
     try {
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "ar",
-        
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
+      var response = await http.get(Uri.parse(kBaseUrl + "category/$id"),
+          headers: headers);
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         subcategoryModel = SubcategoryModel.fromJson(data);
@@ -71,17 +70,17 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
-  
-   ProductDetailModel? productDetailModel;
+
+  ProductDetailModel? productDetailModel;
   Future<ProductDetailModel>? getProductDetail({required int id}) async {
     emit(ProductDetailLoadingState());
-    String url = "https://site.modern-it.net/TOOT/public/api/product/$id";
 
     try {
       Map<String, String> headers = {
-        "Accept-Language": prefs.getString("lang") ?? "ar",  
+        "Accept-Language": prefs.getString("lang") ?? "ar",
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
+      var response =
+          await http.get(Uri.parse(kBaseUrl + "product/$id"), headers: headers);
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         productDetailModel = ProductDetailModel.fromJson(data);
@@ -95,6 +94,4 @@ class CategoryCubit extends Cubit<CategoryState> {
     }
     return productDetailModel!;
   }
-
-
 }

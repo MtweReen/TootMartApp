@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 
+import '../../core/constants/colors.dart';
 import 'componnent/body.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -30,13 +35,54 @@ class ProductDetailScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_outline_outlined,
-              color: Colors.black,
-              size: 30,
-            ),
+          BlocConsumer<HomeCubitCubit, HomeCubitState>(
+            listener: (context, state) {
+              if (state is FavouriteCubitSuccessState) {
+                HomeCubitCubit.get(context).isFavourite[
+                    CategoryCubit.get(context)
+                        .productDetailModel!
+                        .body!
+                        .products!
+                        .id!] = true;
+              }
+            },
+            builder: (context, state) {
+              return IconButton(
+                onPressed: () {
+                  if (prefs.getBool("is_login") == true) {
+                    HomeCubitCubit.get(context).addtoFavourites(
+                        productId: CategoryCubit.get(context)
+                            .productDetailModel!
+                            .body!
+                            .products!
+                            .id!);
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: translateString(
+                            "you must login first", "يجب تسجيل الدخول اولا "),
+                        backgroundColor: colorRed,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.CENTER);
+                  }
+                },
+                icon: (HomeCubitCubit.get(context).isFavourite[
+                            CategoryCubit.get(context)
+                                .productDetailModel!
+                                .body!
+                                .products!
+                                .id!] !=
+                        true)
+                    ? const Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.black87,
+                      )
+                    : Icon(
+                        Icons.favorite,
+                        color: colorRed,
+                      ),
+              );
+            },
           ),
         ],
       ),

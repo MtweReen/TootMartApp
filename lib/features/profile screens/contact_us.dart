@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
@@ -18,8 +20,10 @@ class ContactusScreen extends StatefulWidget {
 
 class _ContactusScreenState extends State<ContactusScreen> {
   TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController message = TextEditingController();
   FocusNode nameFocuse = FocusNode();
+  FocusNode emailFocuse = FocusNode();
   FocusNode messageFocuse = FocusNode();
   final formKey = GlobalKey<FormState>();
 
@@ -56,6 +60,25 @@ class _ContactusScreenState extends State<ContactusScreen> {
                 focusNode: nameFocuse,
                 onEditingComplete: () {
                   nameFocuse.unfocus();
+                  FocusScope.of(context).requestFocus(emailFocuse);
+                },
+              ),
+              const VerticalSpace(value: 3),
+              Text(
+                LocaleKeys.email.tr(),
+                style: headingStyle.copyWith(
+                    color: colorGrey,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    fontSize: SizeConfig.screenWidth! * 0.04),
+              ),
+              const VerticalSpace(value: 1.5),
+              CustomTextFormField(
+                controller: email,
+                focusNode: emailFocuse,
+                inputType: TextInputType.emailAddress,
+                onEditingComplete: () {
+                  emailFocuse.unfocus();
                   FocusScope.of(context).requestFocus(messageFocuse);
                 },
               ),
@@ -78,7 +101,26 @@ class _ContactusScreenState extends State<ContactusScreen> {
                 },
               ),
               const VerticalSpace(value: 3),
-              CustomGeneralButton(text: LocaleKeys.send.tr(), onTap: () {}),
+              BlocConsumer<SettingCubit, SettingState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return (state is! ContactusLoadingState)
+                      ? CustomGeneralButton(
+                          text: LocaleKeys.send.tr(),
+                          onTap: () {
+                            SettingCubit.get(context).contactus(
+                                name: name.text,
+                                email: email.text,
+                                message: message.text,
+                                context: context);
+                          })
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: kMainColor,
+                          ),
+                        );
+                },
+              ),
               const VerticalSpace(value: 5),
               Center(
                 child: SizedBox(

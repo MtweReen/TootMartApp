@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 
 import 'componnent/body.dart';
@@ -11,6 +12,11 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
+  @override
+  void initState() {
+   HomeCubitCubit.get(context).getFavourites();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/network/remote/dio_helper.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
@@ -16,6 +17,7 @@ class AuthRepositoryImpl extends AuthRepo {
       UserModel? userModel;
       var response = await DioHelper.postData(
           url: LOGIN, data: {'email': Username, 'password': Password}).then((value){
+            prefs.setBool("is_login", true);
         userModel = UserModel.fromJson(value.data);
         print(userModel);
 
@@ -47,6 +49,7 @@ class AuthRepositoryImpl extends AuthRepo {
     //  ErrorRegisterModel errorRegisterModel;
       if (response.statusCode!<500) {
         result = UserModel.fromJson(response.data);
+         prefs.setBool("is_login", true);
       }
       return Right(result!);
     } catch (error) {

@@ -1,11 +1,13 @@
-// ignore_for_file: must_be_immutable, avoid_print
+// ignore_for_file: must_be_immutable, avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
+import 'package:toot_mart/features/all_products/component/filter_row.dart';
 
 import '../../detail/product_detail.dart';
 
@@ -14,6 +16,7 @@ class ProductCardData extends StatelessWidget {
   final String name;
   final String imge;
   final String price;
+  var beforePrice;
   final int id;
   ProductCardData(
       {Key? key,
@@ -21,7 +24,8 @@ class ProductCardData extends StatelessWidget {
       required this.name,
       required this.imge,
       required this.price,
-      required this.id})
+      required this.id,
+      required this.beforePrice})
       : super(key: key);
 
   @override
@@ -35,6 +39,7 @@ class ProductCardData extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
+          filteringData = false;
           CategoryCubit.get(context).getProductDetail(id: id);
           Navigator.push(
               context,
@@ -64,15 +69,25 @@ class ProductCardData extends StatelessWidget {
                     children: [
                       BlocConsumer<HomeCubitCubit, HomeCubitState>(
                         listener: (context, state) {
-                          if(state is AddFavouriteCubitSuccessState){
+                          if (state is AddFavouriteCubitSuccessState) {
                             HomeCubitCubit.get(context).getFavourites();
                           }
                         },
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
-                              HomeCubitCubit.get(context)
-                                  .addtoFavourites(productId: id);
+                              if ( prefs.getBool("is_login") == true) {
+                                HomeCubitCubit.get(context)
+                                    .addtoFavourites(productId: id);
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: translateString("you must login first",
+                                        "يجب تسجيل الدخول اولا "),
+                                    backgroundColor: colorRed,
+                                    textColor: Colors.white,
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.CENTER);
+                              }
                             },
                             child:
                                 (HomeCubitCubit.get(context).isFavourite[id] !=
@@ -90,23 +105,25 @@ class ProductCardData extends StatelessWidget {
                           );
                         },
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: w * 0.02, vertical: h * 0.003),
-                        decoration: BoxDecoration(
-                          color: kMainColor,
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: Center(
-                          child: Text(
-                            translateString("discount", "تخفيض"),
-                            style: headingStyle.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: w * 0.04),
-                          ),
-                        ),
-                      ),
+                      (beforePrice != 0)
+                          ? Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: w * 0.02, vertical: h * 0.003),
+                              decoration: BoxDecoration(
+                                color: kMainColor,
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  translateString("discount", "تخفيض"),
+                                  style: headingStyle.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: w * 0.04),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),
@@ -158,13 +175,15 @@ class ProductCardData extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text("200 R.S",
-                            style: headingStyle.copyWith(
-                                color: colorGrey,
-                                decoration: TextDecoration.lineThrough,
-                                fontWeight: FontWeight.w500,
-                                fontSize: w * 0.04,
-                                decorationColor: colordeepGrey))
+                        (beforePrice != 0)
+                            ? Text("$beforePrice R.S",
+                                style: headingStyle.copyWith(
+                                    color: colorGrey,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: w * 0.04,
+                                    decorationColor: colordeepGrey))
+                            : const SizedBox(),
                       ],
                     ),
                   ],

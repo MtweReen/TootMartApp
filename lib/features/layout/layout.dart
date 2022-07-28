@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/colors.dart';
 import '../../translations/locale_keys.g.dart';
 import '../account/account.dart';
+import '../all_products/component/filter_row.dart';
 import '../cart/cart.dart';
 import '../category/category.dart';
 import '../favourite/favourite.dart';
@@ -63,6 +64,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
+            filteringData = false;
           });
         },
         items: [

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
+import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
 import 'package:toot_mart/business_logic/social/socialCubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/splash.dart';
@@ -69,6 +70,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (BuildContext context) => AppCubit()),
         BlocProvider(create: (BuildContext context) => AuthCubit()),
         BlocProvider(create: (BuildContext context) => SocialCubit()),
+        BlocProvider(create: (BuildContext context) => SettingCubit()..privacypolicy()..refundsPolicy()),
         BlocProvider(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()),
         BlocProvider(
           create: (BuildContext context) => CategoryCubit(),

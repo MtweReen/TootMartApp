@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/widgets/product_item.dart';
 import '../../../data/model/category.dart';
+import '../../all_products/component/filter_row.dart';
 import '../../subCategory/sub_categrory.dart';
 
 class CategoryBody extends StatefulWidget {
@@ -33,7 +35,7 @@ class _CategoryBodyState extends State<CategoryBody> {
 
   void firstLoad() async {
     CategoryModel? categoryModel;
-    String url = "https://site.modern-it.net/TOOT/public/api/categories";
+   
     setState(() {
       isFirstLoadRunning = true;
     });
@@ -42,7 +44,7 @@ class _CategoryBodyState extends State<CategoryBody> {
         "Accept-Language": prefs.getString("lang") ?? "ar",
         "paginate": "$page"
       };
-      var response = await http.get(Uri.parse(url), headers: headers);
+      var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES), headers: headers);
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         categoryModel = CategoryModel.fromJson(data);
@@ -63,7 +65,7 @@ class _CategoryBodyState extends State<CategoryBody> {
         isFirstLoadRunning == false &&
         isLoadMoreRunning == false &&
         scrollController.position.extentAfter < 15) {
-      String url = "https://site.modern-it.net/TOOT/public/api/categories";
+     
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "en",
         "paginate": "$page"
@@ -74,7 +76,7 @@ class _CategoryBodyState extends State<CategoryBody> {
       });
       List fetchedPosts = [];
       try {
-        var response = await http.get(Uri.parse(url), headers: headers);
+        var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES), headers: headers);
         var data = jsonDecode(response.body);
         if (data['status'] == true) {
           CategoryModel categoryModel = CategoryModel.fromJson(data);
@@ -157,6 +159,9 @@ class _CategoryBodyState extends State<CategoryBody> {
                                   image: categories[index].image!,
                                   index: index,
                                   press: () {
+                                    setState(() {
+                                      filteringData = false;
+                                    });
                                     CategoryCubit.get(context).getSubsCategory(id: categories[index].id!);
                                     Navigator.push(
                                       context,

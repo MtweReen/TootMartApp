@@ -6,6 +6,7 @@ import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/home/componnent/search_result.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -21,6 +22,8 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
+  bool isSearching = false;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -43,53 +46,84 @@ class _HomeBodyState extends State<HomeBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomTextFormField(
-                  label: "",
-                  hint: LocaleKeys.search_for_products.tr(),
-                  prefix: Image.asset(
-                    "asset/images/search.png",
-                    width: 20,
-                    height: 20,
-                  ),
-                ),
-                const VerticalSpace(value: 2),
-                (HomeCubitCubit.get(context)
-                        .homeModel!
-                        .body!
-                        .images!
-                        .isNotEmpty)
-                    ? HomeSlider(
-                        images: HomeCubitCubit.get(context)
-                            .homeModel!
-                            .body!
-                            .images!,
+                      label: "",
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          HomeCubitCubit.get(context)
+                              .getSearchResult(keyword: value);
+                          setState(() {
+                            isSearching = true;
+                          });
+                        }else{
+                          setState(() {
+                            isSearching = false;
+                          });
+                        }
+                      },
+                      onEditingComplete: () {},
+                      onSaved: (value) {
+                        if (value.isNotEmpty) {
+                          // HomeCubitCubit.get(context)
+                          //     .getSearchResult(keyword: value);
+                        } else {
+                          setState(() {
+                            isSearching = false;
+                          });
+                        }
+                      },
+                      hint: LocaleKeys.search_for_products.tr(),
+                      prefix: Image.asset(
+                        "asset/images/search.png",
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                  
+                (!isSearching)
+                    ? Column(
+                        children: [
+                          const VerticalSpace(value: 2),
+                          (HomeCubitCubit.get(context)
+                                  .homeModel!
+                                  .body!
+                                  .images!
+                                  .isNotEmpty)
+                              ? HomeSlider(
+                                  images: HomeCubitCubit.get(context)
+                                      .homeModel!
+                                      .body!
+                                      .images!,
+                                )
+                              : const SizedBox(),
+                          const VerticalSpace(value: 2),
+                          (HomeCubitCubit.get(context)
+                                  .homeModel!
+                                  .body!
+                                  .categoriesParents!
+                                  .isNotEmpty)
+                              ? CategoryList(
+                                  categories: HomeCubitCubit.get(context)
+                                      .homeModel!
+                                      .body!
+                                      .categoriesParents!,
+                                )
+                              : const SizedBox(),
+                          const VerticalSpace(value: 4),
+                          Text(
+                            translateString("Best Selling Categories",
+                                "الفئات الأكثر مبيعا"),
+                            style: headingStyle.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: colordeepGrey,
+                                fontSize: SizeConfig.screenWidth! * 0.05),
+                          ),
+                          const VerticalSpace(value: 4),
+                          const BestSellerHome(
+                            isScrollable: false,
+                          ),
+                        ],
                       )
-                    : const SizedBox(),
-                const VerticalSpace(value: 2),
-                (HomeCubitCubit.get(context)
-                        .homeModel!
-                        .body!
-                        .categoriesParents!
-                        .isNotEmpty)
-                    ? CategoryList(
-                        categories: HomeCubitCubit.get(context)
-                            .homeModel!
-                            .body!
-                            .categoriesParents!,
-                      )
-                    : const SizedBox(),
-                const VerticalSpace(value: 4),
-                Text(
-                  translateString(
-                      "Best Selling Categories", "الفئات الأكثر مبيعا"),
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: colordeepGrey,
-                      fontSize: SizeConfig.screenWidth! * 0.05),
-                ),
-                const VerticalSpace(value: 4),
-                const BestSellerHome(
-                  isScrollable: false,
-                ),
+                    : const SearchResultBody(),
               ],
             ),
           ),

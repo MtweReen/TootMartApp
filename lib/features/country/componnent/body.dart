@@ -40,18 +40,21 @@ class _CountrySelectionBodyState extends State<CountrySelectionBody> {
             text: (widget.fromSetting == true)
                 ? LocaleKeys.confirm.tr()
                 : translateString("Continue", "استمر"),
-            onTap: () => (widget.fromSetting == true)
-                ?
-                 Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LayoutScreen(
-                              index: 4,
-                            )),
-                    (route) => false): Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const OnBoardingScreen())),
+            onTap: () {
+              prefs.setBool("selection", true);
+              (widget.fromSetting == true)
+                  ? Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LayoutScreen(
+                                index: 4,
+                              )),
+                      (route) => false)
+                  : Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OnBoardingScreen()));
+            },
           ),
         ],
       ),

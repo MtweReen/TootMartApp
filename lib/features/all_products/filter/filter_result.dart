@@ -3,14 +3,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/features/all_products/component/product_card.dart';
-
 import '../../../business_logic/category/category_cubit.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
-import '../../../core/widgets/space_widget.dart';
 import '../../../data/model/filter.dart';
+import '../component/filter_row.dart';
 
 class FilterResultScreen extends StatefulWidget {
   final int categoryId;
@@ -31,25 +31,29 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
 
   void filterProducts() async {
     FilterResultModel? filterResultModel;
-    String url = "https://site.modern-it.net/TOOT/public/api/product/filter";
+    products = [];
     setState(() {
       isFirstLoadRunning = true;
     });
     try {
       Map<String, String> headers = {
-        "Accept-Language": prefs.getString("lang") ?? "en",
+        "Accept-Language": prefs.getString("lang") ?? "ar",
       };
       Map<String, dynamic> body = {
-        "min": 100,
-        "max": 200,
-        "sort": "asc",
+        "min": minPrice.text,
+        "max": maxPrice.text,
+        "sort": selectedOrdering ?? "",
         "category_id": widget.categoryId,
         "paginate": page,
       };
+        print(selectedOrdering);
       Response response = await Dio().post(
-        url,
+        kBaseUrl + FILTER,
         data: body,
-        options: Options(headers: headers),
+        options: Options(
+            followRedirects: false,
+            validateStatus: (status) => true,
+            headers: headers),
       );
 
       if (response.data['status'] == true) {
@@ -71,8 +75,6 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
         isFirstLoadRunning == false &&
         isLoadMoreRunning == false &&
         scrollController.position.extentAfter < 15) {
-      String url = "https://site.modern-it.net/TOOT/public/api/product/filter";
-
       setState(() {
         isLoadMoreRunning = true;
         page++;
@@ -83,18 +85,18 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
           "Accept-Language": prefs.getString("lang") ?? "en",
         };
         Map<String, dynamic> body = {
-          "min": 100,
-          "max": 200,
-          "sort": "asc",
+          "min": minPrice.text,
+          "max": maxPrice.text,
+          "sort": selectedOrdering ??'',
           "category_id": widget.categoryId,
           "paginate": page,
         };
         Response response = await Dio().post(
-          url,
+          kBaseUrl + FILTER,
           data: body,
           options: Options(headers: headers),
         );
-
+      
         if (response.data['status'] == true) {
           FilterResultModel filterResultModel =
               FilterResultModel.fromJson(response.data);
@@ -144,22 +146,15 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  translateString("formations", "تشكيلات"),
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: colordeepGrey,
-                      fontSize: SizeConfig.screenWidth! * 0.05),
-                ),
-                const VerticalSpace(value: 2),
                 (products.isNotEmpty)
-                    ? Expanded(
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.9,
                         child: GridView.builder(
                           controller: scrollController,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.8,
+                            childAspectRatio: 0.6,
                             crossAxisSpacing: 15,
                             mainAxisSpacing: 3,
                           ),
@@ -173,8 +168,9 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
                                 return ProductCardData(
                                   name: products[index].title!,
                                   imge: products[index].image!,
-                                  id: products[index].id,
-                                  price: products[index].price,
+                                  id: products[index].id!,
+                                  price: products[index].price.toString(),
+                                  beforePrice: products[index].priceBefore!,
                                 );
                               },
                             );
@@ -190,7 +186,6 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
                                 "No products here", "لا توجد منتجات"),
                             style: TextStyle(
                                 color: kMainColor,
-                               
                                 fontSize: SizeConfig.screenWidth! * 0.05,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -219,7 +214,6 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
                       child: Text(
                         translateString(
                             "no more products", "لا يوجد مزيد من المنتجات "),
-                       
                       ),
                     ),
                   ),

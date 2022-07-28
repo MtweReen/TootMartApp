@@ -10,6 +10,7 @@ import '../../../core/constants/constants.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../../core/widgets/space_widget.dart';
 import '../../all_products/all_products.dart';
+import '../../all_products/component/filter_row.dart';
 
 class SubCategoryBody extends StatefulWidget {
   final String image;
@@ -95,6 +96,9 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                               const VerticalSpace(value: 2),
                               InkWell(
                                 onTap: () {
+                                  setState(() {
+                                    filteringData = false;
+                                  });
                                   CategoryCubit.get(context).getSubsCategory(
                                       id: CategoryCubit.get(context)
                                           .subcategoryModel!

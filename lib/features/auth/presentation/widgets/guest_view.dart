@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
@@ -12,7 +14,6 @@ import '../../../../core/constants/constants.dart';
 import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
 import '../../../../core/widgets/profile_item.dart';
-import '../../../profile_detail/profile_detail.dart';
 
 class GuestView extends StatelessWidget {
   const GuestView({Key? key}) : super(key: key);
@@ -140,30 +141,47 @@ class GuestView extends StatelessWidget {
                 SizedBox(
                   height: h * 0.04,
                 ),
-                InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => InformationScreen(
-                              title: translateString('Delivery and Returns',
-                                  'التوصيل والمرتجعات')))),
-                  child: ProfileCardItem(
-                      title: translateString(
-                          'Delivery and Returns', 'التوصيل والمرتجعات')),
+                BlocConsumer<SettingCubit, SettingState>(
+                  listener: (context, state) {
+                   
+                  },
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InformationScreen(
+                                  body: SettingCubit.get(context).refundsModel!.body!.refunds!,
+                                  title: translateString('Delivery and Returns',
+                                      'التوصيل والمرتجعات')))),
+                      child: ProfileCardItem(
+                          title: translateString(
+                              'Delivery and Returns', 'التوصيل والمرتجعات')),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => InformationScreen(
-                              title: translateString(
-                                  'privacy policy', 'سياسة الخصوصية')))),
-                  child: ProfileCardItem(
-                      title:
-                          translateString('privacy policy', 'سياسة الخصوصية')),
+                BlocConsumer<SettingCubit, SettingState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InformationScreen(
+                                  body: SettingCubit.get(context)
+                                      .settingModel!
+                                      .body!
+                                      .privacy!,
+                                  title: translateString(
+                                      'privacy policy', 'سياسة الخصوصية')))),
+                      child: ProfileCardItem(
+                          title: translateString(
+                              'privacy policy', 'سياسة الخصوصية')),
+                    );
+                  },
                 ),
                 // SizedBox(
                 //   height: h * 0.06,

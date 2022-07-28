@@ -1,22 +1,23 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
-class FavouriteModel {
+class SearchModel {
   int? code;
   bool? status;
   Body? body;
+  
 
-  FavouriteModel({
-    this.code,
-    this.status,
-    this.body,
-  });
+  SearchModel(
+      {this.code,
+      this.status,
+     
+      this.body,
+      });
 
-  FavouriteModel.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
-
-    body = json['body'] != null ? Body.fromJson(json['body']) : null;
+    body = json['body'] != null ?  Body.fromJson(json['body']) : null;
+  
   }
+
 }
 
 class Body {
@@ -28,16 +29,17 @@ class Body {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(Products.fromJson(v));
+        products!.add( Products.fromJson(v));
       });
     }
   }
+
 }
 
 class Products {
   int? id;
-  var price;
-  var priceBefore;
+  double? price;
+  int? priceBefore;
   String? title;
   String? image;
 
@@ -50,4 +52,5 @@ class Products {
     title = json['title'];
     image = json['image'];
   }
+
 }

@@ -17,11 +17,12 @@ const FILTER_PRODUCTS = 'categories/filter-products';
 
 //Product
 const PRODUCT = 'products/';
-const TOGGEL_FAV ='products/toggle/product';
-const ADD_REVIEW ='add/review';
+const FAVOURITE ='user/favourites';
+const ADD_TO_FAVOURITE ='user/add_to_fav';
 
 //Search
-const SEARCH = 'search/products';
+const SEARCH = 'home_search';
+const FILTER = "product/filter";
 
 //Cart
 const CART = 'cart';
@@ -31,7 +32,8 @@ const CHANGE_QUANTITY = 'change-quantity';
 
 //Home
 const HOME = 'home';
-const SETTINGS = 'settings';
+const SETTINGS = 'rules';
+const CONTACTUS = 'contactus';
 
 //CheckOut
 const GET_CHECK_OUT = 'show/checkout';
