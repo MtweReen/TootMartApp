@@ -31,8 +31,7 @@ class _ShippingViewState extends State<ShippingView> {
             Container(
               color: Colors.green,
               child: ExpansionPanelList(
-                animationDuration:
-                const Duration(milliseconds: 1000),
+                animationDuration: const Duration(milliseconds: 1000),
                 children: [
                   ExpansionPanel(
                     headerBuilder: (context, isExpanded) {
@@ -42,23 +41,30 @@ class _ShippingViewState extends State<ShippingView> {
                           children: const [
                             Text(
                               'ملخص المنتجات',
-                              style: TextStyle(
-                                  color: Colors.black),
+                              style: TextStyle(color: Colors.black),
                             ),
                             VerticalSpace(value: 1),
                             Text(
                               '3 منتجات',
-                              style: TextStyle(
-                                  color: Colors.black),
+                              style: TextStyle(color: Colors.black),
                             ),
                           ],
                         ),
                       );
                     },
-                    body:ListView.builder(
+                    body: ListView.builder(
                       shrinkWrap: true,
                       primary: false,
-                      itemBuilder: (context,index)=>ShoppingItem(context: context, index: index),itemCount: 3,) ,
+                      itemBuilder: (context, index) => ShoppingItem(
+                        context: context,
+                        index: index,
+                        image: '',
+                        name: '',
+                        price: '',
+                        quantity: '',
+                      ),
+                      itemCount: 3,
+                    ),
                     isExpanded: _expanded1,
                     canTapOnHeader: true,
                   ),
@@ -76,21 +82,20 @@ class _ShippingViewState extends State<ShippingView> {
               thickness: 1,
               color: colorLightGrey,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('توصيل سريع(خلال 3-7 ايام عمل)',style: headingStyle.copyWith(color:Colors.black),),
+                  child: Text(
+                    'توصيل سريع(خلال 3-7 ايام عمل)',
+                    style: headingStyle.copyWith(color: Colors.black),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    children: const [
-                      Text('تكاليف الشحن'),
-                      Text('مجاني')
-                    ],
+                    children: const [Text('تكاليف الشحن'), Text('مجاني')],
                   ),
                 )
               ],

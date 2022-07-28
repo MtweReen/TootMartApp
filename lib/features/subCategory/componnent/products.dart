@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/features/detail/product_detail.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../all_products/component/filter_row.dart';
@@ -37,6 +38,7 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
                   setState(() {
                     filteringData = false;
                   });
+                  CategoryCubit.get(context).getProductDetail(id:  widget.products[index].id!);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

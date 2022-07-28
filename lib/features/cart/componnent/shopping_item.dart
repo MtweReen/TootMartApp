@@ -11,10 +11,18 @@ import '../../../core/constants/colors.dart';
 import '../../../core/widgets/custom_quantity.dart';
 
 class ShoppingItem extends StatelessWidget {
+  final String image;
+  final String name;
+  final String price;
+  final String quantity;
   ShoppingItem(
       {Key? key,
       // required this.cartItem,
       required this.context,
+      required this.name,
+      required this.image,
+      required this.price,
+      required this.quantity,
       required this.index,
       this.fromCheckOut})
       : super(key: key);
@@ -26,7 +34,7 @@ class ShoppingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int quantity = 10;
+  
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -44,8 +52,8 @@ class ShoppingItem extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.defaultSize! * 10,
                   child: Image.network(
-                    'https://png.pngtree.com/png-clipart/20210606/original/pngtree-3d-beauty-cosmetics-product-design-png-image_6391024.jpg',
-                    fit: BoxFit.cover,
+                    image,
+                   fit: BoxFit.cover,
                   ),
                 ),
                 const HorizontalSpace(value: 1),
@@ -57,7 +65,7 @@ class ShoppingItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(child: Text('Anas',style: headingStyle.copyWith(fontWeight: FontWeight.bold),),),
+                          Expanded(child: Text(name,style: headingStyle.copyWith(fontWeight: FontWeight.bold),),),
                           IconButton(
                             onPressed: () {},
                             icon: Image.asset(
@@ -72,7 +80,7 @@ class ShoppingItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '500 رس',
+                            '$price رس',
                             style: TextStyle(
                                 fontSize: SizeConfig.defaultSize! * 1.5,color: kMainColor,fontWeight: FontWeight.bold),
                           ),

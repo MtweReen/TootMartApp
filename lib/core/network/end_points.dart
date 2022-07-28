@@ -26,7 +26,7 @@ const FILTER = "product/filter";
 
 //Cart
 const CART = 'cart';
-const ADD_TO_CART = 'add-product-cart';
+const ADD_TO_CART = 'add_to_cart';
 const REMOVE_FROM_CART = 'remove-from-cart';
 const CHANGE_QUANTITY = 'change-quantity';
 

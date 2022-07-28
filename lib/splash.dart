@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/features/country/country.dart';
@@ -24,6 +25,10 @@ class _SplshScreenState extends State<SplshScreen> {
   );
 
   getScreen() {
+     if (prefs.getBool("is_login") == true) {
+      HomeCubitCubit.get(context).getFavourites();
+      CartCubit.get(context).getcart();
+    }
     if (prefs.getBool("selection") == true) {
       if (prefs.getBool("is_onboearding") == true) {
         setState(() {
@@ -46,14 +51,12 @@ class _SplshScreenState extends State<SplshScreen> {
   @override
   void initState() {
     getScreen();
-    HomeCubitCubit().getHomeItems();
-    CategoryCubit().getCategory(page: 1);
-    SettingCubit()
+    HomeCubitCubit.get(context).getHomeItems();
+    CategoryCubit.get(context).getCategory(page: 1);
+    SettingCubit.get(context)
       ..privacypolicy()
       ..refundsPolicy();
-    if (prefs.getBool("is_login") == true) {
-      HomeCubitCubit().getFavourites();
-    }
+   
     Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),
