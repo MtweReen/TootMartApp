@@ -115,7 +115,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 }
               },
               builder: (context, state) {
-                return (state is AddtoCartSuccessState) ?CustomGeneralButton(
+                return (state is !AddtoCartSuccessState) ? CustomGeneralButton(
                   text: translateString("Add to cart", "إضافة الي عربة التسوق"),
                   onTap: () {
                     CartCubit.get(context).addtocart(

@@ -45,7 +45,7 @@ void changePasswordDialog({required BuildContext context}) {
                       style: headingStyle,
                     ),
                   ),
-                  VerticalSpace(value: 2.5),
+                  const VerticalSpace(value: 2.5),
                   Text(
                     LocaleKeys.OLD_PASS.tr(),
                     style: headingStyle.copyWith(
@@ -53,7 +53,7 @@ void changePasswordDialog({required BuildContext context}) {
                         fontWeight: FontWeight.w500,
                         fontSize: 14),
                   ),
-                  VerticalSpace(value: 1),
+                  const VerticalSpace(value: 1),
                   CustomTextFormField(
                     controller: dialogOldPasswordController,
                     isPassword: true,

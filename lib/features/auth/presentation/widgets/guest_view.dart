@@ -249,7 +249,7 @@ void _showCustomDialog(BuildContext context) {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    VerticalSpace(value: 2),
+                    const VerticalSpace(value: 2),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

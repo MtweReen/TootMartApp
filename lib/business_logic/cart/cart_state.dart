@@ -18,6 +18,12 @@ class AddtoCartErrorState extends CartState {
 class GetCartLoadingState extends CartState {}
 
 class GetCartSuccessState extends CartState {}
+class UpdateCartSuccessState extends CartState {}
+class UpdateCartErrorState extends CartState {}
+class CouponAppliedErrorState extends CartState {}
+class CouponAppliedSuccessState extends CartState {}
+class CouponRemovedErrorState extends CartState {}
+class CouponRemovedSuccessState extends CartState {}
 
 class GetCartErrorState extends CartState {
   final String error;

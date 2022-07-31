@@ -68,7 +68,7 @@ class DioHelper {
     required String url,
     FormData? formData,
     Map<String, dynamic>? data,
-    // Map<String, dynamic>? query,
+    Map<String, dynamic>? query,
   }) async {
     dio.options.headers["device-uuid"] = deviceId;
     dio.options.headers["Authorization"] = "Bearer ${kUser!.body!.accessToken}";

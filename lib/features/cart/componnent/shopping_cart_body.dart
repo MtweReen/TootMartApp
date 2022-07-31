@@ -18,33 +18,38 @@ import '../../../business_logic/app_cubit/app_cubit.dart';
 import 'shopping_item.dart';
 
 class ShoppingCartBody extends StatelessWidget {
-  const ShoppingCartBody({Key? key}) : super(key: key);
+  ShoppingCartBody({Key? key}) : super(key: key);
+  var couponController = TextEditingController();
+  bool couponApplied = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
-        if (true) {
+        if (CartCubit.get(context).cartModel!.body!.carts!.isNotEmpty) {
           return SingleChildScrollView(
             child: BlocConsumer<CartCubit, CartState>(
               listener: (context, state) {
-            
+                if (state is CouponAppliedSuccessState) {
+                  couponApplied = true;
+                } else if (state is CouponRemovedSuccessState) {
+                  couponApplied = false;
+                }
               },
               builder: (context, state) {
                 return ConditionalBuilder(
                   condition: state is! GetCartLoadingState,
-                  fallback: (context) => Center(child: CircularProgressIndicator(color: kMainColor,),),
-                  builder: (context) =>Column(
+                  fallback: (context) => Center(
+                    child: CircularProgressIndicator(
+                      color: kMainColor,
+                    ),
+                  ),
+                  builder: (context) => Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           children: [
-                            // if (AppCubit.get(context)
-                            //     .cartModel!
-                            //     .data!
-                            //     .variations!
-                            //     .isNotEmpty)
                             ListView.separated(
                                 shrinkWrap: true,
                                 primary: false,
@@ -73,6 +78,11 @@ class ShoppingCartBody extends StatelessWidget {
                                           .body!
                                           .carts![index]
                                           .quantity!,
+                                      cartId: CartCubit.get(context)
+                                          .cartModel!
+                                          .body!
+                                          .carts![index]
+                                          .id!,
                                     ),
                                 separatorBuilder: (context, index) =>
                                     const VerticalSpace(value: 1),
@@ -93,7 +103,7 @@ class ShoppingCartBody extends StatelessWidget {
                               color: colorLightGrey,
                             ),
                             const VerticalSpace(value: 1.5),
-                
+
                             // if (AppCubit.get(context)
                             //     .cartModel!
                             //     .data!
@@ -136,7 +146,7 @@ class ShoppingCartBody extends StatelessWidget {
                               ),
                             ),
                             const VerticalSpace(value: 2),
-                
+
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
@@ -147,22 +157,52 @@ class ShoppingCartBody extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      decoration: const InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.symmetric(horizontal: 20),
-                                        border: InputBorder.none,
-                                        hintText: 'ادخل الكوبون هنا ',
+                                    child: Container(
+                                      color: couponApplied
+                                          ? kMainColor
+                                          : Colors.transparent,
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                            color: couponApplied
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                        readOnly: couponApplied,
+                                        controller: couponController,
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          border: InputBorder.none,
+                                          hintText: 'ادخل الكوبون هنا ',
+                                        ),
                                       ),
                                     ),
                                   ),
                                   Container(
                                     color: kMainColor,
                                     child: MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if (couponApplied) {
+                                            CartCubit.get(context).RemoveCoupon(
+                                                total: double.parse(
+                                                    CartCubit.get(context)
+                                                        .cartModel!
+                                                        .body!
+                                                        .total!),
+                                                code: couponController.text);
+                                          } else {
+                                            CartCubit.get(context).ApplyCoupon(
+                                                total: double.parse(
+                                                    CartCubit.get(context)
+                                                        .cartModel!
+                                                        .body!
+                                                        .total!),
+                                                code: couponController.text);
+                                          }
+                                        },
                                         minWidth: 1,
                                         child: Text(
-                                          'تفعيل',
+                                          couponApplied ? 'إزالة' : 'تفعيل',
                                           style: headingStyle.copyWith(
                                               color: Colors.white),
                                         )),
@@ -206,8 +246,9 @@ class ShoppingCartBody extends StatelessWidget {
         } else {
           return Container(
               color: Colors.white,
-              child:
-                  Center(child: CircularProgressIndicator(color: kMainColor)));
+              child: Center(
+                  child: Text(translateString(
+                      'No items in your cart', 'لا يوجد منتجات في سلتك'))));
         }
       },
     );

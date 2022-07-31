@@ -61,7 +61,7 @@ class _ShippingViewState extends State<ShippingView> {
                         image: '',
                         name: '',
                         price: '',
-                        quantity: '',
+                        quantity: '', cartId: 0,
                       ),
                       itemCount: 3,
                     ),

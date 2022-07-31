@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/helper/functions/show_toast.dart';
 import 'package:toot_mart/core/network/end_points.dart';
+import 'package:toot_mart/core/network/remote/dio_helper.dart';
 import 'package:toot_mart/data/model/cart.dart';
 import '../../core/constants/constants.dart';
 import '../../data/model/add_to_cart.dart';
+
 part 'cart_state.dart';
+
+enum CartRequestStates { PLUS, MINUS, DELETE }
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
@@ -17,6 +22,7 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
 
   AddtoCartModel? addtoCartModel;
+
   Future<AddtoCartModel>? addtocart({required int productId}) async {
     emit(AddtoCartLoadingState());
     try {
@@ -61,6 +67,7 @@ class CartCubit extends Cubit<CartState> {
   //////////////////////////////////////////////////////////////////////////////////////////////////////
 
   CartModel? cartModel;
+
   Future<CartModel>? getcart() async {
     emit(GetCartLoadingState());
     try {
@@ -73,6 +80,7 @@ class CartCubit extends Cubit<CartState> {
           },
         ),
       );
+      print(response.data);
       if (response.statusCode == 200) {
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
@@ -84,5 +92,84 @@ class CartCubit extends Cubit<CartState> {
       emit(GetCartErrorState(e.toString()));
     }
     return cartModel!;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+String? action;
+  Future<void>? cartUpdate(
+      {required CartRequestStates cartRequestStates,
+      required int cartId}) async {
+    try {
+      switch(cartRequestStates){
+        case CartRequestStates.PLUS: action= 'plus';break;
+        case CartRequestStates.MINUS: action= 'minus';break;
+        case CartRequestStates.DELETE: action= 'delete';break;
+      }
+      Response response = await DioHelper.postLoggedUser(
+          url: CONTROL_CART_ITEM+'?action='+action!,
+          // query: {'action': action},
+          data: {'cart_id': cartId});
+      print(response.data);
+      if (response.statusCode == 200) {
+        getcart();
+        print(response.data);
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(UpdateCartErrorState());
+    }
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<void>? ApplyCoupon(
+      {required double total,
+        required String code}) async {
+    try {
+
+      Response response = await DioHelper.postLoggedUser(
+          url: APPLY_COUPON,
+          data: {
+            'total': total,
+            'code': code,
+
+          });
+      print(response.data);
+      if (response.statusCode == 200) {
+        showToast(msg: 'تم إضافة كوبون', state: ToastStates.SUCCESS);
+        emit(CouponAppliedSuccessState());
+        print(response.data);
+      }else if(response.statusCode == 400){
+        showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(CouponAppliedErrorState());
+    }
+  }//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  Future<void>? RemoveCoupon(
+      {required double total,
+        required String code}) async {
+    try {
+
+      Response response = await DioHelper.postLoggedUser(
+          url: CANCEL_COUPON,
+          data: {
+            'total': total,
+            'code': code,
+
+          });
+      print(response.data);
+      if (response.statusCode == 200) {
+        showToast(msg: 'تم حزف الكوبون', state: ToastStates.SUCCESS);
+        emit(CouponRemovedSuccessState());
+        print(response.data);
+      }else if(response.statusCode == 400){
+        showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(CouponRemovedErrorState());
+    }
   }
 }

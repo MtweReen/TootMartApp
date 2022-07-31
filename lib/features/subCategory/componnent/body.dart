@@ -2,7 +2,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
-import 'package:toot_mart/data/model/subcategory.dart';
 import 'package:toot_mart/features/subCategory/componnent/products.dart';
 
 import '../../../core/constants/colors.dart';

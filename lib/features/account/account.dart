@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,13 +8,11 @@ import 'package:toot_mart/features/auth/presentation/widgets/login_body.dart';
 import 'package:toot_mart/features/auth/presentation/widgets/register_body.dart';
 import 'package:toot_mart/features/auth/presentation/widgets/reset_password_body.dart';
 import 'package:toot_mart/features/orders/presentation/orders_view.dart';
-import 'package:toot_mart/translations/locale_keys.g.dart';
 
 
 import '../../core/constants/constants.dart';
 import '../auth/data/business_logic/auth_state.dart';
 import '../profile_detail/componnent/form.dart';
-import '../profile_detail/profile_detail.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);

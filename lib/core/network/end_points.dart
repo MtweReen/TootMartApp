@@ -27,9 +27,13 @@ const FILTER = "product/filter";
 
 //Cart
 const CART = 'cart';
+const CONTROL_CART_ITEM = 'control_cart_item';
 const ADD_TO_CART = 'add_to_cart';
-const REMOVE_FROM_CART = 'remove-from-cart';
-const CHANGE_QUANTITY = 'change-quantity';
+const APPLY_COUPON = 'submit_coupon';
+const CANCEL_COUPON = 'cancel_coupon';
+
+// const REMOVE_FROM_CART = 'remove-from-cart';
+// const CHANGE_QUANTITY = 'change-quantity';
 
 //Home
 const HOME = 'home';
@@ -44,4 +48,3 @@ const POST_CHECK_OUT = 'checkout';
 const ORDERS = 'orders';
 const REFUND_ORDER = 'order';
 const REFUND_ORDERS = 'get-refund';
-const COUPON = 'checkCode';

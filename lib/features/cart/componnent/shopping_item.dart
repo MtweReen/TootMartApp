@@ -2,6 +2,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 
 import '../../../../core/utiles/size_config.dart';
@@ -15,6 +16,7 @@ class ShoppingItem extends StatelessWidget {
   final String name;
   final String price;
   final String quantity;
+  final int   cartId;
   ShoppingItem(
       {Key? key,
       // required this.cartItem,
@@ -24,7 +26,7 @@ class ShoppingItem extends StatelessWidget {
       required this.price,
       required this.quantity,
       required this.index,
-      this.fromCheckOut})
+      this.fromCheckOut, required this.cartId})
       : super(key: key);
 
   // List<Variation> cartItem;
@@ -34,7 +36,6 @@ class ShoppingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -67,7 +68,9 @@ class ShoppingItem extends StatelessWidget {
                         children: [
                           Expanded(child: Text(name,style: headingStyle.copyWith(fontWeight: FontWeight.bold),),),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              CartCubit.get(context).cartUpdate(cartRequestStates: CartRequestStates.DELETE, cartId: cartId);
+                            },
                             icon: Image.asset(
                               'asset/images/delete.png',
                               height: SizeConfig.defaultSize! * 2,
@@ -90,17 +93,19 @@ class ShoppingItem extends StatelessWidget {
                                 CustomQuantity(child:  Image.asset(
                                   'asset/images/mince.png',
                                 ),onTap: (){
-
+                                  CartCubit.get(context).cartUpdate(cartRequestStates: CartRequestStates.MINUS, cartId: cartId);
                                 },),
 
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('$quantity'),
+                                child: Text(quantity),
                               ),
 
                               CustomQuantity(child:  Image.asset(
                                 'asset/images/plus.png',
-                              ),onTap: (){},),
+                              ),onTap: (){
+                                CartCubit.get(context).cartUpdate(cartRequestStates: CartRequestStates.PLUS, cartId: cartId);
+                              },),
                             ],
                           ),
                         ],

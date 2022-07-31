@@ -20,7 +20,7 @@ class CartModel {
 
 class Body {
   List<Carts>? carts;
-  int? total;
+  String? total;
 
   Body({this.carts, this.total});
 

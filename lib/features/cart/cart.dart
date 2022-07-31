@@ -15,7 +15,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbar(title: 'عربة التسوق', context: context),
-      body: const ShoppingCartBody(),
+      body:  ShoppingCartBody(),
     );
   }
 }
