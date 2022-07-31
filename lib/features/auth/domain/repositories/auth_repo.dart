@@ -18,7 +18,7 @@ abstract class AuthRepo {
       required String email,
       });
 
-  // Future<Either<Exception, String>> SignOut();
+  Future<Either<Exception, String>> SignOut();
   // Future<Either<Exception, String>> changePassword(String oldPassword,String newPassword,String newPasswordConfirmation);
   //
   // Future<Either<Exception, FavouritesModel>> getFavouriteProducts();

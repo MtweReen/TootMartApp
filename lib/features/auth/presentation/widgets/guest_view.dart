@@ -183,9 +183,19 @@ class GuestView extends StatelessWidget {
                     );
                   },
                 ),
-                // SizedBox(
-                //   height: h * 0.06,
-                // ),
+                SizedBox(
+                  height: h * 0.04,
+                ),
+                InkWell(
+                  onTap: () {
+                    AuthCubit.get(context)
+                        .SignOut();
+                    AuthCubit.get(context).changeUserState(AccountStates.LOGIN);
+                  },
+                  child: ProfileCardItem(
+                    title: translateString("Log Out", "تسجيل الخروج"),
+                  ),
+                ),
               ],
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/network/local/cache_helper.dart';
 import '../../../../translations/locale_keys.g.dart';
 import '../../../account/account.dart';
 import '../model/user_model.dart';
@@ -103,20 +104,21 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
-//
-//   Future<User>? SignOut() {
-//     AuthRepositoryImpl().SignOut().then((value) {
-//       if (value != []) {
-//         kUser = null;
-//         CasheHelper.removeData(key: 'User');
-//         showToast(
-//             msg: value.getOrElse(() => 'not signed out'),
-//             state: ToastStates.SUCCESS);
-//         emit(UserSignedOutSuccessfully());
-//       }
-//     });
-//     return null;
-//   }
+
+  Future<UserModel>? SignOut() {
+    AuthRepositoryImpl().SignOut().then((value) {
+      if (value != []) {
+        kUser = null;
+        CasheHelper.removeData(key: 'User');
+        showToast(
+            msg: value.getOrElse(() => 'not signed out'),
+            state: ToastStates.SUCCESS);
+        emit(UserSignedOutSuccessfully());
+      }
+    });
+    return null;
+  }
+
 //   Future<User>? changePassword({
 //   required String oldPassword,
 //   required String newPassword,

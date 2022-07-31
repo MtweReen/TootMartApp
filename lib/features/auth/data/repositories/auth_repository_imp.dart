@@ -77,20 +77,18 @@ class AuthRepositoryImpl extends AuthRepo {
       return Left(Exception(error));
     }
   }
-  //
-  // @override
-  // Future<Either<Exception, String>> SignOut() async {
-  //   try {
-  //     var response = await DioHelper.postLoggedUser(
-  //       url: SIGNOUT,
-  //     );
-  //     //
-  //
-  //     return Right(LocaleKeys.signed_out_successfully.tr());
-  //   } catch (error) {
-  //     return Left(Exception(error));
-  //   }
-  // }
+
+  @override
+  Future<Either<Exception, String>> SignOut() async {
+    try {
+      var response = await DioHelper.postLoggedUser(
+        url: SIGNOUT,
+      );
+      return Right(LocaleKeys.signed_out_successfully.tr());
+    } catch (error) {
+      return Left(Exception(error));
+    }
+  }
 
   // @override
   // Future<Either<Exception, FavouritesModel>> getFavouriteProducts() async {
