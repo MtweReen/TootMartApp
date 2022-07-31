@@ -19,6 +19,7 @@ class EditProfileSuccessState extends AuthStates {}
 
 class UserSignedOutSuccessfully extends AuthStates {}
 class PasswordChangedSuccessfully extends AuthStates {}
+class AccountDeletedSuccessfully extends AuthStates {}
 
 class FavouteProductsLoadingState extends AuthStates {}
 

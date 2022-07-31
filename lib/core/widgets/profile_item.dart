@@ -4,19 +4,22 @@ import '../constants/colors.dart';
 
 class ProfileCardItem extends StatelessWidget {
   final String title;
-  const ProfileCardItem({Key? key, required this.title})
+  final Color? color;
+  const ProfileCardItem({Key? key, required this.title, this.color})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+
     return Container(
       width: double.infinity,
       height: h * 0.07,
       padding: EdgeInsets.only(left: w * 0.02, right: w * 0.02),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:color?? Colors.white,
         borderRadius: BorderRadius.circular(w * 0.02),
         boxShadow: [
           BoxShadow(
@@ -37,14 +40,16 @@ class ProfileCardItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: headingStyle,
+                style: headingStyle.copyWith(
+                  color: color!=null?Colors.white: colordeepGrey
+                ),
               ),
             ],
           ),
           Icon(
            (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_left:Icons.keyboard_arrow_right,
             size: w * 0.1,
-            color: colordeepGrey,
+            color:color!=null?Colors.white: colordeepGrey,
           ),
         ],
       ),

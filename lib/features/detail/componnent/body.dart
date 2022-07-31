@@ -206,6 +206,7 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                 ),
                 const VerticalSpace(value: 2),
                 const SimilarProduct(),
+
               ],
             ),
           ),

@@ -99,6 +99,7 @@ class AuthCubit extends Cubit<AuthStates> {
             msg: 'تم تعديل البيانات بنجاح',
             state: ToastStates.SUCCESS);
         kUser = user;
+        CasheHelper.SaveUser(user: kUser!);
         emit(EditProfileSuccessState());
       }
     });
@@ -119,21 +120,35 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
-//   Future<User>? changePassword({
-//   required String oldPassword,
-//   required String newPassword,
-//   required String newPasswordConfirmation,
-// }) {
-//     AuthRepositoryImpl().changePassword(oldPassword, newPassword, newPasswordConfirmation).then((value) {
-//       if (value != []) {
-//         showToast(
-//             msg: value.getOrElse(() => 'not signed out'),
-//             state: ToastStates.SUCCESS);
-//         emit(PasswordChangedSuccessfully());
-//       }
-//     });
-//     return null;
-//   }
+  Future<User>? changePassword({
+  required String oldPassword,
+  required String newPassword,
+  required String newPasswordConfirmation,
+}) {
+    AuthRepositoryImpl().changePassword(oldPassword, newPassword, newPasswordConfirmation).then((value) {
+      if (value != []) {
+        showToast(
+            msg: value.getOrElse(() => 'not signed out'),
+            state: ToastStates.SUCCESS);
+        emit(PasswordChangedSuccessfully());
+      }
+    });
+    return null;
+  }
+
+  Future<void>? deleteAccount() {
+    AuthRepositoryImpl().deleteAccount().then((value) {
+      if (value != []) {
+        showToast(
+            msg: value.getOrElse(() => 'لم يتم حزف الحساب'),
+            state: ToastStates.SUCCESS);
+        kUser = null;
+        CasheHelper.removeData(key: 'user');
+        emit(AccountDeletedSuccessfully());
+      }
+    });
+    return null;
+  }
   AccountStates? currentUserState;
   changeUserState(AccountStates userState){
     currentUserState = userState;

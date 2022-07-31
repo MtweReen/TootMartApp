@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/profile_detail/componnent/alert.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
@@ -43,7 +44,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               const VerticalSpace(value: 2),
               Center(
                 child: Text(
-                  LocaleKeys.account_details.tr(),
+                  translateString("Account Details", "تفاصيل الحساب"),
                   style: headingStyle.copyWith(color: Colors.black),
                 ),
               ),
@@ -60,7 +61,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               CustomTextFormField(
                 controller: name,
                 focusNode: nameFocuse,
-                hint: kUser!.body!.user!.name,
+                hint:kUser != null? kUser!.body!.user!.name:'',
                 onEditingComplete: () {
                   nameFocuse.unfocus();
                   FocusScope.of(context).requestFocus(emailFocuse);
@@ -79,7 +80,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               CustomTextFormField(
                 controller: email,
                 focusNode: emailFocuse,
-                hint: kUser!.body!.user!.email,
+                hint:kUser != null? kUser!.body!.user!.email:'',
 
                 onEditingComplete: () {
                   emailFocuse.unfocus();
@@ -100,7 +101,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               CustomTextFormField(
                 controller: phone,
                 focusNode: phoneFocuse,
-                hint: kUser!.body!.user!.phone,
+                hint:kUser != null? kUser!.body!.user!.phone:'',
 
                 onEditingComplete: () {
                   phoneFocuse.unfocus();
@@ -109,7 +110,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
               ),
               const VerticalSpace(value: 3),
               CustomGeneralButton(text: LocaleKeys.save_edits.tr(), onTap: () {
-
+                if(formKey.currentState!.validate()){
+                  AuthCubit.get(context).editProfile(name: name.text.isEmpty?kUser!.body!.user!.name!:name.text,
+                      phone: phone.text.isEmpty ? kUser!.body!.user!.phone! : phone.text,
+                      email: email.text.isEmpty ? kUser!.body!.user!.email! : email.text);
+                }
               }),
               const VerticalSpace(value: 1.5),
                Center(

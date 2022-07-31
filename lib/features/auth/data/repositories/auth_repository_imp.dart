@@ -64,10 +64,11 @@ class AuthRepositoryImpl extends AuthRepo {
     try {
       var response = await DioHelper.postLoggedUser(url: EDIT_PROFILE, data: {
         'name': name,
-        'mobile': phone,
+        'phone': phone,
         'email': email,
       });
 
+      print(response);
       UserModel? result;
       if (response.statusCode == 200) {
         result = UserModel.fromJson(response.data);
@@ -85,6 +86,35 @@ class AuthRepositoryImpl extends AuthRepo {
         url: SIGNOUT,
       );
       return Right(LocaleKeys.signed_out_successfully.tr());
+    } catch (error) {
+      return Left(Exception(error));
+    }
+  }
+
+  @override
+  Future<Either<Exception, String>> changePassword(String oldPassword,
+      String newPassword, String newPasswordConfirmation) async {
+    try {
+      var response =
+          await DioHelper.postLoggedUser(url: CHANGE_PASSWORD, data: {
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
+        'newPasswordConfirmation': newPasswordConfirmation,
+      });
+      print(response);
+      return const Right('تم تغير كلمة السر بنجاح');
+    } catch (error) {
+      return Left(Exception(error));
+    }
+  }
+
+  @override
+  Future<Either<Exception, String>> deleteAccount() async{
+    try {
+      var response =
+          await DioHelper.postLoggedUser(url: DELETE_ACCOUNT,);
+      print(response);
+      return const Right('تم حزف الحساب بنجاح . نتمني أن نلتقي مجددا');
     } catch (error) {
       return Left(Exception(error));
     }
@@ -120,24 +150,5 @@ class AuthRepositoryImpl extends AuthRepo {
   // }
 
 
-  //
-  // @override
-  // Future<Either<Exception, String>> changePassword(
-  //     String oldPassword, String newPassword, String newPasswordConfirmation) async{
-  //   try {
-  //     var response = await DioHelper.postLoggedUser(
-  //       url: CHANGE_PASSWORD,
-  //       data: {
-  //         'oldPassword': oldPassword,
-  //         'newPassword': newPassword,
-  //         'newPasswordConfirmation': newPasswordConfirmation,
-  //       }
-  //     );
-  //
-  //
-  //     return const Right('تم تغير كلمة السر بنجاح');
-  //   } catch (error) {
-  //     return Left(Exception(error));
-  //   }
-  // }
+
 }

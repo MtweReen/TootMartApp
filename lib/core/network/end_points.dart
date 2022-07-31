@@ -8,7 +8,8 @@ const LOGIN = 'login';
 const SIGNOUT = 'logout';
 const EDIT_PROFILE = 'edit/profile';
 const CHANGE_PASSWORD = 'change/password';
-const FAVOURITES ='users/fav/product';
+const DELETE_ACCOUNT = 'delete_acc';
+//const FAVOURITES ='users/fav/product';
 
 //CATEGORIES
 const CATEGORIES = 'categories';
