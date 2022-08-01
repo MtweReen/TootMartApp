@@ -44,3 +44,13 @@ class SearchProductsCubitErrorState extends HomeCubitState {
 
   SearchProductsCubitErrorState(this.error);
 }
+
+class RoomsCubitLoadingState extends HomeCubitState {}
+
+class RoomsCubitSuccessState extends HomeCubitState {}
+
+class RoomsCubitErrorState extends HomeCubitState {
+  final String error;
+
+  RoomsCubitErrorState(this.error);
+}

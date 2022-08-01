@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:toot_mart/data/model/home_model.dart';
+import 'package:toot_mart/data/model/room.dart';
 import 'package:toot_mart/data/model/search.dart';
 import '../../core/constants/constants.dart';
 import '../../core/network/end_points.dart';
@@ -132,5 +133,27 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
       emit(SearchProductsCubitErrorState(e.toString()));
     }
     return searchModel!;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  RoomModel? roomModel;
+  Future<RoomModel> getRooms() async {
+    emit(RoomsCubitLoadingState());
+    try {
+      Response response = await Dio().get(
+        kBaseUrl + ROOM,
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      if(response.statusCode == 200){
+        print(response.data);
+        roomModel = RoomModel.fromJson(response.data);
+        emit(RoomsCubitSuccessState());
+        return roomModel!;
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(RoomsCubitErrorState(e.toString()));
+    }
+    return roomModel!;
   }
 }

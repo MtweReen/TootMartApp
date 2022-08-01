@@ -51,7 +51,7 @@ class _SplshScreenState extends State<SplshScreen> {
   @override
   void initState() {
     getScreen();
-    HomeCubitCubit.get(context).getHomeItems();
+    HomeCubitCubit.get(context)..getHomeItems()..getRooms();
     CategoryCubit.get(context).getCategory(page: 1);
     SettingCubit.get(context)
       ..privacypolicy()

@@ -18,8 +18,11 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-
-
+  @override
+  void initState() {
+    HomeCubitCubit.get(context).getFavourites();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,17 +118,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 }
               },
               builder: (context, state) {
-                return (state is !AddtoCartSuccessState) ? CustomGeneralButton(
-                  text: translateString("Add to cart", "إضافة الي عربة التسوق"),
-                  onTap: () {
-                    CartCubit.get(context).addtocart(
-                        productId: CategoryCubit.get(context)
-                            .productDetailModel!
-                            .body!
-                            .products!
-                            .id!);
-                  },
-                ):const SizedBox();
+                return (state is! AddtoCartSuccessState)
+                    ? CustomGeneralButton(
+                        text: translateString(
+                            "Add to cart", "إضافة الي عربة التسوق"),
+                        onTap: () {
+                          CartCubit.get(context).addtocart(
+                              productId: CategoryCubit.get(context)
+                                  .productDetailModel!
+                                  .body!
+                                  .products!
+                                  .id!);
+                        },
+                      )
+                    : const SizedBox();
               },
             ),
           ),

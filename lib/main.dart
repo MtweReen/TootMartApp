@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (BuildContext context) => SocialCubit()),
         BlocProvider(create: (BuildContext context) => CartCubit()),
         BlocProvider(create: (BuildContext context) => SettingCubit()..privacypolicy()..refundsPolicy()),
-        BlocProvider(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()),
+        BlocProvider(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()..getRooms()),
         BlocProvider(
           create: (BuildContext context) => CategoryCubit(),
         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
 
   AddtoCartModel? addtoCartModel;
-
+  Map<int, bool> isinCart = {};
   Future<AddtoCartModel>? addtocart({required int productId}) async {
     emit(AddtoCartLoadingState());
     try {
@@ -37,6 +37,7 @@ class CartCubit extends Cubit<CartState> {
         ),
       );
       if (response.statusCode == 200) {
+        isinCart[productId] = true;
         print(response.data);
         addtoCartModel = AddtoCartModel.fromJson(response.data);
         emit(AddtoCartSuccessState());
@@ -82,6 +83,9 @@ class CartCubit extends Cubit<CartState> {
       );
       print(response.data);
       if (response.statusCode == 200) {
+        for (var element in response.data['body']['carts']) {
+          isinCart[element['product_id']] = true;
+        }
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
         emit(GetCartSuccessState());
@@ -95,18 +99,24 @@ class CartCubit extends Cubit<CartState> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
-String? action;
+  String? action;
   Future<void>? cartUpdate(
       {required CartRequestStates cartRequestStates,
       required int cartId}) async {
     try {
-      switch(cartRequestStates){
-        case CartRequestStates.PLUS: action= 'plus';break;
-        case CartRequestStates.MINUS: action= 'minus';break;
-        case CartRequestStates.DELETE: action= 'delete';break;
+      switch (cartRequestStates) {
+        case CartRequestStates.PLUS:
+          action = 'plus';
+          break;
+        case CartRequestStates.MINUS:
+          action = 'minus';
+          break;
+        case CartRequestStates.DELETE:
+          action = 'delete';
+          break;
       }
       Response response = await DioHelper.postLoggedUser(
-          url: CONTROL_CART_ITEM+'?action='+action!,
+          url: CONTROL_CART_ITEM + '?action=' + action!,
           // query: {'action': action},
           data: {'cart_id': cartId});
       print(response.data);
@@ -122,49 +132,41 @@ String? action;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void>? ApplyCoupon(
-      {required double total,
-        required String code}) async {
+      {required double total, required String code}) async {
     try {
-
-      Response response = await DioHelper.postLoggedUser(
-          url: APPLY_COUPON,
-          data: {
-            'total': total,
-            'code': code,
-
-          });
+      Response response =
+          await DioHelper.postLoggedUser(url: APPLY_COUPON, data: {
+        'total': total,
+        'code': code,
+      });
       print(response.data);
       if (response.statusCode == 200) {
         showToast(msg: 'تم إضافة كوبون', state: ToastStates.SUCCESS);
         emit(CouponAppliedSuccessState());
         print(response.data);
-      }else if(response.statusCode == 400){
+      } else if (response.statusCode == 400) {
         showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
       }
     } catch (e) {
       print(e.toString());
       emit(CouponAppliedErrorState());
     }
-  }//////////////////////////////////////////////////////////////////////////////////////////////////////
+  } //////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void>? RemoveCoupon(
-      {required double total,
-        required String code}) async {
+      {required double total, required String code}) async {
     try {
-
-      Response response = await DioHelper.postLoggedUser(
-          url: CANCEL_COUPON,
-          data: {
-            'total': total,
-            'code': code,
-
-          });
+      Response response =
+          await DioHelper.postLoggedUser(url: CANCEL_COUPON, data: {
+        'total': total,
+        'code': code,
+      });
       print(response.data);
       if (response.statusCode == 200) {
         showToast(msg: 'تم حزف الكوبون', state: ToastStates.SUCCESS);
         emit(CouponRemovedSuccessState());
         print(response.data);
-      }else if(response.statusCode == 400){
+      } else if (response.statusCode == 400) {
         showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
       }
     } catch (e) {

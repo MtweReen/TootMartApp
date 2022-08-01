@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, must_be_immutable
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
@@ -35,6 +37,7 @@ class ShoppingCartBody extends StatelessWidget {
                 } else if (state is CouponRemovedSuccessState) {
                   couponApplied = false;
                 }
+                
               },
               builder: (context, state) {
                 return ConditionalBuilder(
@@ -245,10 +248,16 @@ class ShoppingCartBody extends StatelessWidget {
           );
         } else {
           return Container(
-              color: Colors.white,
-              child: Center(
-                  child: Text(translateString(
-                      'No items in your cart', 'لا يوجد منتجات في سلتك'))));
+            color: Colors.white,
+            child: Center(
+              child: Text(
+                translateString(
+                    'No items in your cart', 'لا يوجد منتجات في سلتك'),
+                style: headingStyle.copyWith(
+                    color: kMainColor, fontWeight: FontWeight.bold),
+              ),
+            ),
+          );
         }
       },
     );

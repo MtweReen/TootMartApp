@@ -48,3 +48,4 @@ const POST_CHECK_OUT = 'checkout';
 const ORDERS = 'orders';
 const REFUND_ORDER = 'order';
 const REFUND_ORDERS = 'get-refund';
+const ROOM = "showrooms";
