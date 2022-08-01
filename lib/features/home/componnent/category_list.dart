@@ -41,10 +41,10 @@ class _CategoryListState extends State<CategoryList> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    widget.categories[index].image.toString(),
-                    fit: BoxFit.cover,
-                  ),
+                  child: customCachedNetworkImage(
+                      url: widget.categories[index].image.toString(),
+                      fit: BoxFit.cover,
+                      context: context),
                 ),
               ),
               Padding(

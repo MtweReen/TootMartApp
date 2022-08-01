@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/features/detail/product_detail.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../all_products/component/filter_row.dart';
@@ -38,7 +39,8 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
                   setState(() {
                     filteringData = false;
                   });
-                  CategoryCubit.get(context).getProductDetail(id:  widget.products[index].id!);
+                  CategoryCubit.get(context)
+                      .getProductDetail(id: widget.products[index].id!);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -47,9 +49,10 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
                 child: SizedBox(
                   // height: SizeConfig.screenHeight! * 0.3,
                   child: ClipRRect(
-                    child: Image.network(
-                      widget.products[index].image.toString(),
+                    child: customCachedNetworkImage(
+                      url: widget.products[index].image.toString(),
                       fit: BoxFit.cover,
+                      context: context,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),

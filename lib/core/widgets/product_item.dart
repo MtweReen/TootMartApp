@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import '../utiles/size_config.dart';
 
@@ -25,7 +26,7 @@ class ProductItem extends StatelessWidget {
           children: [
             SizedBox(
               // height: SizeConfig.defaultSize!*22,
-              child: Image.network(image, fit: BoxFit.cover,)
+              child: customCachedNetworkImage( url: image, fit: BoxFit.cover,context: context)
             ),
             const VerticalSpace(value: 1),
             Text(

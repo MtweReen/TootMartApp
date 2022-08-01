@@ -58,7 +58,8 @@ class ProductCardData extends StatelessWidget {
                   color: Colors.white,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(imge, fit: BoxFit.cover)),
+                      child: customCachedNetworkImage(
+                          url: imge, fit: BoxFit.cover, context: context)),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -76,7 +77,7 @@ class ProductCardData extends StatelessWidget {
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
-                              if ( prefs.getBool("is_login") == true) {
+                              if (prefs.getBool("is_login") == true) {
                                 HomeCubitCubit.get(context)
                                     .addtoFavourites(productId: id);
                               } else {

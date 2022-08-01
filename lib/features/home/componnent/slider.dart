@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 
+import '../../../core/constants/constants.dart';
+
 class HomeSlider extends StatefulWidget {
- final List<String> images ;
-  const HomeSlider({Key? key,required this.images}) : super(key: key);
+  final List<String> images;
+  const HomeSlider({Key? key, required this.images}) : super(key: key);
 
   @override
   State<HomeSlider> createState() => _HomeSliderState();
@@ -25,9 +27,11 @@ class _HomeSliderState extends State<HomeSlider> {
             alignment: Alignment.bottomCenter),
         itemBuilder: (BuildContext context, int i) {
           return InkWell(
-            child: Image.network(
-               widget.images[i],
-                fit: BoxFit.cover),
+            child: customCachedNetworkImage(
+              fit: BoxFit.cover,
+              context: context,
+              url: widget.images[i],
+            ),
             focusColor: Colors.transparent,
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
