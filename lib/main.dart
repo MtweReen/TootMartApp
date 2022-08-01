@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
+import 'package:toot_mart/business_logic/checkout/checkout_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
 import 'package:toot_mart/business_logic/social/socialCubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/splash.dart';
 import 'business_logic/app_cubit/app_cubit.dart';
 import 'core/constants/colors.dart';
@@ -68,12 +70,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => AppCubit()),
-        BlocProvider(create: (BuildContext context) => AuthCubit()),
-        BlocProvider(create: (BuildContext context) => SocialCubit()),
-        BlocProvider(create: (BuildContext context) => CartCubit()),
-        BlocProvider(create: (BuildContext context) => SettingCubit()..privacypolicy()..refundsPolicy()),
-        BlocProvider(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()..getRooms()),
+        BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()),
+        BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()),
+        BlocProvider<SocialCubit>(create: (BuildContext context) => SocialCubit()),
+        BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
+        BlocProvider<CheckOutCubit>(create: (BuildContext context) => CheckOutCubit()),
+        BlocProvider<SettingCubit>(create: (BuildContext context) => SettingCubit()..privacypolicy()..refundsPolicy()),
+        BlocProvider<HomeCubitCubit>(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()..getRooms()),
         BlocProvider(
           create: (BuildContext context) => CategoryCubit(),
         ),
