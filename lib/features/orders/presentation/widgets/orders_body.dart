@@ -107,21 +107,6 @@ class OrdersBody extends StatelessWidget {
                 ],
               ),
             );
-          } else {
-            if (kUser == null) {
-              return Center(
-                child: Text(
-                  LocaleKeys.you_must_signup_first.tr(),
-                  style: TextStyle(
-                      color: kMainColor,
-                      fontSize: SizeConfig.defaultSize! * 2,
-                      fontWeight: FontWeight.bold),
-                ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(color: kMainColor),
-            );
           }
         },
       );

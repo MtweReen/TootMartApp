@@ -1,5 +1,5 @@
 
-// ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print
+// ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print, non_constant_identifier_names, duplicate_ignore
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/helper/functions/show_toast.dart';

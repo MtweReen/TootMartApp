@@ -14,6 +14,7 @@ import '../../data/model/add_to_cart.dart';
 
 part 'cart_state.dart';
 
+// ignore: constant_identifier_names
 enum CartRequestStates { PLUS, MINUS, DELETE }
 
 class CartCubit extends Cubit<CartState> {
@@ -23,14 +24,13 @@ class CartCubit extends Cubit<CartState> {
 
   AddtoCartModel? addtoCartModel;
   Map<int, bool> isinCart = {};
-  Future<AddtoCartModel>? addtocart({required int productId,required int quantity}) async {
+  Future<AddtoCartModel>? addtocart(
+      {required int productId, required int quantity}) async {
     emit(AddtoCartLoadingState());
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_TO_CART,
-        data: {"product_id": 1,
-          'quantity': 1
-        },
+        data: {"product_id": 1, 'quantity': 1},
         options: Options(
           headers: {
             "Authorization": "Bearer ${kUser!.body!.accessToken!}",
@@ -70,7 +70,6 @@ class CartCubit extends Cubit<CartState> {
   //////////////////////////////////////////////////////////////////////////////////////////////////////
 
   CartModel? cartModel;
-
   Future<CartModel>? getcart() async {
     emit(GetCartLoadingState());
     try {
@@ -86,7 +85,7 @@ class CartCubit extends Cubit<CartState> {
       print(response.data);
       if (response.statusCode == 200) {
         for (var element in response.data['body']['carts']) {
-          isinCart[element['product_id']] = true;
+          isinCart[int.parse(element['product_id'].toString())] = true;
         }
         print(response.data);
         cartModel = CartModel.fromJson(response.data);

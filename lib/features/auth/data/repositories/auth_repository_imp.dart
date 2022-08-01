@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_print, non_constant_identifier_names, duplicate_ignore
+
 import 'package:dartz/dartz.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/end_points.dart';

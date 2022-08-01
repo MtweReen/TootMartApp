@@ -49,12 +49,16 @@ class ShoppingItem extends StatelessWidget {
               border: Border.all(color: colorLightGrey),
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              
               children: [
                 SizedBox(
-                  height: SizeConfig.defaultSize! * 10,
-                  child: Image.network(
-                    image,
-                   fit: BoxFit.cover,
+                  height: SizeConfig.screenHeight! * 0.2,
+                 width: SizeConfig.screenWidth! *0.2,
+                  child: customCachedNetworkImage(
+                    url:image,
+                    context: context,
+                   fit: BoxFit.contain,
                   ),
                 ),
                 const HorizontalSpace(value: 1),

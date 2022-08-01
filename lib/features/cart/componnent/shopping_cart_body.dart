@@ -26,240 +26,201 @@ class ShoppingCartBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubit, AppState>(
-      builder: (context, state) {
-        if (CartCubit.get(context).cartModel!.body!.carts!.isNotEmpty) {
-          return SingleChildScrollView(
-            child: BlocConsumer<CartCubit, CartState>(
-              listener: (context, state) {
-                if (state is CouponAppliedSuccessState) {
-                  couponApplied = true;
-                } else if (state is CouponRemovedSuccessState) {
-                  couponApplied = false;
-                }
-                
-              },
-              builder: (context, state) {
-                return ConditionalBuilder(
-                  condition: state is! GetCartLoadingState,
-                  fallback: (context) => Center(
-                    child: CircularProgressIndicator(
-                      color: kMainColor,
-                    ),
-                  ),
-                  builder: (context) => Column(
+    return SingleChildScrollView(
+      child: BlocConsumer<CartCubit, CartState>(
+        listener: (context, state) {
+          if (state is CouponAppliedSuccessState) {
+            couponApplied = true;
+          } else if (state is CouponRemovedSuccessState) {
+            couponApplied = false;
+          }
+        },
+        builder: (context, state) {
+          return ConditionalBuilder(
+            condition: state is! GetCartLoadingState,
+            fallback: (context) => Center(
+              child: CircularProgressIndicator(
+                color: kMainColor,
+              ),
+            ),
+            builder: (context) => Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            ListView.separated(
-                                shrinkWrap: true,
-                                primary: false,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => ShoppingItem(
-                                      context: context,
-                                      index: index,
-                                      image: CartCubit.get(context)
-                                          .cartModel!
-                                          .body!
-                                          .carts![index]
-                                          .productImage!,
-                                      name: CartCubit.get(context)
-                                          .cartModel!
-                                          .body!
-                                          .carts![index]
-                                          .productTitle!,
-                                      price: CartCubit.get(context)
-                                          .cartModel!
-                                          .body!
-                                          .carts![index]
-                                          .price!
-                                          .toString(),
-                                      quantity: CartCubit.get(context)
-                                          .cartModel!
-                                          .body!
-                                          .carts![index]
-                                          .quantity!,
-                                      cartId: CartCubit.get(context)
-                                          .cartModel!
-                                          .body!
-                                          .carts![index]
-                                          .id!,
-                                    ),
-                                separatorBuilder: (context, index) =>
-                                    const VerticalSpace(value: 1),
-                                itemCount: CartCubit.get(context)
+                      ListView.separated(
+                          shrinkWrap: true,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => ShoppingItem(
+                                context: context,
+                                index: index,
+                                image: CartCubit.get(context)
                                     .cartModel!
                                     .body!
-                                    .carts!
-                                    .length),
-                            const VerticalSpace(value: 1.5),
+                                    .carts![index]
+                                    .productImage!,
+                                name: CartCubit.get(context)
+                                    .cartModel!
+                                    .body!
+                                    .carts![index]
+                                    .productTitle!,
+                                price: CartCubit.get(context)
+                                    .cartModel!
+                                    .body!
+                                    .carts![index]
+                                    .price!
+                                    .toString(),
+                                quantity: CartCubit.get(context)
+                                    .cartModel!
+                                    .body!
+                                    .carts![index]
+                                    .quantity!,
+                                cartId: CartCubit.get(context)
+                                    .cartModel!
+                                    .body!
+                                    .carts![index]
+                                    .id!,
+                              ),
+                          separatorBuilder: (context, index) =>
+                              const VerticalSpace(value: 1),
+                          itemCount: CartCubit.get(context)
+                              .cartModel!
+                              .body!
+                              .carts!
+                              .length),
+                      const VerticalSpace(value: 1.5),
+                      Text(
+                        'الأسعار بالريال السعودى شاملة 15% ضريبة',
+                        style: headingStyle.copyWith(color: colorGrey),
+                      ),
+                      const VerticalSpace(value: 1.5),
+                      Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: colorLightGrey,
+                      ),
+                      const VerticalSpace(value: 1.5),
+
+                   
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.grey.shade300),
+                        child: Row(
+                          children: [
                             Text(
-                              'الأسعار بالريال السعودى شاملة 15% ضريبة',
-                              style: headingStyle.copyWith(color: colorGrey),
+                              LocaleKeys.total.tr(),
+                              style: TextStyle(
+                                  fontSize: SizeConfig.defaultSize! * 2),
                             ),
-                            const VerticalSpace(value: 1.5),
-                            Divider(
-                              thickness: 1,
-                              height: 1,
-                              color: colorLightGrey,
-                            ),
-                            const VerticalSpace(value: 1.5),
-
-                            // if (AppCubit.get(context)
-                            //     .cartModel!
-                            //     .data!
-                            //     .variations!
-                            //     .isEmpty)
-                            //   SizedBox(
-                            //       height: SizeConfig.defaultSize! * 32,
-                            //       child: Center(
-                            //         child: Text(
-                            //           'LocaleKeys.shopping_cart_empty.tr()',
-                            //           style: TextStyle(
-                            //               color: Colors.white,
-                            //               fontSize: SizeConfig.defaultSize! * 2),
-                            //         ),
-                            //       )),
-                            // if (AppCubit.get(context)
-                            //     .cartModel!
-                            //     .data!
-                            //     .variations!
-                            //     .isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.grey.shade300),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    LocaleKeys.total.tr(),
-                                    style: TextStyle(
-                                        fontSize: SizeConfig.defaultSize! * 2),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    '${CartCubit.get(context).cartModel!.body!.total!} رس',
-                                    style: TextStyle(
-                                        fontSize: SizeConfig.defaultSize! * 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const VerticalSpace(value: 2),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: kMainColor, width: 2),
-                                color: Colors.white,
-                              ),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      color: couponApplied
-                                          ? kMainColor
-                                          : Colors.transparent,
-                                      child: TextFormField(
-                                        style: TextStyle(
-                                            color: couponApplied
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                        readOnly: couponApplied,
-                                        controller: couponController,
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          border: InputBorder.none,
-                                          hintText: 'ادخل الكوبون هنا ',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: kMainColor,
-                                    child: MaterialButton(
-                                        onPressed: () {
-                                          if (couponApplied) {
-                                            CartCubit.get(context).RemoveCoupon(
-                                                total: double.parse(
-                                                    CartCubit.get(context)
-                                                        .cartModel!
-                                                        .body!
-                                                        .total!),
-                                                code: couponController.text);
-                                          } else {
-                                            CartCubit.get(context).ApplyCoupon(
-                                                total: double.parse(
-                                                    CartCubit.get(context)
-                                                        .cartModel!
-                                                        .body!
-                                                        .total!),
-                                                code: couponController.text);
-                                          }
-                                        },
-                                        minWidth: 1,
-                                        child: Text(
-                                          couponApplied ? 'إزالة' : 'تفعيل',
-                                          style: headingStyle.copyWith(
-                                              color: Colors.white),
-                                        )),
-                                  )
-                                ],
-                              ),
+                            const Spacer(),
+                            Text(
+                              '${CartCubit.get(context).cartModel!.body!.total!} رس',
+                              style: TextStyle(
+                                  fontSize: SizeConfig.defaultSize! * 2),
                             ),
                           ],
                         ),
                       ),
-                      const CheckOutBill(),
-                      const VerticalSpace(value: 5),
-                      // if (AppCubit.get(context)
-                      //     .cartModel!
-                      //     .data!
-                      //     .variations!
-                      //     .isNotEmpty)
-                      CustomGeneralButton(
-                          text: 'إتمام عملية الشراء',
-                          withBorder: true,
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CheckoutScreen()));
-                            // if (kUser != null) {
-                            //   MagicRouter.navigateAndPopUntilFirstPage(
-                            //       const CheckOutView());
-                            // } else {
-                            //   _showCustomDialog(context);
-                            // }
-                          }),
-                      const VerticalSpace(value: 1),
+                      const VerticalSpace(value: 2),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: kMainColor, width: 2),
+                          color: Colors.white,
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: couponApplied
+                                    ? kMainColor
+                                    : Colors.transparent,
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      color: couponApplied
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                  readOnly: couponApplied,
+                                  controller: couponController,
+                                  decoration: const InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    border: InputBorder.none,
+                                    hintText: 'ادخل الكوبون هنا ',
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: kMainColor,
+                              child: MaterialButton(
+                                  onPressed: () {
+                                    if (couponApplied) {
+                                      CartCubit.get(context).RemoveCoupon(
+                                          total: double.parse(
+                                              CartCubit.get(context)
+                                                  .cartModel!
+                                                  .body!
+                                                  .total!),
+                                          code: couponController.text);
+                                    } else {
+                                      CartCubit.get(context).ApplyCoupon(
+                                          total: double.parse(
+                                              CartCubit.get(context)
+                                                  .cartModel!
+                                                  .body!
+                                                  .total!),
+                                          code: couponController.text);
+                                    }
+                                  },
+                                  minWidth: 1,
+                                  child: Text(
+                                    couponApplied ? 'إزالة' : 'تفعيل',
+                                    style: headingStyle.copyWith(
+                                        color: Colors.white),
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                );
-              },
+                ),
+                const CheckOutBill(),
+                const VerticalSpace(value: 5),
+                // if (AppCubit.get(context)
+                //     .cartModel!
+                //     .data!
+                //     .variations!
+                //     .isNotEmpty)
+                CustomGeneralButton(
+                    text: 'إتمام عملية الشراء',
+                    withBorder: true,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CheckoutScreen()));
+                      // if (kUser != null) {
+                      //   MagicRouter.navigateAndPopUntilFirstPage(
+                      //       const CheckOutView());
+                      // } else {
+                      //   _showCustomDialog(context);
+                      // }
+                    }),
+                const VerticalSpace(value: 1),
+              ],
             ),
           );
-        } else {
-          return Container(
-            color: Colors.white,
-            child: Center(
-              child: Text(
-                translateString(
-                    'No items in your cart', 'لا يوجد منتجات في سلتك'),
-                style: headingStyle.copyWith(
-                    color: kMainColor, fontWeight: FontWeight.bold),
-              ),
-            ),
-          );
-        }
-      },
+        },
+      ),
     );
   }
 }

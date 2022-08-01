@@ -1,9 +1,12 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+
 import 'package:dartz/dartz.dart';
 
 import '../../data/model/user_model.dart';
 
 abstract class AuthRepo {
   Future<Either<Exception, UserModel>> loginWithEmailAndPassword(
+      // ignore: non_constant_identifier_names
       {required String Username, required String Password});
 
   Future<Either<Exception, UserModel>> registerWithEmailAndPassword(

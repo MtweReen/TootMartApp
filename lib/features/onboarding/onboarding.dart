@@ -190,8 +190,6 @@ class SplashContent extends StatelessWidget {
 
 AnimatedContainer buildOnBoardingDot(
     {required int index, required int currentPage, required context}) {
-  double h = MediaQuery.of(context).size.height;
-  double w = MediaQuery.of(context).size.width;
 
   return AnimatedContainer(
     duration: const Duration(milliseconds: 250),
