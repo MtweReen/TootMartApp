@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(context: context, title: LocaleKeys.home.tr()),
+      appBar: customAppbar(context: context, title: LocaleKeys.home.tr(),inLayout:true ),
       body: const HomeBody(),
      
     );

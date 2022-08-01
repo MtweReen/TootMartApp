@@ -20,7 +20,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(title: translateString("favourite", "المفضلة"), context: context),
+      appBar: customAppbar(title: translateString("favourite", "المفضلة"), context: context,inLayout:true),
       body: const FavouriteBody(),
       
     );

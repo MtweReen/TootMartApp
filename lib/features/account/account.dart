@@ -28,7 +28,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: customAppbar(context: context,title: translateString("My Account", "حسابي"),press: (){
+      appBar: customAppbar(inLayout:true,context: context,title: translateString("My Account", "حسابي"),press: (){
         AuthCubit.get(context).changeUserState(AccountStates.GUEST);
       }),
       body:BlocBuilder<AuthCubit,AuthStates>(

@@ -48,7 +48,7 @@ String translateString(String a, String b) {
 }
 
 ////////////////////////////////////////////////////////////
-customAppbar({required String title, required context, VoidCallback? press}) {
+customAppbar({required String title, required context, VoidCallback? press,bool? inLayout}) {
   return AppBar(
     elevation: 3,
     backgroundColor: Colors.white,
@@ -61,13 +61,13 @@ customAppbar({required String title, required context, VoidCallback? press}) {
           fontWeight: FontWeight.w700,
           fontSize: MediaQuery.of(context).size.width * 0.04),
     ),
-    leading: InkWell(
+    leading:inLayout==false||inLayout==null? InkWell(
       onTap: press,
       child: const Icon(
         Icons.arrow_back_ios,
         color: Colors.black,
       ),
-    ),
+    ):null,
   );
 }
 /////////////////////////////////////////////////////////////
@@ -103,8 +103,8 @@ customCachedNetworkImage(
                 fit: fit,
                 placeholder: (context, url) => Container(
                   color: kMainColor,
-                      width: MediaQuery.of(context).size.width * 0.02,
-                      height: MediaQuery.of(context).size.height * 0.02,
+                      // width: MediaQuery.of(context).size.width * 0.02,
+                      // height: MediaQuery.of(context).size.height * 0.02,
                       child: Image.asset(
                         "asset/images/logo.png",
                         fit: BoxFit.contain,

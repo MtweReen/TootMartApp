@@ -14,7 +14,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(title: 'عربة التسوق', context: context),
+      appBar: customAppbar(title: 'عربة التسوق', context: context,inLayout:true),
       body:  ShoppingCartBody(),
     );
   }
