@@ -3,6 +3,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/local/cache_helper.dart';
@@ -38,6 +40,8 @@ class LoginView extends StatelessWidget {
           kUser = AuthCubit.get(context).user;
           // MagicRouter.navigateTo(const LayoutScreen(index: 0,));
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
+          CartCubit.get(context).getcart();
+          HomeCubitCubit.get(context).getFavourites();
         }
       },
       builder: (context, state) {

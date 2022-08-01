@@ -84,6 +84,7 @@ class CartCubit extends Cubit<CartState> {
       );
       print(response.data);
       if (response.statusCode == 200) {
+        print('askldjfbasdkljbfalsdf');
         for (var element in response.data['body']['carts']) {
           isinCart[int.parse(element['product_id'].toString())] = true;
         }

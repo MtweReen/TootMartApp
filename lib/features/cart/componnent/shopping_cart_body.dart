@@ -43,7 +43,7 @@ class ShoppingCartBody extends StatelessWidget {
                 color: kMainColor,
               ),
             ),
-            builder: (context) => Column(
+            builder: (context) => (prefs.getBool("is_login") == true)? Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -217,6 +217,18 @@ class ShoppingCartBody extends StatelessWidget {
                     }),
                 const VerticalSpace(value: 1),
               ],
+            ): Padding(
+              padding:  EdgeInsets.only(top: SizeConfig.screenHeight! * 0.3),
+              child: Center(
+                child: Text(
+                  translateString(
+                      "you must login first", "يجب تسجيل الدخول اولا "),
+                  style: headingStyle.copyWith(
+                      color: kMainColor,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
             ),
           );
         },
