@@ -13,6 +13,7 @@ import '../../../core/widgets/custom_quantity.dart';
 import 'similar_product.dart';
 
 class ProductDetailBody extends StatefulWidget {
+  static int counter = 1;
   const ProductDetailBody({Key? key}) : super(key: key);
 
   @override
@@ -20,8 +21,6 @@ class ProductDetailBody extends StatefulWidget {
 }
 
 class _ProductDetailBodyState extends State<ProductDetailBody> {
-  int counter = 1;
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -81,43 +80,45 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                             'asset/images/mince.png',
                           ),
                           onTap: () {
-                            if (counter == 1) {
+                            if (ProductDetailBody.counter == 1) {
                               setState(() {
-                                counter = counter;
+                                ProductDetailBody.counter =
+                                    ProductDetailBody.counter;
                               });
                             } else {
                               setState(() {
-                                counter--;
+                                ProductDetailBody.counter--;
                               });
                             }
                           },
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("$counter"),
+                          child: Text("${ProductDetailBody.counter}"),
                         ),
                         CustomQuantity(
                           child: Image.asset(
                             'asset/images/plus.png',
                           ),
                           onTap: () {
-                            if (counter <
+                            if (ProductDetailBody.counter <
                                 num.parse(CategoryCubit.get(context)
                                     .productDetailModel!
                                     .body!
                                     .products!
                                     .stock!)) {
                               setState(() {
-                                counter++;
+                                ProductDetailBody.counter++;
                               });
-                            } else if (counter ==
+                            } else if (ProductDetailBody.counter ==
                                 num.parse(CategoryCubit.get(context)
                                     .productDetailModel!
                                     .body!
                                     .products!
                                     .stock!)) {
                               setState(() {
-                                counter = counter;
+                                ProductDetailBody.counter =
+                                    ProductDetailBody.counter;
                                 Fluttertoast.showToast(
                                     msg: translateString(
                                         "available quantity is only ${CategoryCubit.get(context).productDetailModel!.body!.products!.stock!}",
@@ -135,39 +136,53 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                   ],
                 ),
                 const VerticalSpace(value: 2),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    (CategoryCubit.get(context)
-                                .productDetailModel!
-                                .body!
-                                .products!
-                                .stock !=
-                            "0")
-                        ? Row(
-                            children: [
-                              CircleAvatar(
-                                radius: SizeConfig.screenWidth! * 0.02,
-                                backgroundColor: colordeepGreen,
-                              ),
-                              const HorizontalSpace(value: 1),
-                              Text(
-                                translateString("available", "متوفر"),
-                                style: headingStyle,
-                              ),
-                            ],
-                          )
-                        : const SizedBox(),
-                    Text(
-                      "${CategoryCubit.get(context).productDetailModel!.body!.products!.price} R.S",
-                      style: headingStyle.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: kMainColor,
-                          fontSize: SizeConfig.screenWidth! * 0.05),
-                    ),
-                  ],
-                ),
+                (CategoryCubit.get(context)
+                            .productDetailModel!
+                            .body!
+                            .products!
+                            .stock !=
+                        "0")
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          (CategoryCubit.get(context)
+                                      .productDetailModel!
+                                      .body!
+                                      .products!
+                                      .stock !=
+                                  "0")
+                              ? Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: SizeConfig.screenWidth! * 0.02,
+                                      backgroundColor: colordeepGreen,
+                                    ),
+                                    const HorizontalSpace(value: 1),
+                                    Text(
+                                      translateString("available", "متوفر"),
+                                      style: headingStyle,
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
+                          Text(
+                            "${CategoryCubit.get(context).productDetailModel!.body!.products!.price} R.S",
+                            style: headingStyle.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: kMainColor,
+                                fontSize: SizeConfig.screenWidth! * 0.05),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: Text(
+                          translateString("product is unavailable",
+                              "المنتج غير متوفر حاليا "),
+                          style: headingStyle.copyWith(
+                              color: colorRed, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                 const VerticalSpace(value: 2),
                 Divider(
                   color: colorGrey,
@@ -206,7 +221,6 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                 ),
                 const VerticalSpace(value: 2),
                 const SimilarProduct(),
-
               ],
             ),
           ),
