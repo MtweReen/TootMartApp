@@ -23,12 +23,14 @@ class CartCubit extends Cubit<CartState> {
 
   AddtoCartModel? addtoCartModel;
   Map<int, bool> isinCart = {};
-  Future<AddtoCartModel>? addtocart({required int productId}) async {
+  Future<AddtoCartModel>? addtocart({required int productId,required int quantity}) async {
     emit(AddtoCartLoadingState());
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_TO_CART,
-        data: {"product_id": productId.toString()},
+        data: {"product_id": 1,
+          'quantity': 1
+        },
         options: Options(
           headers: {
             "Authorization": "Bearer ${kUser!.body!.accessToken!}",

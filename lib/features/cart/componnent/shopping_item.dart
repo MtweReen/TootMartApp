@@ -98,7 +98,7 @@ class ShoppingItem extends StatelessWidget {
 
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(quantity),
+                                child: Text(quantity.toString()),
                               ),
 
                               CustomQuantity(child:  Image.asset(

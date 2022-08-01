@@ -14,8 +14,6 @@ class DioHelper {
         headers: {
           'Accept-Language': 'ar',
           'Accept': 'application/json',
-
-
         },
         // isEn(MagicRouter.currentContext)?'en':
         receiveDataWhenStatusError: true,
@@ -75,6 +73,7 @@ class DioHelper {
     return dio.post(
       url,
       data: formData ?? data,
+      queryParameters: query??null,
     );
   }
 

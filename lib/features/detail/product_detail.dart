@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -128,7 +130,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   .productDetailModel!
                                   .body!
                                   .products!
-                                  .id!);
+                                  .id!,quantity: ProductDetailBody.counter);
                         },
                       )
                     : const SizedBox();
