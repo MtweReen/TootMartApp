@@ -22,12 +22,12 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
     return BlocConsumer<HomeCubitCubit, HomeCubitState>(
       listener: (context, state) {
         if (state is FavouriteCubitSuccessState) {
-         if(HomeCubitCubit.get(context).favouriteModel!.body!.products!.isNotEmpty){
-           for (var element
-              in HomeCubitCubit.get(context).favouriteModel!.body!.products!) {
-            HomeCubitCubit.get(context).isFavourite[element.id!] = true;
-          }
-         }
+        //  if(HomeCubitCubit.get(context).favouriteModel!.body!.products!.isNotEmpty){
+        //    for (var element
+        //       in HomeCubitCubit.get(context).favouriteModel!.body!.products!) {
+        //     HomeCubitCubit.get(context).isFavourite[element.id!] = true;
+        //   }
+        //  }
         }
       },
       builder: (context, state) {

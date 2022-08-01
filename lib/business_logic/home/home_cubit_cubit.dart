@@ -59,7 +59,11 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
       );
       print(kUser!.body!.accessToken!);
       if (response.statusCode == 200) {
+        for (var element in response.data['body']['products']) {
+          isFavourite[element['id']] = true;          
+        }
         favouriteModel = FavouriteModel.fromJson(response.data);
+        print(isFavourite);
         emit(FavouriteCubitSuccessState());
         return favouriteModel!;
       }

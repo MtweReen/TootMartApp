@@ -8,15 +8,12 @@ import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/cart/componnent/checkout_bill.dart';
 import 'package:toot_mart/features/checkout/presentation/checkout.dart';
-
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/router.dart';
-import '../../../business_logic/app_cubit/app_cubit.dart';
 import 'shopping_item.dart';
 
 class ShoppingCartBody extends StatelessWidget {

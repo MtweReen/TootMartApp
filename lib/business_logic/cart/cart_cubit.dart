@@ -85,11 +85,15 @@ class CartCubit extends Cubit<CartState> {
       print(response.data);
       if (response.statusCode == 200) {
         print('askldjfbasdkljbfalsdf');
-        for (var element in response.data['body']['carts']) {
-          isinCart[int.parse(element['product_id'].toString())] = true;
-        }
+        
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
+        for (var element in cartModel!.body!.carts!) {
+          isinCart[element.id!] = true;
+          emit(GetCartSuccessState());
+          
+        }
+        print(isinCart);
         emit(GetCartSuccessState());
         return cartModel!;
       }
