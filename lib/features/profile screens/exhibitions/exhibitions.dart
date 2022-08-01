@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/widgets/custom_drop_down.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
+import 'package:toot_mart/features/profile%20screens/exhibitions/componnent/area_selection.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/utiles/size_config.dart';
 import 'componnent/body.dart';
+import 'componnent/filter_result.dart';
 
 class ExhibitionsScreen extends StatelessWidget {
   const ExhibitionsScreen({Key? key}) : super(key: key);
@@ -35,12 +40,15 @@ class ExhibitionsScreen extends StatelessWidget {
                   fontSize: SizeConfig.screenWidth! * 0.045),
             ),
             const VerticalSpace(value: 1.5),
-            CustomDropDown(
-              text: translateString("All Area", "جميع المناطق"),
-              items: const [],
-            ),
+            const AreasSelection(),
             const VerticalSpace(value: 1.5),
-            const GalleryListData(),
+            BlocConsumer<CheckOutCubit, CheckOutStates>(
+              builder: (context, state) =>
+                  (CheckOutCubit.get(context).isfilterring == true)
+                      ? const AreaFilterringResult()
+                      : const GalleryListData(),
+              listener: (context, state) {},
+            ),
           ],
         ),
       ),

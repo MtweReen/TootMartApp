@@ -41,7 +41,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     getIndex();
-    HomeCubitCubit.get(context).getHomeItems();
     super.initState();
   }
 

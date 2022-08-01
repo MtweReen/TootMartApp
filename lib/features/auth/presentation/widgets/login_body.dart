@@ -16,6 +16,7 @@ import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
+import '../../../checkout/business_logic/check_out_cubit.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
@@ -41,7 +42,13 @@ class LoginView extends StatelessWidget {
           // MagicRouter.navigateTo(const LayoutScreen(index: 0,));
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
           CartCubit.get(context).getcart();
-          HomeCubitCubit.get(context).getFavourites();
+
+          HomeCubitCubit.get(context)
+            ..getFavourites()
+            ..getHomeItems()
+            ..getRooms();
+          CheckOutCubit.get(context).getAreas();
+        
         }
       },
       builder: (context, state) {
@@ -123,7 +130,8 @@ class LoginView extends StatelessWidget {
                                 passwordController.text);
                           }
                         })
-                    : Center(child: CircularProgressIndicator(color: kMainColor)),
+                    : Center(
+                        child: CircularProgressIndicator(color: kMainColor)),
                 const VerticalSpace(value: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,33 +163,36 @@ class LoginView extends StatelessWidget {
                     }),
                 const VerticalSpace(value: 3),
                 BlocConsumer<SocialCubit, SocialState>(
-                  listener: (context, state) {
-                 
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     return Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                     crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         InkWell(
                           onTap: () {
                             SocialCubit.get(context).googleSignUp(context);
                           },
-                         child: SizedBox(
-                          width: SizeConfig.screenWidth!*0.1,
-                          height: SizeConfig.screenHeight!*0.08,
-                          child: Image.asset("asset/images/google.png", fit: BoxFit.contain,),
+                          child: SizedBox(
+                            width: SizeConfig.screenWidth! * 0.1,
+                            height: SizeConfig.screenHeight! * 0.08,
+                            child: Image.asset(
+                              "asset/images/google.png",
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-
-                          InkWell(
+                        InkWell(
                           onTap: () {
-                              SocialCubit.get(context).signInWithApple(context);
+                            SocialCubit.get(context).signInWithApple(context);
                           },
-                         child: SizedBox(
-                          width: SizeConfig.screenWidth!*0.1,
-                          height: SizeConfig.screenHeight!*0.08,
-                          child: Image.asset("asset/images/apple.png", fit: BoxFit.contain,),
+                          child: SizedBox(
+                            width: SizeConfig.screenWidth! * 0.1,
+                            height: SizeConfig.screenHeight! * 0.08,
+                            child: Image.asset(
+                              "asset/images/apple.png",
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ],

@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
-import 'package:toot_mart/business_logic/checkout/checkout_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
 import 'package:toot_mart/business_logic/social/socialCubit.dart';
@@ -74,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()),
         BlocProvider<SocialCubit>(create: (BuildContext context) => SocialCubit()),
         BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
-        BlocProvider<CheckOutCubit>(create: (BuildContext context) => CheckOutCubit()),
+        BlocProvider<CheckOutCubit>(create: (BuildContext context) => CheckOutCubit()..getAreas()),
         BlocProvider<SettingCubit>(create: (BuildContext context) => SettingCubit()..privacypolicy()..refundsPolicy()),
         BlocProvider<HomeCubitCubit>(create: (BuildContext context) => HomeCubitCubit()..getHomeItems()..getRooms()),
         BlocProvider(

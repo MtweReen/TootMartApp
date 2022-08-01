@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/country/country.dart';
 import 'business_logic/home/home_cubit_cubit.dart';
 import 'business_logic/setting/setting_cubit.dart';
@@ -25,10 +26,7 @@ class _SplshScreenState extends State<SplshScreen> {
   );
 
   getScreen() {
-     if (prefs.getBool("is_login") == true) {
-      HomeCubitCubit.get(context).getFavourites();
-      CartCubit.get(context).getcart();
-    }
+    if (prefs.getBool("is_login") == true) {}
     if (prefs.getBool("selection") == true) {
       if (prefs.getBool("is_onboearding") == true) {
         setState(() {
@@ -51,12 +49,18 @@ class _SplshScreenState extends State<SplshScreen> {
   @override
   void initState() {
     getScreen();
-    HomeCubitCubit.get(context)..getHomeItems()..getRooms();
+    HomeCubitCubit.get(context)
+      ..getFavourites()
+      ..getHomeItems()
+      ..getRooms();
+    CheckOutCubit.get(context).getAreas();
+    CartCubit.get(context).getcart();
+    CheckOutCubit.get(context).getAreas();
     CategoryCubit.get(context).getCategory(page: 1);
     SettingCubit.get(context)
       ..privacypolicy()
       ..refundsPolicy();
-   
+
     Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),

@@ -31,7 +31,7 @@ class _HomeBodyState extends State<HomeBody> {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is! HomeCubitLoadingState,
+          condition: HomeCubitCubit.get(context).homeModel != null ,
           fallback: (context) => Center(
             child: CircularProgressIndicator(
               color: kMainColor,

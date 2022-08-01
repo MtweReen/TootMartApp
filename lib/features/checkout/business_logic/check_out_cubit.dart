@@ -1,5 +1,13 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore_for_file: avoid_print
 
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/data/model/room_filter.dart';
+
+import '../../../core/constants/constants.dart';
+import '../../../core/network/end_points.dart';
+import '../../../data/model/area.dart';
+import '../../profile screens/exhibitions/componnent/area_selection.dart';
 import 'check_out_states.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
@@ -13,6 +21,63 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     currentTimeLine = page;
     emit(MoveInTimeLineState());
   }
+
+  AreasModel? areasModel;
+  Future<AreasModel>? getAreas() async {
+    emit(GetAreasLoadingState());
+    try {
+      Response response = await Dio().get(
+        kBaseUrl + GET_AREA,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print(response.data);
+        areasModel = AreasModel.fromJson(response.data);
+        emit(GetAreasSuccessState());
+        return areasModel!;
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(GetAreasErrorState(e.toString()));
+    }
+    return areasModel!;
+  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  AreaFilterResult? areaFilterResult;
+bool isfilterring = false;
+  Future<AreaFilterResult>? getFilterArea({required int areaId}) async {
+    emit(GetAreasFilterLoadingState());
+    try {
+      Response response = await Dio().post(
+        kBaseUrl + FILTER_ROOM + "$areaId",
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print(response.data);
+        isfilterring = true;
+        areaFilterResult = AreaFilterResult.fromJson(response.data);
+        emit(GetAreasFilterSuccessState());
+        return areaFilterResult!;
+      }
+    } catch (e) {
+      isfilterring = false;
+      print(e.toString());
+      emit(GetAreasFilterErrorState(e.toString()));
+    }
+    return areaFilterResult!;
+  }
+
 // double shippingPrice = 0;
 // int? shippingId;
 // CheckOutModel? checkOutModel;

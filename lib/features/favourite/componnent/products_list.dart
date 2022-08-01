@@ -38,6 +38,7 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                   .products!
                   .isNotEmpty)
               ? GridView.builder(
+                padding:  const EdgeInsets.all(10),
                   itemCount: HomeCubitCubit.get(context)
                       .favouriteModel!
                       .body!

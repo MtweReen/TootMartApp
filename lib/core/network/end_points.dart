@@ -50,3 +50,4 @@ const REFUND_ORDER = 'order';
 const REFUND_ORDERS = 'get-refund';
 const ROOM = "showrooms";
 const GET_AREA = "get-areas";
+const FILTER_ROOM = "showrooms/area/";
