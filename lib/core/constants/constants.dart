@@ -10,7 +10,6 @@ import '../../features/auth/data/model/user_model.dart';
 
 const kLogo = 'asset/images/logo.png';
 const kHomeLayout = '/';
-
 TextStyle headingStyle = TextStyle(
   fontFamily: 'URW DIN Arabic',
   fontSize: 16,
@@ -82,6 +81,7 @@ mapIcon() async {
 
 var deviceId;
 UserModel? kUser;
+var kInside=0;
 const kBgImage = 'assets/images/splash_bg.png';
 //////////////////////////////////////////////////////////////////////
 customCachedNetworkImage(
@@ -126,3 +126,4 @@ customCachedNetworkImage(
     print(e.toString());
   }
 }
+

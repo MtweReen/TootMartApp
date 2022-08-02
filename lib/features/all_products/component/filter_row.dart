@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/all_products/all_products.dart';
@@ -24,62 +25,73 @@ class _FilterProductsState extends State<FilterProducts> {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
+    return Container(
+      color: kMainColor,
+      width: SizeConfig.screenWidth,
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        InkWell(
-          onTap: () {
-            _openModalBottomSheet(context);
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                translateString("filter by ", "التصنيف بحسب"),
-                style: headingStyle.copyWith(
-                    color: colordeepGrey,
-                    fontWeight: FontWeight.w700,
-                    fontSize: w * 0.04),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                _openModalBottomSheet(context);
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    translateString("filter by ", "التصنيف بحسب"),
+                    style: headingStyle.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: w * 0.05),
+                  ),
+                  Icon(
+                    (prefs.getString("lang") == "en")
+                        ? Icons.keyboard_arrow_right
+                        : Icons.keyboard_arrow_left,
+                    color: Colors.white,
+                    size: w * 0.07,
+                  ),
+                ],
               ),
-              Icon(
-                (prefs.getString("lang") == "en")
-                    ? Icons.keyboard_arrow_left
-                    : Icons.keyboard_arrow_right,
-                color: colordeepGrey,
-                size: w * 0.07,
-              ),
-            ],
+            ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            sortingProducts(context);
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                translateString("Sort by ", "الترتيب بحسب"),
-                style: headingStyle.copyWith(
-                    color: colordeepGrey,
-                    fontWeight: FontWeight.w700,
-                    fontSize: w * 0.04),
-              ),
-              Icon(
-                (prefs.getString("lang") == "en")
-                    ? Icons.keyboard_arrow_left
-                    : Icons.keyboard_arrow_right,
-                color: colordeepGrey,
-                size: w * 0.07,
-              ),
-            ],
+          Container(
+            color: Colors.white, width: 1,height: SizeConfig.defaultSize!*3,
           ),
-        ),
-      ],
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                sortingProducts(context);
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    translateString("Sort by ", "الترتيب بحسب"),
+                    style: headingStyle.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: w * 0.05),
+                  ),
+                  Icon(
+                    (prefs.getString("lang") == "en")
+                        ? Icons.keyboard_arrow_right
+                        : Icons.keyboard_arrow_left,
+                    color: Colors.white,
+                    size: w * 0.07,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

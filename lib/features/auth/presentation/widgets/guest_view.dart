@@ -77,6 +77,7 @@ class GuestView extends StatelessWidget {
                       child: CustomGeneralButton(
                           text: translateString('Log in', 'تسجيل الدخول'),
                           onTap: () {
+                            kInside++;
                             AuthCubit.get(context)
                                 .changeUserState(AccountStates.LOGIN);
                           })),
@@ -85,6 +86,7 @@ class GuestView extends StatelessWidget {
                     child: CustomStrockButton(
                         text: translateString('Register', 'تسجيل'),
                         onTap: () {
+                          kInside++;
                           AuthCubit.get(context)
                               .changeUserState(AccountStates.REGISTER);
                         }),
@@ -102,8 +104,10 @@ class GuestView extends StatelessWidget {
                 if (kUser != null)
                   InkWell(
                     onTap: () {
+                      kInside++;
                       AuthCubit.get(context)
                           .changeUserState(AccountStates.ACCOUNT_DETAILS);
+
                     },
                     child: ProfileCardItem(
                       title:translateString("Account Details", "تفاصيل الحساب"),
@@ -116,6 +120,7 @@ class GuestView extends StatelessWidget {
                 if (kUser != null)
                   InkWell(
                     onTap: () {
+                      kInside++;
                       AuthCubit.get(context)
                           .changeUserState(AccountStates.ORDERS_VIEW);
                     },
