@@ -8,7 +8,6 @@ class ProfileCardItem extends StatelessWidget {
   const ProfileCardItem({Key? key, required this.title, this.color})
       : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -19,7 +18,7 @@ class ProfileCardItem extends StatelessWidget {
       height: h * 0.07,
       padding: EdgeInsets.only(left: w * 0.02, right: w * 0.02),
       decoration: BoxDecoration(
-        color:color?? Colors.white,
+        color: color ?? Colors.white,
         borderRadius: BorderRadius.circular(w * 0.02),
         boxShadow: [
           BoxShadow(
@@ -41,15 +40,16 @@ class ProfileCardItem extends StatelessWidget {
               Text(
                 title,
                 style: headingStyle.copyWith(
-                  color: color!=null?Colors.white: colordeepGrey
-                ),
+                    color: color != null ? Colors.white : colordeepGrey),
               ),
             ],
           ),
           Icon(
-           (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_right:Icons.keyboard_arrow_left,
+            (prefs.getString("lang").toString() == "en")
+                ? Icons.keyboard_arrow_right
+                : Icons.keyboard_arrow_left,
             size: w * 0.1,
-            color:color!=null?Colors.white: colordeepGrey,
+            color: color != null ? Colors.white : colordeepGrey,
           ),
         ],
       ),
