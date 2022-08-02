@@ -3,11 +3,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/data/model/room_filter.dart';
-
 import '../../../core/constants/constants.dart';
 import '../../../core/network/end_points.dart';
 import '../../../data/model/area.dart';
-import '../../profile screens/exhibitions/componnent/area_selection.dart';
 import 'check_out_states.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
