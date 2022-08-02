@@ -41,3 +41,23 @@ class GetAreasFilterErrorState extends CheckOutStates {
 
   GetAreasFilterErrorState(this.error);
 }
+
+class AddUserAddressLoadingState extends CheckOutStates {}
+
+class AddUserAddressSuccessState extends CheckOutStates {}
+
+class AddUserAddressErrorState extends CheckOutStates {
+  final String error;
+
+  AddUserAddressErrorState(this.error);
+}
+
+class GetUserAddressLoadingState extends CheckOutStates {}
+
+class GetUserAddressSuccessState extends CheckOutStates {}
+
+class GetUserAddressErrorState extends CheckOutStates {
+  final String error;
+
+  GetUserAddressErrorState(this.error);
+}

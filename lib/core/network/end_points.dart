@@ -51,3 +51,5 @@ const REFUND_ORDERS = 'get-refund';
 const ROOM = "showrooms";
 const GET_AREA = "get-areas";
 const FILTER_ROOM = "showrooms/area/";
+const GETUSERADDRESS = "address";
+const ADD_ADDRESS = "add-address";

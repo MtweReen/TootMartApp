@@ -10,7 +10,7 @@ import '../../../../core/constants/constants.dart';
 import '../../../checkout/business_logic/check_out_states.dart';
 
 class AreasSelection extends StatefulWidget {
-  
+  static int? areaId;
   const AreasSelection(
       {Key? key,
       this.text = '',
@@ -89,6 +89,7 @@ Areas? chosenValue;
                 print(value);
                 setState(() {
                   chosenValue = value;
+                  AreasSelection.areaId = value.id;
                 });
                chosenValue = value;
               },
