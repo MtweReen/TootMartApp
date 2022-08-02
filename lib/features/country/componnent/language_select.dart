@@ -27,8 +27,16 @@ class LanguageSelectWidget extends StatelessWidget {
             Center(
               child: SizedBox(
                 width: SizeConfig.screenWidth! * 0.7,
-                child: Text(
+                child:(AppCubit.get(context).arLanguage)? Text(
                   "لغة التطبيق الخاصة بك هي العربية",
+                  textAlign: TextAlign.center,
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                      color: colordeepGrey,
+                      fontSize: SizeConfig.screenWidth! * 0.04),
+                ):Text(
+                  "App Language is English",
                   textAlign: TextAlign.center,
                   style: headingStyle.copyWith(
                       fontWeight: FontWeight.w600,

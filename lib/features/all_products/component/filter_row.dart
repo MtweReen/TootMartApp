@@ -45,7 +45,9 @@ class _FilterProductsState extends State<FilterProducts> {
                     fontSize: w * 0.04),
               ),
               Icon(
-                Icons.keyboard_arrow_left,
+                (prefs.getString("lang") == "en")
+                    ? Icons.keyboard_arrow_left
+                    : Icons.keyboard_arrow_right,
                 color: colordeepGrey,
                 size: w * 0.07,
               ),
@@ -68,7 +70,9 @@ class _FilterProductsState extends State<FilterProducts> {
                     fontSize: w * 0.04),
               ),
               Icon(
-                Icons.keyboard_arrow_left,
+                (prefs.getString("lang") == "en")
+                    ? Icons.keyboard_arrow_left
+                    : Icons.keyboard_arrow_right,
                 color: colordeepGrey,
                 size: w * 0.07,
               ),
@@ -96,15 +100,13 @@ class _FilterProductsState extends State<FilterProducts> {
                   CustomGeneralButton(
                     text: translateString("low price", "سعر اقل"),
                     textColor: kMainColor,
-                     color: Colors.white,
+                    color: Colors.white,
                     onTap: () {
-                    
                       Navigator.pop(context);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const AllProducts()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllProducts()));
                       setState(() {
                         filteringData = true;
                         selectedOrdering = "asc";
@@ -116,12 +118,11 @@ class _FilterProductsState extends State<FilterProducts> {
                     text: translateString("high price", "سعر اعلي"),
                     textColor: kMainColor,
                     onTap: () {
-                     Navigator.pop(context);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const AllProducts()));
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllProducts()));
                       setState(() {
                         filteringData = true;
                         selectedOrdering = "desc";

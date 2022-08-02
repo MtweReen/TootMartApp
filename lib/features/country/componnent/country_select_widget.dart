@@ -23,7 +23,7 @@ class CountrySelectWidget extends StatelessWidget {
             child: SizedBox(
               width: SizeConfig.screenWidth! * 0.7,
               child: Text(
-                "تم تعيين موقع التطبيق الخاص بك على المملكة العربية السعودية (الريال السعودى",
+                translateString("Your application location is set to Saudi Arabia (Saudi Riyal)", "تم تعيين موقع التطبيق الخاص بك على المملكة العربية السعودية (الريال السعودى"),
                 textAlign: TextAlign.center,
                 style: headingStyle.copyWith(
                     fontWeight: FontWeight.w600,
@@ -35,15 +35,12 @@ class CountrySelectWidget extends StatelessWidget {
           ),
           const VerticalSpace(value: 5),
           CustomButtonWithIcon(
-              textColor: (AppCubit.get(context).saudiCountry)
-                  ? kMainColor
-                  : kMainColor.withOpacity(0.4),
-              borderColor: (AppCubit.get(context).saudiCountry)
-                  ? kMainColor
-                  : kMainColor.withOpacity(0.4),
-              text: "السعودية",
+              textColor: kMainColor,
+              borderColor: kMainColor,
+              text: translateString("Saudi Arabia", "السعودية"),
               onTap: () {
-                AppCubit.get(context).seledctCountry(saudi: true, kuwait: false);
+                AppCubit.get(context)
+                    .seledctCountry(saudi: true, kuwait: false);
               },
               icon: "asset/images/saudi.png"),
           const VerticalSpace(value: 3),

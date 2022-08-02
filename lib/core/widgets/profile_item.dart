@@ -47,7 +47,7 @@ class ProfileCardItem extends StatelessWidget {
             ],
           ),
           Icon(
-           (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_left:Icons.keyboard_arrow_right,
+           (prefs.getString("lang").toString() == "en")? Icons.keyboard_arrow_right:Icons.keyboard_arrow_left,
             size: w * 0.1,
             color:color!=null?Colors.white: colordeepGrey,
           ),

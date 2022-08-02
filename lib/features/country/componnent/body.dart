@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toot_mart/business_logic/app_cubit/app_cubit.dart';
+import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
@@ -36,24 +40,43 @@ class _CountrySelectionBodyState extends State<CountrySelectionBody> {
           const VerticalSpace(value: 5),
           const LanguageSelectWidget(),
           const VerticalSpace(value: 5),
-          CustomGeneralButton(
-            text: (widget.fromSetting == true)
-                ? LocaleKeys.confirm.tr()
-                : translateString("Continue", "استمر"),
-            onTap: () {
-              prefs.setBool("selection", true);
-              (widget.fromSetting == true)
-                  ? Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LayoutScreen(
-                                index: 4,
-                              )),
-                      (route) => false)
-                  : Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const OnBoardingScreen()));
+          BlocConsumer<AppCubit, AppState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return CustomGeneralButton(
+                text: (widget.fromSetting == true)
+                    ? LocaleKeys.confirm.tr()
+                    : translateString("Continue", "استمر"),
+                onTap: () {
+                  prefs.setBool("selection", true);
+                  if (widget.fromSetting == true) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LayoutScreen(
+                                  index: 4,
+                                )),
+                        (route) => false);
+                  } else {
+                    if (AppCubit.get(context).arLanguage == true ||
+                        AppCubit.get(context).enLanguage == true) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OnBoardingScreen()));
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: translateString("you must choose language",
+                            "يجب اختيار اللغة الخاصة بالتطبيق"),
+                        backgroundColor: colorRed,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.CENTER,
+                      );
+                    }
+                  }
+                },
+              );
             },
           ),
         ],
