@@ -151,7 +151,7 @@ class CartCubit extends Cubit<CartState> {
         emit(CouponAppliedSuccessState());
         print(response.data);
       } else if (response.statusCode == 400) {
-        showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
+        showToast(msg: response.data["message"].toString(), state: ToastStates.ERROR);
       }
     } catch (e) {
       print(e.toString());
