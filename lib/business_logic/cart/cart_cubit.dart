@@ -85,13 +85,12 @@ class CartCubit extends Cubit<CartState> {
       print(response.data);
       if (response.statusCode == 200) {
         print('askldjfbasdkljbfalsdf');
-        
+
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
         for (var element in cartModel!.body!.carts!) {
           isinCart[element.id!] = true;
           emit(GetCartSuccessState());
-          
         }
         print(isinCart);
         emit(GetCartSuccessState());
@@ -147,11 +146,19 @@ class CartCubit extends Cubit<CartState> {
       });
       print(response.data);
       if (response.statusCode == 200) {
-        showToast(msg: 'تم إضافة كوبون', state: ToastStates.SUCCESS);
+        showToast(
+            msg: response.data["message"].toString(),
+            state: ToastStates.SUCCESS);
+        prefs.setString("coupon", code);
+        prefs.setString(
+            "coupon_value", response.data["body"]["coupon_value"].toString());
+        prefs.setString(
+            "coupon_total", response.data["body"]["total"].toString());
         emit(CouponAppliedSuccessState());
         print(response.data);
       } else if (response.statusCode == 400) {
-        showToast(msg: response.data["message"].toString(), state: ToastStates.ERROR);
+        showToast(
+            msg: response.data["message"].toString(), state: ToastStates.ERROR);
       }
     } catch (e) {
       print(e.toString());

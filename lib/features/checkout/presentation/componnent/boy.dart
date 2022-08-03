@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:timelines/timelines.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
@@ -54,7 +55,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
             children: [
               const VerticalSpace(value: 2),
               SizedBox(
-                height: SizeConfig.defaultSize!*10,
+                height: SizeConfig.defaultSize! * 10,
                 // width: SizeConfig.defaultSize!*30,
                 child: Timeline.custom(
                   physics: const NeverScrollableScrollPhysics(),
@@ -109,12 +110,9 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                 ),
               ),
               const VerticalSpace(value: 1),
-              if (widget.currentPage == 0)
-                const AddLocationView(),
-              if (widget.currentPage == 1)
-                const ShippingView(),
-              if (widget.currentPage == 2)
-                const CheckOutCompleteView(),
+              if (widget.currentPage == 0) const AddLocationView(),
+              if (widget.currentPage == 1) const ShippingView(),
+              if (widget.currentPage == 2) const CheckOutCompleteView(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -124,9 +122,27 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                     withBorder: true,
                     onTap: () {
                       if (CheckOutCubit.get(context).currentTimeLine < 2) {
-                        CheckOutCubit.get(context)
-                            .moveInTimeLine(widget.currentPage++);
+                        if (widget.currentPage == 0) {
+                          if (AddLocationView.selected != null) {
+                            CheckOutCubit.get(context)
+                                .moveInTimeLine(widget.currentPage++);
+                          }else{
+                             Fluttertoast.showToast(
+                                  msg: translateString(
+                                      "you must choose Address",
+                                      "يجب اختيار عنوان الشحن"),
+                                  textColor: Colors.white,
+                                  backgroundColor: colorRed,
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.CENTER,
+                                );
+                          }
+                        } else {
+                          CheckOutCubit.get(context)
+                              .moveInTimeLine(widget.currentPage++);
+                        }
                       }
+
                       if (widget.currentPage == 3) {
                         MagicRouter.navigateTo(const LayoutScreen(index: 0));
                       }

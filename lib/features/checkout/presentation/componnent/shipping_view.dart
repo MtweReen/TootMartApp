@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/cart/componnent/shopping_item.dart';
+import 'package:toot_mart/features/checkout/presentation/componnent/add_location_view.dart';
 
 import '../../../../core/constants/colors.dart';
 
@@ -28,53 +31,62 @@ class _ShippingViewState extends State<ShippingView> {
               color: colorLightGrey,
             ),
             const VerticalSpace(value: 2),
-            Container(
-              color: Colors.green,
-              child: ExpansionPanelList(
-                animationDuration: const Duration(milliseconds: 1000),
-                children: [
-                  ExpansionPanel(
-                    headerBuilder: (context, isExpanded) {
-                      return ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'ملخص المنتجات',
-                              style: TextStyle(color: Colors.black),
+            BlocConsumer<CartCubit, CartState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return Container(
+                  color: Colors.green,
+                  child: ExpansionPanelList(
+                    animationDuration: const Duration(milliseconds: 1000),
+                    children: [
+                      ExpansionPanel(
+                        headerBuilder: (context, isExpanded) {
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  translateString(
+                                      "Products Summary", "ملخص المنتجات"),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                                const VerticalSpace(value: 1),
+                                Text(
+                                  translateString(
+                                      "${CartCubit.get(context).cartModel!.body!.carts!.length} products",
+                                      "${CartCubit.get(context).cartModel!.body!.carts!.length} منتجات"),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ],
                             ),
-                            VerticalSpace(value: 1),
-                            Text(
-                              '3 منتجات',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
+                          );
+                        },
+                        body: ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemBuilder: (context, index) => ShoppingItem(
+                            context: context,
+                            index: index,
+                            image: CartCubit.get(context).cartModel!.body!.carts![index].productImage!,
+                            name: CartCubit.get(context).cartModel!.body!.carts![index].productTitle!,
+                            price: CartCubit.get(context).cartModel!.body!.carts![index].price!.toString(),
+                            quantity: CartCubit.get(context).cartModel!.body!.carts![index].quantity!,
+                            cartId: CartCubit.get(context).cartModel!.body!.carts![index].id!,
+                          ),
+                          itemCount: CartCubit.get(context).cartModel!.body!.carts!.length,
                         ),
-                      );
-                    },
-                    body: ListView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      itemBuilder: (context, index) => ShoppingItem(
-                        context: context,
-                        index: index,
-                        image: '',
-                        name: '',
-                        price: '',
-                        quantity: '1', cartId: 0,
+                        isExpanded: _expanded1,
+                        canTapOnHeader: true,
                       ),
-                      itemCount: 3,
-                    ),
-                    isExpanded: _expanded1,
-                    canTapOnHeader: true,
+                    ],
+                    dividerColor: Colors.grey,
+                    expansionCallback: (panelIndex, isExpanded) {
+                      _expanded1 = !_expanded1;
+                      setState(() {});
+                    },
                   ),
-                ],
-                dividerColor: Colors.grey,
-                expansionCallback: (panelIndex, isExpanded) {
-                  _expanded1 = !_expanded1;
-                  setState(() {});
-                },
-              ),
+                );
+              },
             ),
             const VerticalSpace(value: 2),
             Divider(
@@ -88,14 +100,22 @@ class _ShippingViewState extends State<ShippingView> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'توصيل سريع(خلال 3-7 ايام عمل)',
+                    translateString(
+                        "fast delivery withien ${AddLocationView.dayfrom} - ${AddLocationView.daysto} dsays",
+                        "توصيل سريع خلال  ${AddLocationView.dayfrom} - ${AddLocationView.daysto}  أيام"),
                     style: headingStyle.copyWith(color: Colors.black),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    children: const [Text('تكاليف الشحن'), Text('مجاني')],
+                    children: [
+                      Text(translateString("Shipping coast", "تكاليف الشحن ")),
+                      (AddLocationView.shippingCoast != null)
+                          ? Text("${AddLocationView.shippingCoast} " +
+                              translateString("R.S", "ر.س"))
+                          : Text(translateString("free shipping", "شحن مجاني"))
+                    ],
                   ),
                 )
               ],

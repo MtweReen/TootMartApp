@@ -11,6 +11,10 @@ import '../../../../core/widgets/space_widget.dart';
 import '../../../map/add_address.dart';
 
 class AddLocationView extends StatefulWidget {
+  static int? selected;
+  static String? dayfrom;
+  static String? daysto;
+  static String? shippingCoast;
   const AddLocationView({Key? key}) : super(key: key);
 
   @override
@@ -72,39 +76,79 @@ class _AddLocationViewState extends State<AddLocationView> {
                   child: CircularProgressIndicator(
                     color: kMainColor,
                   )),
-              builder: (context) => ListView.separated(
-                  shrinkWrap: true,
-                  primary: false,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  itemBuilder: (context, index) => Text(
-                        CheckOutCubit.get(context)
-                            .userAddressModel!
-                            .body!
-                            .userAddress![index]
-                            .address!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style:
-                            headingStyle.copyWith(fontWeight: FontWeight.w400),
-                      ),
-                  separatorBuilder: (context, index) => Column(
-                        children: [
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 0.02,
+              builder: (context) => Expanded(
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    primary: false,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    itemBuilder: (context, index) => ListTile(
+                          onTap: () {
+                            prefs.setInt(
+                                "shipping",
+                                CheckOutCubit.get(context)
+                                    .userAddressModel!
+                                    .body!
+                                    .userAddress![index]
+                                    .shipping!
+                                    .id!);
+                            setState(() {
+                              AddLocationView.selected = index;
+                              AddLocationView.dayfrom =
+                                  CheckOutCubit.get(context)
+                                      .userAddressModel!
+                                      .body!
+                                      .userAddress![index]
+                                      .shipping!
+                                      .from!;
+                              AddLocationView.daysto =
+                                  CheckOutCubit.get(context)
+                                      .userAddressModel!
+                                      .body!
+                                      .userAddress![index]
+                                      .shipping!
+                                      .to!;
+                             AddLocationView.shippingCoast =      CheckOutCubit.get(context)
+                                      .userAddressModel!
+                                      .body!
+                                      .userAddress![index]
+                                      .shipping!.price
+                                      ;       
+                            });
+                          },
+                          title: Text(
+                            CheckOutCubit.get(context)
+                                .userAddressModel!
+                                .body!
+                                .userAddress![index]
+                                .address!,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: headingStyle.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: (AddLocationView.selected == index)
+                                    ? kMainColor
+                                    : colordeepGrey),
                           ),
-                          Divider(
-                            color: kMainColor,
-                          ),
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 0.02,
-                          ),
-                        ],
-                      ),
-                  itemCount: CheckOutCubit.get(context)
-                      .userAddressModel!
-                      .body!
-                      .userAddress!
-                      .length),
+                        ),
+                    separatorBuilder: (context, index) => Column(
+                          children: [
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.02,
+                            ),
+                            Divider(
+                              color: kMainColor,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.02,
+                            ),
+                          ],
+                        ),
+                    itemCount: CheckOutCubit.get(context)
+                        .userAddressModel!
+                        .body!
+                        .userAddress!
+                        .length),
+              ),
             ),
             listener: (context, state) {},
           ),

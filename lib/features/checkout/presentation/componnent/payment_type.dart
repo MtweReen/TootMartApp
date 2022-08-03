@@ -43,7 +43,7 @@ class _PaymentTypeState extends State<PaymentType> {
                     onChanged: (int? value) {
                       setState(() {
                         x = value!;
-                        CasheHelper.saveData(key: 'payment_type', value: 0);
+                        CasheHelper.saveData(key: 'payment_type', value: 1);
                       });
                     },
                   ),
@@ -71,7 +71,7 @@ class _PaymentTypeState extends State<PaymentType> {
                 onChanged: (int? value) {
                   setState(() {
                     x = value!;
-                    CasheHelper.saveData(key: 'payment_type', value: 1);
+                    CasheHelper.saveData(key: 'payment_type', value: 0);
                   });
                 },
               ),
