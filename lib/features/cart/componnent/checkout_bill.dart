@@ -40,20 +40,20 @@ class CheckOutBill extends StatelessWidget {
                     '400 رس'),
               ],
             ),
-            const VerticalSpace(value: 1),
+            // const VerticalSpace(value: 1),
          //   if (CheckOutCubit.get(context).value != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'رسوم الدفع عند الاستلام',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Text(
-                      '200 رس'),
-                ],
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: const [
+              //     Text(
+              //       'رسوم الدفع عند الاستلام',
+              //       style: TextStyle(color: Colors.grey),
+              //     ),
+              //     Text(
+              //         '200 رس'),
+              //   ],
 
-              ),
+              // ),
             const VerticalSpace(value: 1),
 
             Row(
