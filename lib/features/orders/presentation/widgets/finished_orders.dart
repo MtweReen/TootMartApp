@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/router/router.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
+import 'package:toot_mart/features/order_detail/order_detail.dart';
 import '../../../../core/constants/constants.dart';
 import 'order_item.dart';
 
@@ -24,13 +29,31 @@ class _FinishedOrdersState extends State<FinishedOrders> {
             child: ListView.separated(
                 primary: true,
                 // physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => OrderItem(
-                  quantity: "1",
-                      index: index,
-                      orderID: widget.order[index].id.toString(),
-                      orderName: widget.order[index].orderNumber.toString(),
-                      orderStatus: 'status',
-                      total: widget.order[index].total.toString(),
+                itemBuilder: (context, index) =>
+                    BlocConsumer<CheckOutCubit, CheckOutStates>(
+                      listener: (context, state) {
+                        if(state is GetOrderDetailSuccessState){
+                          MagicRouter.navigateTo(const OrderDetailScreen());
+                        }
+                      },
+                      builder: (context, state) {
+                        return InkWell(
+                          onTap: () {
+                            CheckOutCubit.get(context).getOrderDetail(
+                              context: context,
+                                orderId: widget.order[index].id);
+                          },
+                          child: OrderItem(
+                            quantity: "1",
+                            index: index,
+                            orderID: widget.order[index].id.toString(),
+                            orderName:
+                                widget.order[index].orderNumber.toString(),
+                            orderStatus: 'status',
+                            total: widget.order[index].total.toString(),
+                          ),
+                        );
+                      },
                     ),
                 separatorBuilder: (context, index) => const Divider(
                       thickness: 2,

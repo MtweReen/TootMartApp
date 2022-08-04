@@ -31,102 +31,93 @@ class OrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // MagicRouter.navigateTo(OrderItemDetails(
-        //   index: index,
-        //   orders: orders!.reversed.toList(),
-        //   products: orders![index!].variations!,
-        // ));
-      },
-      child: Material(
-        // elevation: 2,
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.transparent),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    kLogo,
-                    color: kMainColor,
-                    height: SizeConfig.defaultSize! * 8,
+    return Material(
+      // elevation: 2,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.transparent),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  kLogo,
+                  color: kMainColor,
+                  height: SizeConfig.defaultSize! * 8,
+                ),
+                const HorizontalSpace(value: 2),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            orderName,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 5),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text(
+                              '#$orderID',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.defaultSize! * 1),
+                            ),
+                          )
+                        ],
+                      ),
+                      const VerticalSpace(value: 0.5),
+                      Text(
+                        '${LocaleKeys.quantity.tr()} : $quantity',
+                        style: TextStyle(fontSize: SizeConfig.defaultSize),
+                      ),
+                      const VerticalSpace(value: 0.5),
+                      Row(
+                        children: [
+                          Text(
+                            orderStatus,
+                            style:
+                                TextStyle(fontSize: SizeConfig.defaultSize),
+                          ),
+                          if (isReplacment != true) const Spacer(),
+                          if (isReplacment != true)
+                            SizedBox(
+                              child: CustomTextButton(
+                                  text: 'إسترجاع',
+                                  size: SizeConfig.defaultSize! * 1.6,
+                                  color: kMainColor,
+                                  isUnderLine: true,
+                                  onPressed: () {
+                                    // _showCustomDialog(context,orders,index!);
+                                  }),
+                            ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const HorizontalSpace(value: 2),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              orderName,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 2, horizontal: 5),
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Text(
-                                '#$orderID',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: SizeConfig.defaultSize! * 1),
-                              ),
-                            )
-                          ],
-                        ),
-                        const VerticalSpace(value: 0.5),
-                        Text(
-                          '${LocaleKeys.quantity.tr()} : $quantity',
-                          style: TextStyle(fontSize: SizeConfig.defaultSize),
-                        ),
-                        const VerticalSpace(value: 0.5),
-                        Row(
-                          children: [
-                            Text(
-                              orderStatus,
-                              style:
-                                  TextStyle(fontSize: SizeConfig.defaultSize),
-                            ),
-                            if (isReplacment != true) const Spacer(),
-                            if (isReplacment != true)
-                              SizedBox(
-                                child: CustomTextButton(
-                                    text: 'إسترجاع',
-                                    size: SizeConfig.defaultSize! * 1.6,
-                                    color: kMainColor,
-                                    isUnderLine: true,
-                                    onPressed: () {
-                                      // _showCustomDialog(context,orders,index!);
-                                    }),
-                              ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const Divider(
-                thickness: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(LocaleKeys.total.tr()),
-                  Text('$total ${LocaleKeys.rs.tr()}'),
-                ],
-              ),
-            ],
-          ),
+                )
+              ],
+            ),
+            const Divider(
+              thickness: 1,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(LocaleKeys.total.tr()),
+                Text('$total ${LocaleKeys.rs.tr()}'),
+              ],
+            ),
+          ],
         ),
       ),
     );

@@ -1,11 +1,14 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/helper/functions/show_toast.dart';
 import 'package:toot_mart/data/model/order.dart';
+import 'package:toot_mart/data/model/order_detail.dart';
 import 'package:toot_mart/data/model/room_filter.dart';
 import 'package:toot_mart/data/model/user_address.dart';
+import 'package:toot_mart/features/order_detail/order_detail.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/network/end_points.dart';
 import '../../../core/router/router.dart';
@@ -204,4 +207,38 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   }
 
   //////////////////////////////////////////////////////////////////////
+  
+  SingleOrderModel? singleOrderModel;
+  Future<SingleOrderModel>? getOrderDetail({ required int orderId , required context })async{
+    try {
+       Response response = await Dio().get(
+        kBaseUrl + ORDER_DETAIL+"$orderId",
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Accept": "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        singleOrderModel = SingleOrderModel.fromJson(response.data);
+        emit(GetOrderDetailSuccessState());
+        return singleOrderModel!;
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(GetOrderDetailLoadingState());
+      try {
+
+      } catch (e) {
+        print(e.toString());
+        emit(GetOrderDetailErrorState(e.toString()));
+        
+      }
+      
+    }
+    return singleOrderModel!;
+  }
+  
 }

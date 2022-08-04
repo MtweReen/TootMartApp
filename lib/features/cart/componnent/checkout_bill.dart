@@ -14,9 +14,6 @@ class CheckOutBill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var endTotal = double.parse(
-    //         CasheHelper.getData(key: 'totalWithShippingCheckOut').toString()) +
-    //     double.parse(CheckOutCubit.get(context).shippingPrice.toString());
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -54,20 +51,8 @@ class CheckOutBill extends StatelessWidget {
                   ],
                 ),
                 const VerticalSpace(value: 1),
-                //   if (CheckOutCubit.get(context).value != null)
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: const [
-                //     Text(
-                //       'رسوم الدفع عند الاستلام',
-                //       style: TextStyle(color: Colors.grey),
-                //     ),
-                //     Text(
-                //         '200 رس'),
-                //   ],
-
-                // ),
-                const VerticalSpace(value: 1),
+               
+               
 
                 (prefs.getString("coupon_value") != null)
                     ? Row(
