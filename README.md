@@ -25,13 +25,13 @@
 ## 🎯 Features Updated
 
 
-✅ Search Surah
+✅ Search Product
 
-✅ Search Juz
+✅ Payment Gateway
 
-✅ Bookmarks
+✅ Google Map for User Location
 
-✅ Other fixes from Previous verion.
+
 
 
 ## 🧑 Author
