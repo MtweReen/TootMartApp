@@ -61,3 +61,33 @@ class GetUserAddressErrorState extends CheckOutStates {
 
   GetUserAddressErrorState(this.error);
 }
+
+class CreateOrderLoadingState extends CheckOutStates {}
+
+class CreateOrderSuccessState extends CheckOutStates {}
+
+class CreateOrderErrorState extends CheckOutStates {
+  final String error;
+
+  CreateOrderErrorState(this.error);
+}
+
+class GetOrdersLoadingState extends CheckOutStates {}
+
+class GetOrdersSuccessState extends CheckOutStates {}
+
+class GetOrdersErrorState extends CheckOutStates {
+  final String error;
+
+  GetOrdersErrorState(this.error);
+}
+
+class GetOrderDetailLoadingState extends CheckOutStates {}
+
+class GetOrderDetailSuccessState extends CheckOutStates {}
+
+class GetOrderDetailErrorState extends CheckOutStates {
+  final String error;
+
+  GetOrderDetailErrorState(this.error);
+}

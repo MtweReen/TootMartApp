@@ -2,11 +2,15 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/core/helper/functions/show_toast.dart';
+import 'package:toot_mart/data/model/order.dart';
 import 'package:toot_mart/data/model/room_filter.dart';
 import 'package:toot_mart/data/model/user_address.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/network/end_points.dart';
+import '../../../core/router/router.dart';
 import '../../../data/model/area.dart';
+import '../../layout/layout.dart';
 import 'check_out_states.dart';
 
 class CheckOutCubit extends Cubit<CheckOutStates> {
@@ -17,8 +21,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   int currentTimeLine = 0;
 
   void moveInTimeLine(int page) {
-    currentTimeLine = page;
+   if(page == 3){
+     currentTimeLine = 0;
     emit(MoveInTimeLineState());
+   }else{
+     currentTimeLine = page;
+    emit(MoveInTimeLineState());
+   }
   }
 
   AreasModel? areasModel;
@@ -134,4 +143,65 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
     return userAddressModel!;
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+
+  Future<void> createOrder() async {
+    emit(CreateOrderLoadingState());
+    try {
+      Response response = await Dio().post(
+        kBaseUrl + POST_CHECK_OUT,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Accept": "application/json",
+          },
+        ),
+        data: {
+          "shipping_id": prefs.getInt("shipping")!.toInt(),
+          "payment_type": prefs.getInt("payment_type") ?? 1,
+          "coupon": prefs.getString("coupon") ?? "",
+          "total": prefs.getString("total").toString(),
+        },
+      );
+      if (response.statusCode == 200) {
+        MagicRouter.navigateTo(const LayoutScreen(index: 0));
+        showToast(msg: response.data["message"], state: ToastStates.SUCCESS);
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(CreateOrderErrorState(e.toString()));
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+
+  OrderModel? orderModel;
+
+  Future<OrderModel>? getOrders() async {
+    emit(GetOrderDetailLoadingState());
+    try {
+      Response response = await Dio().get(
+        kBaseUrl + ORDERS,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Accept": "application/json",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        orderModel = OrderModel.fromJson(response.data);
+        emit(GetOrderDetailSuccessState());
+        return orderModel!;
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(GetOrderDetailErrorState(e.toString()));
+    }
+    return orderModel!;
+  }
+
+  //////////////////////////////////////////////////////////////////////
 }

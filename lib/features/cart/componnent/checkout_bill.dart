@@ -132,6 +132,7 @@ class CheckOutBill extends StatelessWidget {
       total = subtotal;
     }
     }
+    prefs.setString("total", total.toString());
     return total.toStringAsFixed(2).toString();
   }
 }

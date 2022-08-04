@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../business_logic/orders_cubit.dart';
 import 'widgets/orders_body.dart';
 
 class OrdersView extends StatelessWidget {
@@ -9,8 +6,6 @@ class OrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => OrdersCubit(),
-        child:  const OrdersBody());
+    return const OrdersBody();
   }
 }

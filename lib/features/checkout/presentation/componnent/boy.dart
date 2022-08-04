@@ -6,21 +6,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:timelines/timelines.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
-import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/checkout_complete_view.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/shipping_view.dart';
-
 import '../../../../core/widgets/custom_buttons_widget.dart';
-import '../../../layout/layout.dart';
 import 'add_location_view.dart';
 
 class CheckoutBody extends StatefulWidget {
   CheckoutBody({Key? key}) : super(key: key);
-  int currentPage = 0;
 
   @override
   State<CheckoutBody> createState() => _CheckoutBodyState();
@@ -42,13 +38,26 @@ List<String> titles = [
   'الشحن',
   'الدفع',
 ];
+int currentPage = 0;
 
 class _CheckoutBodyState extends State<CheckoutBody> {
+  @override
+  void initState() {
+    currentPage = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<CheckOutCubit, CheckOutStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is CreateOrderSuccessState) {
+            CheckOutCubit.get(context).getOrders();
+            // CheckOutCubit.get(context).moveInTimeLine(0);
+            currentPage = 0;
+          }
+        },
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,7 +80,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    color: widget.currentPage >= index
+                                    color: currentPage >= index
                                         ? kMainColor
                                         : colorGrey,
                                     borderRadius: BorderRadius.circular(20)),
@@ -93,7 +102,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                               height: 50.0,
                               width: SizeConfig.defaultSize! * 6,
                               child: DashedLineConnector(
-                                color: widget.currentPage >= index
+                                color: currentPage >= index
                                     ? kMainColor
                                     : colorGrey,
                                 thickness: 3,
@@ -110,9 +119,9 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                 ),
               ),
               const VerticalSpace(value: 1),
-              if (widget.currentPage == 0) const AddLocationView(),
-              if (widget.currentPage == 1) const ShippingView(),
-              if (widget.currentPage == 2) const CheckOutCompleteView(),
+              if (currentPage == 0) const AddLocationView(),
+              if (currentPage == 1) const ShippingView(),
+              if (currentPage == 2) const CheckOutCompleteView(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -121,30 +130,36 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                         titleButton[CheckOutCubit.get(context).currentTimeLine],
                     withBorder: true,
                     onTap: () {
+                  
                       if (CheckOutCubit.get(context).currentTimeLine < 2) {
-                        if (widget.currentPage == 0) {
+                        if (currentPage == 0) {
                           if (AddLocationView.selected != null) {
-                            CheckOutCubit.get(context)
-                                .moveInTimeLine(widget.currentPage++);
-                          }else{
-                             Fluttertoast.showToast(
-                                  msg: translateString(
-                                      "you must choose Address",
-                                      "يجب اختيار عنوان الشحن"),
-                                  textColor: Colors.white,
-                                  backgroundColor: colorRed,
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.CENTER,
-                                );
+                            setState(() {
+                              currentPage++;
+                            });
+                            // CheckOutCubit.get(context)
+                            //     .moveInTimeLine(currentPage++);
+                          } else {
+                            Fluttertoast.showToast(
+                              msg: translateString("you must choose Address",
+                                  "يجب اختيار عنوان الشحن"),
+                              textColor: Colors.white,
+                              backgroundColor: colorRed,
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                            );
                           }
                         } else {
-                          CheckOutCubit.get(context)
-                              .moveInTimeLine(widget.currentPage++);
+                          setState(() {
+                            currentPage++;
+                          });
+                          // CheckOutCubit.get(context)
+                          //     .moveInTimeLine(currentPage++);
                         }
                       }
 
-                      if (widget.currentPage == 3) {
-                        MagicRouter.navigateTo(const LayoutScreen(index: 0));
+                      if (currentPage == 3) {
+                        CheckOutCubit.get(context).createOrder();
                       }
                     }),
               ),
