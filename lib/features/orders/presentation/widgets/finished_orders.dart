@@ -27,8 +27,8 @@ class _FinishedOrdersState extends State<FinishedOrders> {
         ? SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
             child: ListView.separated(
-                primary: true,
-                // physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+                primary: false,
                 itemBuilder: (context, index) =>
                     BlocConsumer<CheckOutCubit, CheckOutStates>(
                       listener: (context, state) {
@@ -60,13 +60,15 @@ class _FinishedOrdersState extends State<FinishedOrders> {
                     ),
                 itemCount: widget.order.length),
           )
-        : Center(
-            child: Text(
+        : Column(crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
               translateString(
                   "no orders yet , shop now", "لا توجد طلبات بعد , تسوق الان"),
               style: headingStyle.copyWith(
                   color: kMainColor, fontWeight: FontWeight.bold),
             ),
-          );
+          ],
+        );
   }
 }

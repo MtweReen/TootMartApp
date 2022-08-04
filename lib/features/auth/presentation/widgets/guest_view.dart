@@ -7,6 +7,7 @@ import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/layout/layout.dart';
+import 'package:toot_mart/features/orders/presentation/orders_view.dart';
 import 'package:toot_mart/features/profile%20screens/contact_us.dart';
 import 'package:toot_mart/features/profile%20screens/exhibitions/exhibitions.dart';
 import 'package:toot_mart/features/profile%20screens/info.dart';
@@ -120,9 +121,10 @@ class GuestView extends StatelessWidget {
                 if (kUser != null)
                   InkWell(
                     onTap: () {
-                      kInside++;
-                      AuthCubit.get(context)
-                          .changeUserState(AccountStates.ORDERS_VIEW);
+                      // kInside++;
+                      // AuthCubit.get(context)
+                      //     .changeUserState(AccountStates.ORDERS_VIEW);
+                      MagicRouter.navigateTo(OrdersView());
                     },
                     child: ProfileCardItem(
                       title: translateString("My orders", "طلباتي"),

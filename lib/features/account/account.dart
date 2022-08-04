@@ -37,6 +37,7 @@ class _AccountScreenState extends State<AccountScreen> {
             AuthCubit.get(context).changeUserState(AccountStates.GUEST);
           }),
           body:SingleChildScrollView(
+
                 child: Column(
                   children: [
                     if(AuthCubit.get(context).currentUserState == AccountStates.GUEST || AuthCubit.get(context).currentUserState ==null)
@@ -49,8 +50,8 @@ class _AccountScreenState extends State<AccountScreen> {
                       ForgetPasswordView(),
                     if(AuthCubit.get(context).currentUserState == AccountStates.RESET_PASSWORD)
                       ResetPasswordBody(),
-                    if(AuthCubit.get(context).currentUserState == AccountStates.ORDERS_VIEW)
-                      const OrdersView(),
+                    // if(AuthCubit.get(context).currentUserState == AccountStates.ORDERS_VIEW)
+                    //   const OrdersView(),
                     if(AuthCubit.get(context).currentUserState == AccountStates.ACCOUNT_DETAILS)
                       const EditProfileForm(),
                   ],
