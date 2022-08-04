@@ -14,12 +14,11 @@
 
 ## 📱 Screen Shots
 
-<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_01.png?raw=true" width=180> <img src="https://user-images.githubusercontent.com/43790152/115108730-73fa8300-9f8b-11eb-9001-2c57b12e059d.jpg" width=180> <img src="https://user-images.githubusercontent.com/43790152/115233367-3f283080-a131-11eb-98e1-247dd43cf8ef.gif" width=180> <img src="https://user-images.githubusercontent.com/43790152/115233411-4f401000-a131-11eb-91fb-d355fca4ae38.gif" width=180>
+<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_01.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_04.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_05.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_06.png?raw=true" width=180>
 
-<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_02.png?raw=true" width=180> <img src="https://user-images.githubusercontent.com/43790152/115233470-60891c80-a131-11eb-9057-c177509d2f0c.gif" width=180> <img src="https://user-images.githubusercontent.com/43790152/115233480-667efd80-a131-11eb-8dfb-adff08cfc463.gif" width=180> <img src="https://user-images.githubusercontent.com/43790152/115233600-8b737080-a131-11eb-8ee5-bed207a234cc.gif" width=180>
+<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_02.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_07.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_07.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_08.png?raw=true" width=180>
 
-<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_03.png?raw=true" width=180> <img src="https://user-images.githubusercontent.com/43790152/115108613-da32d600-9f8a-11eb-88dd-057b1304631a.jpg" width=180> 
-
+<img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_03.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_09.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_10.png?raw=true" width=180> <img src="https://github.com/nermeen841/toot_mart/blob/master/screen_shots/flutter_11.png?raw=true" width=180>
 
 
 
