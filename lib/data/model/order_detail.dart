@@ -41,7 +41,7 @@ class Body {
 
 class Products {
   int? id;
-  double? price;
+  var price;
   String? title;
   String? image;
 

@@ -38,8 +38,8 @@ class Body {
 
 class Products {
   int? id;
-  double? price;
-  int? priceBefore;
+  var price;
+  var priceBefore;
   String? title;
   String? image;
 

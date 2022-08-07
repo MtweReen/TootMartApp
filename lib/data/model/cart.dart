@@ -37,7 +37,7 @@ class Body {
 
 class Carts {
   int? id;
-  double? price;
+  var price;
   String? productId;
   String? productTitle;
   String? quantity;

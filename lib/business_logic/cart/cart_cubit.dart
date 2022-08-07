@@ -30,7 +30,7 @@ class CartCubit extends Cubit<CartState> {
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_TO_CART,
-        data: {"product_id": 1, 'quantity': 1},
+        data: {"product_id": productId, 'quantity': quantity},
         options: Options(
           headers: {
             "Authorization": "Bearer ${kUser!.body!.accessToken!}",

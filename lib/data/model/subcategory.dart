@@ -91,7 +91,7 @@ class SubCategories {
 }
 class Products {
   int? id;
-  double? price;
+  var price;
   var priceBefore;
   String? title;
   String? image;
