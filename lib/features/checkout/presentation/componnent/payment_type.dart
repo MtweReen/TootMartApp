@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../core/network/local/cache_helper.dart';
 import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/space_widget.dart';
@@ -16,11 +17,12 @@ class PaymentType extends StatefulWidget {
 }
 
 class _PaymentTypeState extends State<PaymentType> {
-  int x = 0;
+  int x = prefs.getInt("payment_type")??0;
   List<String> images = ['visa.png', 'master_card.png', 'mada.png', 'stc.png'];
 
   @override
   Widget build(BuildContext context) {
+    print(x);
     return Container(
       width: SizeConfig.screenWidth,
       decoration: BoxDecoration(

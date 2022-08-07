@@ -114,6 +114,7 @@ class AuthCubit extends Cubit<AuthStates> {
         showToast(
             msg: value.getOrElse(() => 'not signed out'),
             state: ToastStates.SUCCESS);
+        prefs.clear();
         emit(UserSignedOutSuccessfully());
       }
     });

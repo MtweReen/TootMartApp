@@ -150,6 +150,10 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   ////////////////////////////////////////////////////////////////////////////
 
   Future<void> createOrder() async {
+    print(prefs.getString("total").toString());
+    print(prefs.getInt("payment_type"));
+    final int payment_type =prefs.getInt("payment_type") ?? 1;
+    print(payment_type);
     emit(CreateOrderLoadingState());
     try {
       Response response = await Dio().post(
@@ -162,7 +166,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         ),
         data: {
           "shipping_id": prefs.getInt("shipping")!.toInt(),
-          "payment_type": prefs.getInt("payment_type") ?? 1,
+          "payment_type": payment_type,
           "coupon": prefs.getString("coupon") ?? "",
           "total": prefs.getString("total").toString(),
         },
