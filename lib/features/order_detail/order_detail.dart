@@ -29,7 +29,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           body: ConditionalBuilder(
             condition: state is! GetOrderDetailLoadingState,
             builder: (BuildContext context) {
-              return OrderDetailBody();
+              return const OrderDetailBody();
             },
             fallback: (BuildContext context) => Center(
               child: CircularProgressIndicator(

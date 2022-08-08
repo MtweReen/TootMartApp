@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:timelines/timelines.dart';
+import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
@@ -54,7 +55,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
         listener: (context, state) {
           if (state is CreateOrderSuccessState) {
             CheckOutCubit.get(context).getOrders();
-            // CheckOutCubit.get(context).moveInTimeLine(0);
+            CartCubit.get(context).getcart();
             currentPage = 0;
           }
         },
@@ -130,7 +131,6 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                         titleButton[CheckOutCubit.get(context).currentTimeLine],
                     withBorder: true,
                     onTap: () {
-                  
                       if (CheckOutCubit.get(context).currentTimeLine < 2) {
                         if (currentPage == 0) {
                           if (AddLocationView.selected != null) {

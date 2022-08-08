@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, unused_element
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 
 class OrderItem extends StatelessWidget {
@@ -16,14 +19,17 @@ class OrderItem extends StatelessWidget {
   final String orderStatus;
   final String total;
   final String quantity;
+  final String isrefundable;
   OrderItem(
       {Key? key,
       required this.index,
+      required this.isrefundable,
       this.isReplacment,
       required this.orderName,
       required this.orderID,
       required this.orderStatus,
-      required this.total, required this.quantity})
+      required this.total,
+      required this.quantity})
       : super(key: key);
   // List<Orders>? orders;
   bool? isReplacment = false;
@@ -35,8 +41,7 @@ class OrderItem extends StatelessWidget {
       // elevation: 2,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.transparent),
+            borderRadius: BorderRadius.circular(15), color: Colors.transparent),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,21 +90,22 @@ class OrderItem extends StatelessWidget {
                         children: [
                           Text(
                             orderStatus,
-                            style:
-                                TextStyle(fontSize: SizeConfig.defaultSize),
+                            style: TextStyle(fontSize: SizeConfig.defaultSize),
                           ),
                           if (isReplacment != true) const Spacer(),
-                          if (isReplacment != true)
-                            SizedBox(
-                              child: CustomTextButton(
-                                  text: 'إسترجاع',
-                                  size: SizeConfig.defaultSize! * 1.6,
-                                  color: kMainColor,
-                                  isUnderLine: true,
-                                  onPressed: () {
-                                    // _showCustomDialog(context,orders,index!);
-                                  }),
-                            ),
+                          (isrefundable == "true")
+                              ? SizedBox(
+                                  child: CustomTextButton(
+                                      text:
+                                          translateString("refund", 'إسترجاع'),
+                                      size: SizeConfig.defaultSize! * 1.6,
+                                      color: kMainColor,
+                                      isUnderLine: true,
+                                      onPressed: () {
+                                        _showCustomDialog(context, orderID);
+                                      }),
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                     ],
@@ -124,7 +130,7 @@ class OrderItem extends StatelessWidget {
   }
 }
 
-void _showCustomDialog(BuildContext context, int index) {
+void _showCustomDialog(BuildContext context, orderId) {
   showGeneralDialog(
     context: context,
     barrierLabel: "Barrier",
@@ -154,31 +160,37 @@ void _showCustomDialog(BuildContext context, int index) {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                              height: SizeConfig.defaultSize! * 5,
-                              width: SizeConfig.defaultSize! * 12,
-                              child: CustomGeneralButton(
-                                  text: LocaleKeys.confirm.tr(),
-                                  onTap: () {
-                                    // OrdersCubit.get(context).refundOrder(orderId: orders![index].id!);
-                                    // MagicRouter.pop();
-                                  })),
-                          SizedBox(
-                              height: SizeConfig.defaultSize! * 5,
-                              width: SizeConfig.defaultSize! * 12,
-                              child: CustomGeneralButton(
-                                  text: LocaleKeys.cancel.tr(),
-                                  onTap: () {
-                                    MagicRouter.pop();
-                                  })),
-                          // CustomGeneralButton(text: 'text', onTap: (){}),
-                        ],
-                      ),
+                    BlocConsumer<CheckOutCubit, CheckOutStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                  height: SizeConfig.defaultSize! * 5,
+                                  width: SizeConfig.defaultSize! * 12,
+                                  child: CustomGeneralButton(
+                                      text: LocaleKeys.confirm.tr(),
+                                      onTap: () {
+                                        CheckOutCubit.get(context)
+                                            .refundOrder(orderId: orderId);
+                                        Navigator.pop(context);
+                                      })),
+                              SizedBox(
+                                  height: SizeConfig.defaultSize! * 5,
+                                  width: SizeConfig.defaultSize! * 12,
+                                  child: CustomGeneralButton(
+                                      text: LocaleKeys.cancel.tr(),
+                                      onTap: () {
+                                        MagicRouter.pop();
+                                      })),
+                              // CustomGeneralButton(text: 'text', onTap: (){}),
+                            ],
+                          ),
+                        );
+                      },
                     )
                   ],
                 ),

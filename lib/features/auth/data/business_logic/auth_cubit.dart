@@ -1,7 +1,8 @@
-
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print, non_constant_identifier_names, duplicate_ignore
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/core/network/end_points.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/network/local/cache_helper.dart';
@@ -29,15 +30,16 @@ class AuthCubit extends Cubit<AuthStates> {
           return UserModel.fromJson({});
         });
 
-        print('skdhfbalksdfaksdf'+userModelToJson(user!));
+        print('skdhfbalksdfaksdf' + userModelToJson(user!));
         if (user!.body!.accessToken == null || user!.body!.accessToken == '') {
-          showToast(msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
+          showToast(
+              msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
           emit(LoginUserErrorstate());
         } else {
           showToast(
               msg: LocaleKeys.signed_in_successfully.tr(),
               state: ToastStates.SUCCESS);
-             
+          showDeleteButton();
           emit(LoginUserLoaded());
           print(user!.body!.accessToken);
         }
@@ -46,7 +48,8 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
-  UserModel? RegisterUser(String name, String phone, String email, String password) {
+  UserModel? RegisterUser(
+      String name, String phone, String email, String password) {
     emit(RegisterUserLoadingState());
     AuthRepositoryImpl()
         .registerWithEmailAndPassword(
@@ -54,50 +57,47 @@ class AuthCubit extends Cubit<AuthStates> {
         .then((value) {
       if (value != null) {
         user = value.getOrElse(() => UserModel.fromJson({}));
-        if(user!.body!.accessToken !=''){
+        if (user!.body!.accessToken != '') {
           showToast(
               msg: LocaleKeys.signed_in_successfully.tr(),
               state: ToastStates.SUCCESS);
+          showDeleteButton();
           emit(RegisterUserSuccessState());
-        }else{
-          if(user!.message.toString() == 'The email field must be unique.'){
+        } else {
+          if (user!.message.toString() == 'The email field must be unique.') {
             showToast(
-                msg:'هذا البريد الالكتروني مستخدم من قبل',
+                msg: 'هذا البريد الالكتروني مستخدم من قبل',
                 state: ToastStates.ERROR);
-          }else if(user!.message.toString() == 'The mobile has already been taken.'){
+          } else if (user!.message.toString() ==
+              'The mobile has already been taken.') {
             showToast(
-                msg:'رقم الهاتف مستخدم من قبل',
-                state: ToastStates.ERROR);
-          }else{
+                msg: 'رقم الهاتف مستخدم من قبل', state: ToastStates.ERROR);
+          } else {
             showToast(
-                msg:'البريد الالكترني و رقم الهاتف تم استخدامهم من قبل',
+                msg: 'البريد الالكترني و رقم الهاتف تم استخدامهم من قبل',
                 state: ToastStates.ERROR);
           }
           emit(RegisterUserErrorState());
         }
 
         print(value);
-      }else{
-        showToast(
-            msg:  ' خطأ في تسجيل الدخول',
-            state: ToastStates.ERROR);
+      } else {
+        showToast(msg: ' خطأ في تسجيل الدخول', state: ToastStates.ERROR);
         emit(RegisterUserErrorState());
       }
     });
     return null;
   }
 
-  UserModel? editProfile({required String name,required String phone,required String email}) {
+  UserModel? editProfile(
+      {required String name, required String phone, required String email}) {
     emit(EditProfileLoadingState());
     AuthRepositoryImpl()
-        .editProfile(
-            name: name, phone: phone, email: email)
+        .editProfile(name: name, phone: phone, email: email)
         .then((value) {
       if (value != []) {
         user = value.getOrElse(() => UserModel.fromJson({}));
-        showToast(
-            msg: 'تم تعديل البيانات بنجاح',
-            state: ToastStates.SUCCESS);
+        showToast(msg: 'تم تعديل البيانات بنجاح', state: ToastStates.SUCCESS);
         kUser = user;
         CasheHelper.SaveUser(user: kUser!);
         emit(EditProfileSuccessState());
@@ -122,11 +122,13 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   Future<User>? changePassword({
-  required String oldPassword,
-  required String newPassword,
-  required String newPasswordConfirmation,
-}) {
-    AuthRepositoryImpl().changePassword(oldPassword, newPassword, newPasswordConfirmation).then((value) {
+    required String oldPassword,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) {
+    AuthRepositoryImpl()
+        .changePassword(oldPassword, newPassword, newPasswordConfirmation)
+        .then((value) {
       if (value != []) {
         showToast(
             msg: value.getOrElse(() => 'not signed out'),
@@ -150,8 +152,9 @@ class AuthCubit extends Cubit<AuthStates> {
     });
     return null;
   }
+
   AccountStates? currentUserState;
-  changeUserState(AccountStates userState){
+  changeUserState(AccountStates userState) {
     currentUserState = userState;
     emit(ChangeUserState());
   }
@@ -191,4 +194,24 @@ class AuthCubit extends Cubit<AuthStates> {
   //   });
   //   return null;
   // }
+}
+
+Future<bool>? showDeleteButton() async {
+  try {
+    Response response = await Dio().get(
+      kBaseUrl + "delete_acc_button",
+      options: Options(headers: {
+        "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+      }),
+    );
+    if (response.statusCode == 200) {
+      print(response.data);
+      if (response.data['body']['delete_account_button_status'] == true) {
+        return true;
+      }
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+  return false;
 }

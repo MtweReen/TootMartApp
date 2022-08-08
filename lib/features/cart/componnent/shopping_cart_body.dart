@@ -35,9 +35,12 @@ class ShoppingCartBody extends StatelessWidget {
         builder: (context, state) {
           return ConditionalBuilder(
             condition: state is! GetCartLoadingState,
-            fallback: (context) => Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
+            fallback: (context) => Padding(
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight! * 0.3),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: kMainColor,
+                ),
               ),
             ),
             builder: (context) => (prefs.getBool("is_login") == true &&

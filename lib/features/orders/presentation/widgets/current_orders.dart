@@ -22,30 +22,27 @@ class _CurrentOrdersState extends State<CurrentOrders> {
   Widget build(BuildContext context) {
     return (widget.orders.isNotEmpty)
         ? ListView.separated(
-          shrinkWrap: true,
+            shrinkWrap: true,
             primary: false,
             itemBuilder: (context, index) =>
                 BlocConsumer<CheckOutCubit, CheckOutStates>(
-                  listener: (context, state) {
-                    //  if(state is GetOrderDetailSuccessState){
-                    //   MagicRouter.navigateTo(const OrderDetailScreen());
-                    // }
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     return InkWell(
                       onTap: () {
                         CheckOutCubit.get(context).getOrderDetail(
-                            context: context,
-                            orderId: widget.orders[index].id);
+                            context: context, orderId: widget.orders[index].id);
                         MagicRouter.navigateTo(const OrderDetailScreen());
                       },
                       child: OrderItem(
-                        quantity: "1",
+                        isrefundable:
+                            widget.orders[index].refundable.toString(),
+                        quantity:
+                            widget.orders[index].productsAmount.toString(),
                         index: index,
                         orderID: widget.orders[index].id.toString(),
-                        orderName:
-                            widget.orders[index].orderNumber.toString(),
-                        orderStatus: 'status',
+                        orderName: widget.orders[index].orderNumber.toString(),
+                        orderStatus: widget.orders[index].status.toString(),
                         total: widget.orders[index].total.toString(),
                       ),
                     );

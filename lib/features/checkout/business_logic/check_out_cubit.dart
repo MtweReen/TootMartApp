@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/helper/functions/show_toast.dart';
 import 'package:toot_mart/data/model/order.dart';
 import 'package:toot_mart/data/model/order_detail.dart';
 import 'package:toot_mart/data/model/room_filter.dart';
 import 'package:toot_mart/data/model/user_address.dart';
-import 'package:toot_mart/features/order_detail/order_detail.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/network/end_points.dart';
 import '../../../core/router/router.dart';
@@ -24,13 +22,13 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   int currentTimeLine = 0;
 
   void moveInTimeLine(int page) {
-   if(page == 3){
-     currentTimeLine = 0;
-    emit(MoveInTimeLineState());
-   }else{
-     currentTimeLine = page;
-    emit(MoveInTimeLineState());
-   }
+    if (page == 3) {
+      currentTimeLine = 0;
+      emit(MoveInTimeLineState());
+    } else {
+      currentTimeLine = page;
+      emit(MoveInTimeLineState());
+    }
   }
 
   AreasModel? areasModel;
@@ -162,7 +160,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         ),
         data: {
           "shipping_id": prefs.getInt("shipping")!.toInt(),
-         // "user_address_id": prefs.getInt("user_address_id")!.toInt(),
+          "user_address_id": prefs.getInt("address_id")!.toInt(),
           "payment_type": prefs.getInt("payment_type") ?? 1,
           "coupon": prefs.getString("coupon") ?? "",
           "total": prefs.getString("total").toString(),
@@ -208,13 +206,14 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   }
 
   //////////////////////////////////////////////////////////////////////
-  
+
   SingleOrderModel? singleOrderModel;
-  Future<SingleOrderModel>? getOrderDetail({ required int orderId , required context })async{
+  Future<SingleOrderModel>? getOrderDetail(
+      {required int orderId, required context}) async {
     emit(GetOrderDetailLoadingState());
     try {
-       Response response = await Dio().get(
-        kBaseUrl + ORDER_DETAIL+"$orderId",
+      Response response = await Dio().get(
+        kBaseUrl + ORDER_DETAIL + "$orderId",
         options: Options(
           headers: {
             "Authorization": "Bearer " + kUser!.body!.accessToken!,
@@ -231,16 +230,40 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     } catch (e) {
       print(e.toString());
       emit(GetOrderDetailLoadingState());
-      try {
-
-      } catch (e) {
+      try {} catch (e) {
         print(e.toString());
         emit(GetOrderDetailErrorState(e.toString()));
-        
       }
-      
     }
     return singleOrderModel!;
   }
-  
+
+  Future<void> refundOrder({required String orderId}) async {
+    emit(RefundOrdersLoadingState());
+    try {
+      Response response = await Dio().post(
+        kBaseUrl + "orders/$orderId",
+        options: Options(
+          headers: {
+            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Accept": "application/json",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        showToast(
+            msg: translateString(
+                "your refund request has been sent successfully",
+                "تم إرسال طلبك بنجاح"),
+            state: ToastStates.SUCCESS);
+      }
+    } catch (e) {
+      showToast(
+          msg: translateString("there is error , please try again later",
+              "حدث خطأ الرجاء المحاولة ف وقت لاحق "),
+          state: ToastStates.ERROR);
+      print(e.toString());
+      emit(RefundOrdersErrorState(e.toString()));
+    }
+  }
 }

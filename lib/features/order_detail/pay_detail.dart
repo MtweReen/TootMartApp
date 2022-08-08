@@ -43,7 +43,7 @@ class PaymentDetailCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(translateString("Shipping coast", "تكاليف الشحن ")),
-                Text(shipping + translateString("R.S", "ر.س"))
+                Text(shipping + " " + translateString("R.S", "ر.س"))
               ],
             ),
             const VerticalSpace(value: 1),
@@ -52,7 +52,7 @@ class PaymentDetailCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(translateString("discount", "الخصم")),
-                      Text(discount + translateString("R.S", "ر.س")),
+                      Text(discount + " " + translateString("R.S", "ر.س")),
                     ],
                   )
                 : const SizedBox(),
@@ -73,7 +73,7 @@ class PaymentDetailCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    total + " " + translateString("R.S", "ر.س"),
+                    getTotalPrice() + " " + translateString("R.S", "ر.س"),
                     style: TextStyle(fontSize: SizeConfig.defaultSize! * 2),
                   ),
                 ],
@@ -83,5 +83,12 @@ class PaymentDetailCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getTotalPrice() {
+    num totalPrice =
+        (num.parse(subtotal) + num.parse(shipping)) - num.parse(discount);
+
+    return totalPrice.toStringAsFixed(2).toString();
   }
 }

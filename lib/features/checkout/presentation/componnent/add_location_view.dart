@@ -91,6 +91,13 @@ class _AddLocationViewState extends State<AddLocationView> {
                                     .userAddress![index]
                                     .shipping!
                                     .id!);
+                            prefs.setInt(
+                                "address_id",
+                                CheckOutCubit.get(context)
+                                    .userAddressModel!
+                                    .body!
+                                    .userAddress![index]
+                                    .id!);
                             setState(() {
                               AddLocationView.selected = index;
                               AddLocationView.dayfrom =
@@ -107,12 +114,13 @@ class _AddLocationViewState extends State<AddLocationView> {
                                       .userAddress![index]
                                       .shipping!
                                       .to!;
-                             AddLocationView.shippingCoast =      CheckOutCubit.get(context)
+                              AddLocationView.shippingCoast =
+                                  CheckOutCubit.get(context)
                                       .userAddressModel!
                                       .body!
                                       .userAddress![index]
-                                      .shipping!.price
-                                      ;       
+                                      .shipping!
+                                      .price;
                             });
                           },
                           title: Text(

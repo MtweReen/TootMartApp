@@ -20,13 +20,27 @@ import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
 import '../../../../core/widgets/profile_item.dart';
 
-class GuestView extends StatelessWidget {
+class GuestView extends StatefulWidget {
   const GuestView({Key? key}) : super(key: key);
 
+  @override
+  State<GuestView> createState() => _GuestViewState();
+}
+
+class _GuestViewState extends State<GuestView> {
+  bool isDeleted = false;
+  @override
+  void initState() {
+    showDeleteButton()!.then((value) {
+      setState(() {
+        isDeleted = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-   // print(kUser!.body!.accessToken);
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
@@ -108,10 +122,10 @@ class GuestView extends StatelessWidget {
                       kInside++;
                       AuthCubit.get(context)
                           .changeUserState(AccountStates.ACCOUNT_DETAILS);
-
                     },
                     child: ProfileCardItem(
-                      title:translateString("Account Details", "تفاصيل الحساب"),
+                      title:
+                          translateString("Account Details", "تفاصيل الحساب"),
                     ),
                   ),
                 if (kUser != null)
@@ -204,31 +218,32 @@ class GuestView extends StatelessWidget {
                 SizedBox(
                   height: h * 0.04,
                 ),
-                if(kUser != null)
+                if (kUser != null)
                   InkWell(
-                  onTap: () {
-                    AuthCubit.get(context).SignOut();
-                    AuthCubit.get(context).changeUserState(AccountStates.LOGIN);
-                  },
-                  child: ProfileCardItem(
-                    title: translateString("Log Out", "تسجيل الخروج"),
+                    onTap: () {
+                      AuthCubit.get(context).SignOut();
+                      AuthCubit.get(context)
+                          .changeUserState(AccountStates.LOGIN);
+                    },
+                    child: ProfileCardItem(
+                      title: translateString("Log Out", "تسجيل الخروج"),
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: h * 0.04,
                 ),
-                if(kUser != null)
+                if (kUser != null && isDeleted)
                   InkWell(
-                  onTap: () {
-                    print(kUser!.body!.accessToken);
-                    // AuthCubit.get(context).deleteAccount();
-                    _showCustomDialog(context);
-                  },
-                  child: ProfileCardItem(
-                    title: translateString("Delete Account", "مسح الحساب"),
-                    color: Colors.red,
+                    onTap: () {
+                      print(kUser!.body!.accessToken);
+                      // AuthCubit.get(context).deleteAccount();
+                      _showCustomDialog(context);
+                    },
+                    child: ProfileCardItem(
+                      title: translateString("Delete Account", "مسح الحساب"),
+                      color: Colors.red,
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -237,6 +252,7 @@ class GuestView extends StatelessWidget {
     );
   }
 }
+
 void _showCustomDialog(BuildContext context) {
   showGeneralDialog(
     context: context,
@@ -262,7 +278,8 @@ void _showCustomDialog(BuildContext context) {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        translateString("Confirm delete account ?! ", " تأكيد حزف الحساب ؟ "),
+                        translateString("Confirm delete account ?! ",
+                            " تأكيد حزف الحساب ؟ "),
                         style: TextStyle(
                             fontSize: SizeConfig.defaultSize! * 2,
                             fontWeight: FontWeight.bold),
@@ -277,11 +294,12 @@ void _showCustomDialog(BuildContext context) {
                               height: SizeConfig.defaultSize! * 5,
                               width: SizeConfig.defaultSize! * 13,
                               child: CustomGeneralButton(
-                                  text:translateString("Ok", "تأكيد") ,
+                                  text: translateString("Ok", "تأكيد"),
                                   onTap: () {
                                     AuthCubit.get(context).deleteAccount();
-                                    MagicRouter.navigateTo(
-                                        const LayoutScreen(index: 0,));
+                                    MagicRouter.navigateTo(const LayoutScreen(
+                                      index: 0,
+                                    ));
                                   })),
                           SizedBox(
                               height: SizeConfig.defaultSize! * 5,

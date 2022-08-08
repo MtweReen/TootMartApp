@@ -9,6 +9,7 @@ import 'package:toot_mart/features/country/country.dart';
 import 'business_logic/home/home_cubit_cubit.dart';
 import 'business_logic/setting/setting_cubit.dart';
 import 'core/constants/constants.dart';
+import 'features/auth/data/business_logic/auth_cubit.dart';
 import 'features/layout/layout.dart';
 import 'features/map/map_provider.dart';
 import 'features/onboarding/onboarding.dart';

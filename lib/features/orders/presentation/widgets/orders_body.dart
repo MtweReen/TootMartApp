@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -50,7 +49,7 @@ class _OrdersBodyState extends State<OrdersBody> {
               ),
             ),
             builder: (context) => SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(),

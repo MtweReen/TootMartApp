@@ -108,13 +108,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               text: translateString(
                                   "Add to cart", "إضافة الي عربة التسوق"),
                               onTap: () {
-                                CartCubit.get(context).addtocart(
-                                    productId: CategoryCubit.get(context)
-                                        .productDetailModel!
-                                        .body!
-                                        .products!
-                                        .id!,
-                                    quantity: ProductDetailBody.counter);
+                                if (prefs.getBool("is_login") == true) {
+                                  CartCubit.get(context).addtocart(
+                                      productId: CategoryCubit.get(context)
+                                          .productDetailModel!
+                                          .body!
+                                          .products!
+                                          .id!,
+                                      quantity: ProductDetailBody.counter);
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: translateString(
+                                          "you must Login first ",
+                                          "يجب تسجيل الدخول اولا "),
+                                      backgroundColor: colorRed,
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.CENTER,
+                                      textColor: Colors.white);
+                                }
                               },
                             )
                           : const SizedBox();

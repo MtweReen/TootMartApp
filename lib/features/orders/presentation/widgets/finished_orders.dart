@@ -27,12 +27,12 @@ class _FinishedOrdersState extends State<FinishedOrders> {
         ? SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
             child: ListView.separated(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 primary: false,
                 itemBuilder: (context, index) =>
                     BlocConsumer<CheckOutCubit, CheckOutStates>(
                       listener: (context, state) {
-                        if(state is GetOrderDetailSuccessState){
+                        if (state is GetOrderDetailSuccessState) {
                           MagicRouter.navigateTo(const OrderDetailScreen());
                         }
                       },
@@ -40,16 +40,19 @@ class _FinishedOrdersState extends State<FinishedOrders> {
                         return InkWell(
                           onTap: () {
                             CheckOutCubit.get(context).getOrderDetail(
-                              context: context,
+                                context: context,
                                 orderId: widget.order[index].id);
                           },
                           child: OrderItem(
-                            quantity: "1",
+                            isrefundable:
+                                widget.order[index].refundable.toString(),
+                            quantity:
+                                widget.order[index].productsAmount.toString(),
                             index: index,
                             orderID: widget.order[index].id.toString(),
                             orderName:
                                 widget.order[index].orderNumber.toString(),
-                            orderStatus: 'status',
+                            orderStatus: widget.order[index].status.toString(),
                             total: widget.order[index].total.toString(),
                           ),
                         );
@@ -60,15 +63,16 @@ class _FinishedOrdersState extends State<FinishedOrders> {
                     ),
                 itemCount: widget.order.length),
           )
-        : Column(crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              translateString(
-                  "no orders yet , shop now", "لا توجد طلبات بعد , تسوق الان"),
-              style: headingStyle.copyWith(
-                  color: kMainColor, fontWeight: FontWeight.bold),
-            ),
-          ],
-        );
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                translateString("no orders yet , shop now",
+                    "لا توجد طلبات بعد , تسوق الان"),
+                style: headingStyle.copyWith(
+                    color: kMainColor, fontWeight: FontWeight.bold),
+              ),
+            ],
+          );
   }
 }

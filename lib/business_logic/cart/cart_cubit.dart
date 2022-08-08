@@ -27,6 +27,8 @@ class CartCubit extends Cubit<CartState> {
   Future<AddtoCartModel>? addtocart(
       {required int productId, required int quantity}) async {
     emit(AddtoCartLoadingState());
+    print(productId);
+    print(quantity);
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_TO_CART,

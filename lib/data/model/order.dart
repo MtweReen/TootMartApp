@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class OrderModel {
   int? code;
   bool? status;
@@ -18,7 +20,7 @@ class OrderModel {
 
 class Body {
   List<OrdersUnderProcess>? ordersUnderProcess;
-  List<CompletedOrders>? ordersCompleted;
+  List<OrdersCompleted>? ordersCompleted;
 
   Body({this.ordersUnderProcess, this.ordersCompleted});
 
@@ -30,9 +32,9 @@ class Body {
       });
     }
     if (json['orders_completed'] != null) {
-      ordersCompleted = <CompletedOrders>[];
+      ordersCompleted = <OrdersCompleted>[];
       json['orders_completed'].forEach((v) {
-        ordersCompleted!.add(CompletedOrders.fromJson(v));
+        ordersCompleted!.add(OrdersCompleted.fromJson(v));
       });
     }
   }
@@ -42,36 +44,68 @@ class OrdersUnderProcess {
   int? id;
   String? orderNumber;
   String? date;
+  var discount;
+  String? status;
+  int? productsAmount;
   String? subTotal;
   String? total;
+  String? refundable;
 
   OrdersUnderProcess(
-      {this.id, this.orderNumber, this.date, this.subTotal, this.total});
+      {this.id,
+      this.orderNumber,
+      this.date,
+      this.discount,
+      this.status,
+      this.productsAmount,
+      this.subTotal,
+      this.total,
+      this.refundable});
 
   OrdersUnderProcess.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     orderNumber = json['order_number'];
     date = json['date'];
+    discount = json['discount'];
+    status = json['status'];
+    productsAmount = json['products_amount'];
     subTotal = json['subTotal'];
     total = json['total'];
+    refundable = json['refundable'];
   }
 }
 
-class CompletedOrders {
+class OrdersCompleted {
   int? id;
   String? orderNumber;
   String? date;
+  var discount;
+  String? status;
+  int? productsAmount;
   String? subTotal;
   String? total;
+  String? refundable;
 
-  CompletedOrders(
-      {this.id, this.orderNumber, this.date, this.subTotal, this.total});
+  OrdersCompleted(
+      {this.id,
+      this.orderNumber,
+      this.date,
+      this.discount,
+      this.status,
+      this.productsAmount,
+      this.subTotal,
+      this.total,
+      this.refundable});
 
-  CompletedOrders.fromJson(Map<String, dynamic> json) {
+  OrdersCompleted.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     orderNumber = json['order_number'];
     date = json['date'];
+    discount = json['discount'];
+    status = json['status'];
+    productsAmount = json['products_amount'];
     subTotal = json['subTotal'];
     total = json['total'];
+    refundable = json['refundable'];
   }
 }

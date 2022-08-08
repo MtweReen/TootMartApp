@@ -91,3 +91,13 @@ class GetOrderDetailErrorState extends CheckOutStates {
 
   GetOrderDetailErrorState(this.error);
 }
+
+class RefundOrdersLoadingState extends CheckOutStates {}
+
+class RefundOrdersSuccessState extends CheckOutStates {}
+
+class RefundOrdersErrorState extends CheckOutStates {
+  final String error;
+
+  RefundOrdersErrorState(this.error);
+}

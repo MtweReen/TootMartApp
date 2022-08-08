@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
@@ -58,7 +59,12 @@ class _OrderDetailBodyState extends State<OrderDetailBody> {
                         .products![index]
                         .price!
                         .toString(),
-                    quantity: '1',
+                    quantity: CheckOutCubit.get(context)
+                        .singleOrderModel!
+                        .body!
+                        .products![index]
+                        .quantity!
+                        .toString(),
                   ),
                   separatorBuilder: (context, index) =>
                       const VerticalSpace(value: 2),
@@ -70,21 +76,64 @@ class _OrderDetailBodyState extends State<OrderDetailBody> {
                 ),
                 const VerticalSpace(value: 3),
                 PaymentDetailCard(
-                  discount: '0.0',
+                  discount: CheckOutCubit.get(context)
+                      .singleOrderModel!
+                      .body!
+                      .order!
+                      .discount!
+                      .toString(),
                   subtotal: CheckOutCubit.get(context)
                       .singleOrderModel!
                       .body!
                       .order!
                       .subTotal!
                       .toString(),
-                  total:  CheckOutCubit.get(context)
+                  total: CheckOutCubit.get(context)
                       .singleOrderModel!
                       .body!
                       .order!
                       .total!
                       .toString(),
-                  shipping: '0.0',
-                )
+                  shipping: CheckOutCubit.get(context)
+                      .singleOrderModel!
+                      .body!
+                      .address!
+                      .shipping!
+                      .price!
+                      .toString(),
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                  translateString("Shipping to : ", "الشحن إلي : "),
+                  style: headingStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const VerticalSpace(value: 2),
+                Text(CheckOutCubit.get(context)
+                    .singleOrderModel!
+                    .body!
+                    .address!
+                    .shipping!
+                    .area!),
+                const VerticalSpace(value: 2),
+                Text(CheckOutCubit.get(context)
+                    .singleOrderModel!
+                    .body!
+                    .address!
+                    .address!),
+                const VerticalSpace(value: 2),
+                Text(
+                  translateString("Order Status : ", "حالة الطلب : ") +
+                      " " +
+                      CheckOutCubit.get(context)
+                          .singleOrderModel!
+                          .body!
+                          .order!
+                          .status!,
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.bold, color: kMainColor),
+                ),
               ],
             ),
           ),
