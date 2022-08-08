@@ -162,6 +162,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         ),
         data: {
           "shipping_id": prefs.getInt("shipping")!.toInt(),
+         // "user_address_id": prefs.getInt("user_address_id")!.toInt(),
           "payment_type": prefs.getInt("payment_type") ?? 1,
           "coupon": prefs.getString("coupon") ?? "",
           "total": prefs.getString("total").toString(),
