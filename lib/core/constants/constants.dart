@@ -47,7 +47,11 @@ String translateString(String a, String b) {
 }
 
 ////////////////////////////////////////////////////////////
-customAppbar({required String title, required context, VoidCallback? press,bool? inLayout}) {
+customAppbar(
+    {required String title,
+    required context,
+    VoidCallback? press,
+    bool? inLayout}) {
   return AppBar(
     elevation: 3,
     backgroundColor: Colors.white,
@@ -60,13 +64,15 @@ customAppbar({required String title, required context, VoidCallback? press,bool?
           fontWeight: FontWeight.w700,
           fontSize: MediaQuery.of(context).size.width * 0.04),
     ),
-    leading:inLayout==false||inLayout==null? InkWell(
-      onTap: press,
-      child: const Icon(
-        Icons.arrow_back_ios,
-        color: Colors.black,
-      ),
-    ):null,
+    leading: inLayout == false || inLayout == null
+        ? InkWell(
+            onTap: press,
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          )
+        : null,
   );
 }
 /////////////////////////////////////////////////////////////
@@ -81,7 +87,7 @@ mapIcon() async {
 
 var deviceId;
 UserModel? kUser;
-var kInside=0;
+var kInside = 0;
 const kBgImage = 'assets/images/splash_bg.png';
 //////////////////////////////////////////////////////////////////////
 customCachedNetworkImage(
@@ -101,24 +107,22 @@ customCachedNetworkImage(
             ? CachedNetworkImage(
                 imageUrl: url,
                 fit: fit,
-                placeholder: (context, url) => Container(
-                  color: kMainColor,
-                      // width: MediaQuery.of(context).size.width * 0.02,
-                      // height: MediaQuery.of(context).size.height * 0.02,
-                      child: Image.asset(
-                        "asset/images/logo.png",
-                        fit: BoxFit.contain,
-                      ),
+                placeholder: (context, url) => Image.asset(
+                      kLogo,
+                      color: kMainColor,
+                      height: MediaQuery.of(context).size.height * 0.05,
                     ),
                 errorWidget: (context, url, error) {
-                  return  Icon(
-                    Icons.error,
+                  return Image.asset(
+                    kLogo,
                     color: kMainColor,
+                    height: MediaQuery.of(context).size.height * 0.05,
                   );
                 })
-            :  Icon(
-                Icons.error,
+            : Image.asset(
+                kLogo,
                 color: kMainColor,
+                height: MediaQuery.of(context).size.height * 0.05,
               ),
       );
     }
@@ -126,4 +130,3 @@ customCachedNetworkImage(
     print(e.toString());
   }
 }
-
