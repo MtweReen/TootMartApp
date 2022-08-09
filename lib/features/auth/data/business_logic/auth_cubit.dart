@@ -109,6 +109,7 @@ class AuthCubit extends Cubit<AuthStates> {
   Future<UserModel>? SignOut() {
     AuthRepositoryImpl().SignOut().then((value) {
       if (value != []) {
+      changeUserState(AccountStates.GUEST);
         kUser = null;
         CasheHelper.removeData(key: 'User');
         showToast(
