@@ -160,6 +160,7 @@ class _GuestViewState extends State<GuestView> {
                 SizedBox(
                   height: h * 0.04,
                 ),
+                if (kUser != null)
                 InkWell(
                   onTap: () => Navigator.push(
                       context,
@@ -169,6 +170,7 @@ class _GuestViewState extends State<GuestView> {
                     title: translateString("Exhibition sites", "مواقع المعارض"),
                   ),
                 ),
+                if (kUser != null)
                 SizedBox(
                   height: h * 0.04,
                 ),
@@ -221,9 +223,11 @@ class _GuestViewState extends State<GuestView> {
                 if (kUser != null)
                   InkWell(
                     onTap: () {
-                      AuthCubit.get(context).SignOut();
-                      AuthCubit.get(context)
-                          .changeUserState(AccountStates.LOGIN);
+                      AuthCubit.get(context).SignOut()!.then((value) {
+                        AuthCubit.get(context)
+                            .changeUserState(AccountStates.GUEST);
+                      });
+
                     },
                     child: ProfileCardItem(
                       title: translateString("Log Out", "تسجيل الخروج"),
