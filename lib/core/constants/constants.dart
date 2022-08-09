@@ -42,8 +42,8 @@ Future startShared() async {
 
 //////////////////////////////////////////////////////////
 
-String translateString(String a, String b) {
-  return prefs.getString("lang") == 'en' ? a : b;
+String translateString(String english, String arabic) {
+  return prefs.getString("lang") == 'en' ? english : arabic;
 }
 
 ////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ var kInside = 0;
 const kBgImage = 'assets/images/splash_bg.png';
 //////////////////////////////////////////////////////////////////////
 customCachedNetworkImage(
-    {required String url, required context, required BoxFit fit}) {
+    {required String url, required context, BoxFit? fit}) {
   try {
     // ignore: unnecessary_null_comparison
     if (url == null || url == "") {
@@ -110,19 +110,16 @@ customCachedNetworkImage(
                 placeholder: (context, url) => Image.asset(
                       kLogo,
                       color: kMainColor,
-                      height: MediaQuery.of(context).size.height * 0.05,
                     ),
                 errorWidget: (context, url, error) {
                   return Image.asset(
                     kLogo,
                     color: kMainColor,
-                    height: MediaQuery.of(context).size.height * 0.05,
                   );
                 })
             : Image.asset(
                 kLogo,
                 color: kMainColor,
-                height: MediaQuery.of(context).size.height * 0.05,
               ),
       );
     }

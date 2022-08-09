@@ -17,12 +17,12 @@ class PaymentType extends StatefulWidget {
 }
 
 class _PaymentTypeState extends State<PaymentType> {
-  int x = prefs.getInt("payment_type")??0;
+  int x = 0;
   List<String> images = ['visa.png', 'master_card.png', 'mada.png', 'stc.png'];
 
   @override
   Widget build(BuildContext context) {
-    print(x);
+    CasheHelper.getData(key: 'payment_type')??CasheHelper.saveData(key: 'payment_type',value: 1);
     return Container(
       width: SizeConfig.screenWidth,
       decoration: BoxDecoration(
@@ -46,6 +46,8 @@ class _PaymentTypeState extends State<PaymentType> {
                       setState(() {
                         x = value!;
                         CasheHelper.saveData(key: 'payment_type', value: 1);
+                        print(CasheHelper.getData(key: 'payment_type'));
+                        //------------------------------------------------
                       });
                     },
                   ),
@@ -74,6 +76,11 @@ class _PaymentTypeState extends State<PaymentType> {
                   setState(() {
                     x = value!;
                     CasheHelper.saveData(key: 'payment_type', value: 0);
+                    print(CasheHelper.getData(key: 'payment_type'));
+                    //------------------------------------------------
+                    print(prefs.getInt("payment_type"));
+
+
                   });
                 },
               ),

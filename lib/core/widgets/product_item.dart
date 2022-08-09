@@ -21,19 +21,24 @@ class ProductItem extends StatelessWidget {
     return InkWell(
       onTap: press,
       child: GridTile(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              // height: SizeConfig.defaultSize!*22,
-              child: customCachedNetworkImage( url: image, fit: BoxFit.cover,context: context)
-            ),
-            const VerticalSpace(value: 1),
-            Text(
-              name,
-              style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.2),
-            ),
-          ],
+        child: Card(
+          elevation: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: customCachedNetworkImage( url: image,fit:BoxFit.cover,context: context)
+              ),
+              const VerticalSpace(value: 1),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  name,
+                  style: TextStyle(fontSize: SizeConfig.defaultSize! * 1.2),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

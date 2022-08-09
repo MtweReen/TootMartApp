@@ -90,9 +90,13 @@ class CartCubit extends Cubit<CartState> {
 
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
-        for (var element in cartModel!.body!.carts!) {
-          isinCart[element.id!] = true;
-          emit(GetCartSuccessState());
+        if(cartModel!.body!.carts!.isNotEmpty){
+          for (var element in cartModel!.body!.carts!) {
+            isinCart[element.id!] = true;
+            emit(GetCartSuccessState());
+          }
+        }else{
+          isinCart.clear();
         }
         print(isinCart);
         emit(GetCartSuccessState());

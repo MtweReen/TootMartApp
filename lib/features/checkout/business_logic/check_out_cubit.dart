@@ -3,10 +3,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/helper/functions/show_toast.dart';
+import 'package:toot_mart/core/network/local/cache_helper.dart';
 import 'package:toot_mart/data/model/order.dart';
 import 'package:toot_mart/data/model/order_detail.dart';
 import 'package:toot_mart/data/model/room_filter.dart';
 import 'package:toot_mart/data/model/user_address.dart';
+import 'package:toot_mart/features/checkout/presentation/componnent/payment_screen.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/network/end_points.dart';
 import '../../../core/router/router.dart';
@@ -32,6 +34,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   }
 
   AreasModel? areasModel;
+
   Future<AreasModel>? getAreas() async {
     emit(GetAreasLoadingState());
     try {
@@ -56,10 +59,12 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
     return areasModel!;
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   AreaFilterResult? areaFilterResult;
   bool isfilterring = false;
+
   Future<AreaFilterResult>? getFilterArea({required int areaId}) async {
     emit(GetAreasFilterLoadingState());
     try {
@@ -86,6 +91,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
     }
     return areaFilterResult!;
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addUserAddress(
@@ -119,6 +125,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   //////////////////////////////////////////////////////////////////////////////////////
 
   UserAddressModel? userAddressModel;
+
   Future<UserAddressModel>? getUserAddress() async {
     emit(GetUserAddressLoadingState());
     try {
@@ -167,7 +174,14 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         },
       );
       if (response.statusCode == 200) {
-        MagicRouter.navigateTo(const LayoutScreen(index: 0));
+        print(CasheHelper.getData(key: 'payment_type'));
+        if (CasheHelper.getData(key: 'payment_type') == 1) {
+          MagicRouter.navigateTo(const LayoutScreen(index: 0));
+        } else {
+          MagicRouter.navigateTo(const PaymentScreen(
+            url: 'https://github.com/moshkla',
+          ));
+        }
         showToast(msg: response.data["message"], state: ToastStates.SUCCESS);
       }
     } catch (e) {
@@ -208,6 +222,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   //////////////////////////////////////////////////////////////////////
 
   SingleOrderModel? singleOrderModel;
+
   Future<SingleOrderModel>? getOrderDetail(
       {required int orderId, required context}) async {
     emit(GetOrderDetailLoadingState());

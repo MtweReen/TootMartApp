@@ -98,6 +98,7 @@ class _MyAppState extends State<MyApp> {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           theme: ThemeData(
+            accentColor: kMainColor,
             fontFamily: 'URW DIN Arabic',
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 backgroundColor: Colors.white),

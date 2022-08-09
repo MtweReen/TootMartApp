@@ -36,6 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
   var phoneController = TextEditingController();
 
   var passwordController = TextEditingController();
+  var passwordConfirmController = TextEditingController();
 
   bool accepted = false;
 
@@ -44,6 +45,7 @@ class _RegisterViewState extends State<RegisterView> {
   FocusNode nameFocusNode = FocusNode();
 
   FocusNode passwordFocusNode = FocusNode();
+  FocusNode passwordConfirmFocusNode = FocusNode();
 
   FocusNode phoneFocusNode = FocusNode();
 
@@ -106,6 +108,44 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 const VerticalSpace(value: 2),
                 Text(
+                  LocaleKeys.phone_number.tr(),
+                  style: headingStyle.copyWith(color: colorGrey),
+                ),
+                const VerticalSpace(value: 1),
+                Row(
+                  children: [
+                    Expanded(
+                      child:CustomTextFormField(
+                        isLTR: true,
+                        label: LocaleKeys.phone_number.tr(),
+                        controller: phoneController,
+                        inputType: TextInputType.phone,
+                        validator: (String? value) {
+                          return validateMobile(value!);
+                        },
+                      ),
+                    ),
+                    const HorizontalSpace(value: 1),
+                    Container(
+                      height: SizeConfig.defaultSize!*6.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: kMainColor,
+
+                      ),
+                      child: MaterialButton(
+                          onPressed: () {
+
+                          },
+                          minWidth: 1,
+                          child:const Text('966+',style: TextStyle(color: Colors.white),)
+                      ),
+                    )
+                  ],
+                ),
+                const VerticalSpace(value: 2),
+
+                Text(
                   LocaleKeys.email.tr(),
                   style: headingStyle.copyWith(color: colorGrey),
                 ),
@@ -142,19 +182,19 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 const VerticalSpace(value: 2),
                 Text(
-                  LocaleKeys.phone_number.tr(),
+                  LocaleKeys.confirm_password.tr(),
                   style: headingStyle.copyWith(color: colorGrey),
                 ),
                 const VerticalSpace(value: 1),
                 CustomTextFormField(
-                  focusNode: phoneFocusNode,
-                  controller: phoneController,
-                  inputType: TextInputType.phone,
+                  focusNode: passwordConfirmFocusNode,
+                  isPassword: true,
+                  controller: passwordConfirmController,
                   validator: (String? value) {
-                    return validateMobile(value!);
+                    return validateConfirmPassword(value!,passwordController.text);
                   },
                   onEditingComplete: () {
-                    phoneFocusNode.unfocus();
+                    passwordConfirmFocusNode.unfocus();
                   },
                 ),
                 Row(

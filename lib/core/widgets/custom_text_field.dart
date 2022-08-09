@@ -18,7 +18,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixPressed,
     this.prefix,
     this.hint,
-    this.validator,
+    this.validator, this.isLTR,
   }) : super(key: key);
   final TextEditingController? controller;
 
@@ -32,7 +32,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? isPassword;
   final IconData? suffix;
   final Widget? prefix;
-
+  final bool? isLTR;
   final FormFieldValidator<String>? validator;
   final Function()? onEditingComplete;
   final Function? suffixPressed;
@@ -40,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textDirection:isLTR==true? TextDirection.ltr:null,
       validator: validator,
       controller: controller,
       focusNode: focusNode,
