@@ -40,9 +40,13 @@ class ProductCardData extends StatelessWidget {
           filteringData = false;
           CategoryCubit.get(context).getProductDetail(id: id);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const ProductDetailScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailScreen(
+                productImage: imge,
+              ),
+            ),
+          );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +70,9 @@ class ProductCardData extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                     FavouriteButton(productId: id,),
+                      FavouriteButton(
+                        productId: id,
+                      ),
                       (beforePrice != 0)
                           ? Container(
                               padding: EdgeInsets.symmetric(

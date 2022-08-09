@@ -85,59 +85,101 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                       color: kMainColor,
                     ),
                   ),
-                  builder: (context) => ListView.separated(
-                      shrinkWrap: true,
-                      primary: false,
-                      itemBuilder: (context, index) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const VerticalSpace(value: 2),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    filteringData = false;
-                                  });
-                                  CategoryCubit.get(context).getSubsCategory(
-                                      id: CategoryCubit.get(context)
-                                          .subcategoryModel!
-                                          .body!
-                                          .subCategories![index]
-                                          .id!);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AllProducts()));
-                                },
-                                child: Text(
-                                  CategoryCubit.get(context)
-                                      .subcategoryModel!
-                                      .body!
-                                      .subCategories![index]
-                                      .title!,
-                                  style: headingStyle.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: colordeepGrey,
-                                      fontSize: SizeConfig.screenWidth! * 0.05),
-                                ),
-                              ),
-                              const VerticalSpace(value: 2),
-                              SubCategoryProducts(
-                                products: CategoryCubit.get(context)
-                                    .subcategoryModel!
-                                    .body!
-                                    .products!,
-                              ),
-                            ],
-                          ),
-                      separatorBuilder: (context, index) =>
-                          const VerticalSpace(value: 2),
-                      itemCount: CategoryCubit.get(context)
+                  builder: (context) => (CategoryCubit.get(context)
                           .subcategoryModel!
                           .body!
                           .subCategories!
-                          .length),
+                          .isNotEmpty)
+                      ? ListView.separated(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemBuilder: (context, index) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const VerticalSpace(value: 2),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        CategoryCubit.get(context)
+                                            .subcategoryModel!
+                                            .body!
+                                            .subCategories![index]
+                                            .title!,
+                                        style: headingStyle.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: colordeepGrey,
+                                            fontSize:
+                                                SizeConfig.screenWidth! * 0.05),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            filteringData = false;
+                                          });
+                                          CategoryCubit.get(context)
+                                              .getSubsCategory(
+                                                  id: CategoryCubit.get(context)
+                                                      .subcategoryModel!
+                                                      .body!
+                                                      .subCategories![index]
+                                                      .id!);
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const AllProducts()));
+                                        },
+                                        child: Container(
+                                          width: SizeConfig.screenWidth! * 0.2,
+                                          height:
+                                              SizeConfig.screenHeight! * 0.05,
+                                          color: kMainColor.withOpacity(0.3),
+                                          child: Center(
+                                            child: Text(
+                                              translateString(
+                                                  "view all", "المزيد"),
+                                              style: headingStyle,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const VerticalSpace(value: 2),
+                                  SubCategoryProducts(
+                                    products: CategoryCubit.get(context)
+                                        .subcategoryModel!
+                                        .body!
+                                        .products!,
+                                  ),
+                                ],
+                              ),
+                          separatorBuilder: (context, index) =>
+                              const VerticalSpace(value: 2),
+                          itemCount: CategoryCubit.get(context)
+                              .subcategoryModel!
+                              .body!
+                              .subCategories!
+                              .length)
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              top: SizeConfig.screenHeight! * 0.2),
+                          child: Center(
+                            child: Text(
+                              translateString(
+                                  "no sub category here", "لا توجد أقسام بعد"),
+                              style: headingStyle.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: kMainColor,
+                              ),
+                            ),
+                          ),
+                        ),
                 );
               },
             ),

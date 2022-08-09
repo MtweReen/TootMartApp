@@ -44,7 +44,7 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ProductDetailScreen()));
+                          builder: (context) =>  ProductDetailScreen(productImage: widget.products[index].image.toString(), )));
                 },
                 child: SizedBox(
                   // height: SizeConfig.screenHeight! * 0.3,

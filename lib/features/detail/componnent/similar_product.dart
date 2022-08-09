@@ -60,7 +60,11 @@ class _SimilarProductState extends State<SimilarProduct> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProductDetailScreen()));
+                        builder: (context) =>  ProductDetailScreen(productImage: CategoryCubit.get(context)
+                        .productDetailModel!
+                        .body!
+                        .products!
+                        .similar![index].image!,)));
               },
             );
           }),

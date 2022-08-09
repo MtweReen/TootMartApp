@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/app_cubit/app_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,12 +42,25 @@ class SettingScreen extends StatelessWidget {
                           fontSize: SizeConfig.screenWidth! * 0.045),
                     ),
                     const VerticalSpace(value: 1.5),
-                    Text(
-                      "اللغه العربية",
-                      style: headingStyle.copyWith(
-                          color: colordeepGrey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenWidth! * 0.045),
+                    BlocConsumer<AppCubit, AppState>(
+                      listener: (context, state) {
+                        
+                      },
+                      builder: (context, state) {
+                        return (AppCubit.get(context).arLanguage == true)?Text(
+                          "اللغه العربية",
+                          style: headingStyle.copyWith(
+                              color: colordeepGrey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: SizeConfig.screenWidth! * 0.045),
+                        ):Text(
+                          "English",
+                          style: headingStyle.copyWith(
+                              color: colordeepGrey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: SizeConfig.screenWidth! * 0.045),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -53,7 +68,9 @@ class SettingScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CountryScreen(fromSetting: true,))),
+                          builder: (context) => const CountryScreen(
+                                fromSetting: true,
+                              ))),
                   child: Text(
                     translateString("Edit", "تعديل"),
                     style: headingStyle.copyWith(
@@ -70,48 +87,48 @@ class SettingScreen extends StatelessWidget {
             Divider(
               color: colorBetrolly,
             ),
-            const VerticalSpace(value: 2),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translateString("Country", "الدولة"),
-                      style: headingStyle.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.screenWidth! * 0.045),
-                    ),
-                    const VerticalSpace(value: 1.5),
-                    Text(
-                      " السعودية",
-                      style: headingStyle.copyWith(
-                          color: colordeepGrey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: SizeConfig.screenWidth! * 0.045),
-                    ),
-                  ],
-                ),
-                TextButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  const CountryScreen(fromSetting: true,))),
-                  child: Text(
-                    translateString("Edit", "تعديل"),
-                    style: headingStyle.copyWith(
-                        color: kMainColor,
-                        decorationColor: kMainColor,
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.w500,
-                        fontSize: SizeConfig.screenWidth! * 0.045),
-                  ),
-                ),
-              ],
-            ),
+            // const VerticalSpace(value: 2),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(
+            //           translateString("Country", "الدولة"),
+            //           style: headingStyle.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: SizeConfig.screenWidth! * 0.045),
+            //         ),
+            //         const VerticalSpace(value: 1.5),
+            //         Text(
+            //           " السعودية",
+            //           style: headingStyle.copyWith(
+            //               color: colordeepGrey,
+            //               fontWeight: FontWeight.w500,
+            //               fontSize: SizeConfig.screenWidth! * 0.045),
+            //         ),
+            //       ],
+            //     ),
+            //     TextButton(
+            //         onPressed: () => Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) =>  const CountryScreen(fromSetting: true,))),
+            //       child: Text(
+            //         translateString("Edit", "تعديل"),
+            //         style: headingStyle.copyWith(
+            //             color: kMainColor,
+            //             decorationColor: kMainColor,
+            //             decoration: TextDecoration.underline,
+            //             fontWeight: FontWeight.w500,
+            //             fontSize: SizeConfig.screenWidth! * 0.045),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

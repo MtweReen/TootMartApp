@@ -13,8 +13,9 @@ import '../../../core/widgets/custom_quantity.dart';
 import 'similar_product.dart';
 
 class ProductDetailBody extends StatefulWidget {
+  final String productImage;
   static int counter = 1;
-  const ProductDetailBody({Key? key}) : super(key: key);
+  const ProductDetailBody({Key? key, required this.productImage}) : super(key: key);
 
   @override
   State<ProductDetailBody> createState() => _ProductDetailBodyState();
@@ -41,12 +42,20 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HomeSlider(
+               (CategoryCubit.get(context)
+                      .productDetailModel!
+                      .body!
+                      .products!
+                      .images!.isNotEmpty)? HomeSlider(
                   images: CategoryCubit.get(context)
                       .productDetailModel!
                       .body!
                       .products!
                       .images!,
+                ):SizedBox(
+                  width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: customCachedNetworkImage(url: widget.productImage, context: context, fit: BoxFit.cover),
                 ),
                 const VerticalSpace(value: 3),
                 Text(

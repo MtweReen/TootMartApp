@@ -51,9 +51,6 @@ class CheckOutBill extends StatelessWidget {
                   ],
                 ),
                 const VerticalSpace(value: 1),
-               
-               
-
                 (prefs.getString("coupon_value") != null)
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,21 +100,19 @@ class CheckOutBill extends StatelessWidget {
     num total = 0;
     if (prefs.getString("coupon_total") != null) {
       if (AddLocationView.shippingCoast != null) {
-        total =
-            (subtotal + num.parse(AddLocationView.shippingCoast.toString())) -
-                num.parse(prefs.getString("coupon_total").toString());
+        total = num.parse(AddLocationView.shippingCoast.toString()) +
+            num.parse(prefs.getString("coupon_total").toString());
       } else {
-        total =
-            subtotal - num.parse(prefs.getString("coupon_total").toString());
+        total = num.parse(prefs.getString("coupon_total").toString());
       }
     } else {
       if (AddLocationView.shippingCoast != null) {
-      total = subtotal + num.parse(AddLocationView.shippingCoast.toString());
-    } else {
-      total = subtotal;
-    }
+        total = subtotal + num.parse(AddLocationView.shippingCoast.toString());
+      } else {
+        total = subtotal;
+      }
     }
     prefs.setString("total", total.toString());
-    return total.toStringAsFixed(2).toString();
+    return total.toString();
   }
 }

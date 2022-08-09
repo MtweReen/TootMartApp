@@ -81,6 +81,7 @@ class _HomeBodyState extends State<HomeBody> {
                   
                 (!isSearching)
                     ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const VerticalSpace(value: 2),
                           (HomeCubitCubit.get(context)

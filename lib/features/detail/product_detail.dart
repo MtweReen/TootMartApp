@@ -13,7 +13,9 @@ import '../../core/constants/colors.dart';
 import 'componnent/body.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({Key? key}) : super(key: key);
+  final String productImage;
+  const ProductDetailScreen({Key? key, required this.productImage})
+      : super(key: key);
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -78,7 +80,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             body: Stack(
               alignment: AlignmentDirectional.bottomCenter,
               children: [
-                const ProductDetailBody(),
+                ProductDetailBody(
+                  productImage: widget.productImage,
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
@@ -109,13 +113,34 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   "Add to cart", "إضافة الي عربة التسوق"),
                               onTap: () {
                                 if (prefs.getBool("is_login") == true) {
-                                  CartCubit.get(context).addtocart(
-                                      productId: CategoryCubit.get(context)
+                                  if (CategoryCubit.get(context)
                                           .productDetailModel!
                                           .body!
                                           .products!
-                                          .id!,
-                                      quantity: ProductDetailBody.counter);
+                                          .stock !=
+                                      "0") {
+                                    CartCubit.get(context).addtocart(
+                                        productId: CategoryCubit.get(context)
+                                            .productDetailModel!
+                                            .body!
+                                            .products!
+                                            .id!,
+                                        quantity: ProductDetailBody.counter);
+                                  } else if (CategoryCubit.get(context)
+                                          .productDetailModel!
+                                          .body!
+                                          .products!
+                                          .stock ==
+                                      "0") {
+                                    Fluttertoast.showToast(
+                                        msg: translateString(
+                                            "product is unavailable",
+                                            "المنتج غير متوفر حاليا "),
+                                        backgroundColor: colorRed,
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.CENTER,
+                                        textColor: Colors.white);
+                                  }
                                 } else {
                                   Fluttertoast.showToast(
                                       msg: translateString(

@@ -43,7 +43,10 @@ class _SearchResultBodyState extends State<SearchResultBody> {
                            Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const ProductDetailScreen()));     
+                  builder: (context) =>  ProductDetailScreen(productImage:   HomeCubitCubit.get(context)
+                          .searchModel!
+                          .body!
+                          .products![index].image!,)));     
                     },
                     leading: CircleAvatar(
                       backgroundColor: kMainColor,
