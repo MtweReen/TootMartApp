@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
-const kBaseUrl = 'https://site.modern-it.net/TOOT/public/api/';
+const kBaseUrl_Test = 'https://site.modern-it.net/TOOT/public/api/';
+const kBaseUrl = 'https://toot-sa.com/api/';
 
 //Auth
 const REGISTER = 'register';
