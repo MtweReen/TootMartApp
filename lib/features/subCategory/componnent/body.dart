@@ -151,12 +151,27 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                                     ],
                                   ),
                                   const VerticalSpace(value: 2),
-                                  SubCategoryProducts(
-                                    products: CategoryCubit.get(context)
-                                        .subcategoryModel!
-                                        .body!
-                                        .products!,
-                                  ),
+                                  (CategoryCubit.get(context)
+                                          .subcategoryModel!
+                                          .body!
+                                          .products!
+                                          .isNotEmpty)
+                                      ? SubCategoryProducts(
+                                          products: CategoryCubit.get(context)
+                                              .subcategoryModel!
+                                              .body!
+                                              .products!,
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            translateString("no products here",
+                                                "لا توجد منتجات بعد"),
+                                            style: headingStyle.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: kMainColor,
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                           separatorBuilder: (context, index) =>
