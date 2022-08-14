@@ -126,14 +126,14 @@ class _CategoryBodyState extends State<CategoryBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  translateString("formations", "تشكيلات"),
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: colordeepGrey,
-                      fontSize: SizeConfig.screenWidth! * 0.05),
-                ),
-                const VerticalSpace(value: 2),
+                // Text(
+                //   translateString("formations", "تشكيلات"),
+                //   style: headingStyle.copyWith(
+                //       fontWeight: FontWeight.w700,
+                //       color: colordeepGrey,
+                //       fontSize: SizeConfig.screenWidth! * 0.05),
+                // ),
+                // const VerticalSpace(value: 2),
                 (categories.isNotEmpty)
                     ? Expanded(
                         child: GridView.builder(
