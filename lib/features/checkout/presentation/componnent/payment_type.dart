@@ -17,12 +17,11 @@ class PaymentType extends StatefulWidget {
 }
 
 class _PaymentTypeState extends State<PaymentType> {
-  int x = 0;
+  int? x;
   List<String> images = ['visa.png', 'master_card.png', 'mada.png', 'stc.png'];
 
   @override
   Widget build(BuildContext context) {
-    CasheHelper.getData(key: 'payment_type')??CasheHelper.saveData(key: 'payment_type',value: 1);
     return Container(
       width: SizeConfig.screenWidth,
       decoration: BoxDecoration(

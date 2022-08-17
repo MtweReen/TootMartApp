@@ -174,7 +174,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         },
       );
       if (response.statusCode == 200) {
-        print(CasheHelper.getData(key: 'payment_type'));
         if (CasheHelper.getData(key: 'payment_type') == 1) {
           MagicRouter.navigateTo(const LayoutScreen(index: 0));
         } else {
@@ -182,6 +181,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
             url: response.data.toString(),
           ));
         }
+        CasheHelper.removeData(key: 'payment_type');
         showToast(msg: response.data["message"], state: ToastStates.SUCCESS);
       }
     } catch (e) {

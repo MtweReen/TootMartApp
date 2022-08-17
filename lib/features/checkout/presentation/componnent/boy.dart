@@ -7,12 +7,14 @@ import 'package:timelines/timelines.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
+import 'package:toot_mart/core/helper/functions/show_toast.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/checkout_complete_view.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/shipping_view.dart';
+import '../../../../core/network/local/cache_helper.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
 import 'add_location_view.dart';
 
@@ -122,7 +124,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
               const VerticalSpace(value: 1),
               if (currentPage == 0) const AddLocationView(),
               if (currentPage == 1) const ShippingView(),
-              if (currentPage == 2) const CheckOutCompleteView(),
+              if (currentPage > 2) const CheckOutCompleteView(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -158,9 +160,16 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                         }
                       }
 
-                      if (currentPage == 3) {
-
-                        CheckOutCubit.get(context).createOrder();
+                      if (currentPage > 2) {
+                        if (CasheHelper.getData(key: 'payment_type') != null) {
+                          CheckOutCubit.get(context).createOrder();
+                        } else {
+                          showToast(
+                              msg: translateString(
+                                  'you must select payment type',
+                                  'يجب عليك اختيار طريقة للدفع'),
+                              state: ToastStates.ERROR);
+                        }
                       }
                     }),
               ),
