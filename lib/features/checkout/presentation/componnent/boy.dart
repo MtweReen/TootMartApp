@@ -12,14 +12,12 @@ import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/checkout_complete_view.dart';
-import 'package:toot_mart/features/checkout/presentation/componnent/payment_screen.dart';
 import 'package:toot_mart/features/checkout/presentation/componnent/shipping_view.dart';
-import '../../../../core/router/router.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
 import 'add_location_view.dart';
 
 class CheckoutBody extends StatefulWidget {
-  CheckoutBody({Key? key}) : super(key: key);
+  const CheckoutBody({Key? key}) : super(key: key);
 
   @override
   State<CheckoutBody> createState() => _CheckoutBodyState();

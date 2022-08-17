@@ -53,7 +53,7 @@ class ShoppingItem extends StatelessWidget {
               
               children: [
                 SizedBox(
-                  height: SizeConfig.screenHeight! * 0.2,
+                  height: SizeConfig.defaultSize!*12,
                  width: SizeConfig.screenWidth! *0.2,
                   child: customCachedNetworkImage(
                     url:image,

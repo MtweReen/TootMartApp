@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/network/end_points.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
-import 'package:toot_mart/core/widgets/space_widget.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/widgets/product_item.dart';

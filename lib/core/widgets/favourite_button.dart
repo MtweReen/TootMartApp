@@ -8,6 +8,7 @@ import '../constants/constants.dart';
 
 class FavouriteButton extends StatefulWidget {
   final int productId;
+
   const FavouriteButton({Key? key, required this.productId}) : super(key: key);
 
   @override
@@ -42,15 +43,21 @@ class _FavouriteButtonState extends State<FavouriteButton> {
           },
           child: (HomeCubitCubit.get(context).isFavourite[widget.productId] !=
                   true)
-              ? Icon(
-                  Icons.favorite_border_outlined,
-                  color: Colors.black87,
-                  size: w * 0.08,
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Icon(
+                    Icons.favorite_border_outlined,
+                    color: Colors.black87,
+                    size: w * 0.08,
+                  ),
                 )
-              : Icon(
-                  Icons.favorite,
-                  color: colorRed,
-                  size: w * 0.08,
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Icon(
+                    Icons.favorite,
+                    color: colorRed,
+                    size: w * 0.08,
+                  ),
                 ),
         );
       },

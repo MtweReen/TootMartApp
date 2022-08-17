@@ -4,23 +4,18 @@ class HomeModel {
 
   Body? body;
 
-
-  HomeModel(
-      {this.code,
-      this.status,
-     
-      this.body,
-      });
+  HomeModel({
+    this.code,
+    this.status,
+    this.body,
+  });
 
   HomeModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
-  
-    body = json['body'] != null ?  Body.fromJson(json['body']) : null;
-   
+
+    body = json['body'] != null ? Body.fromJson(json['body']) : null;
   }
-
-
 }
 
 class Body {
@@ -31,22 +26,22 @@ class Body {
   Body({this.images, this.categoriesMostSales, this.categoriesParents});
 
   Body.fromJson(Map<String, dynamic> json) {
-    images = json['images'].cast<String>();
+    images = json['images'] != null ? json['images'].cast<String>() : [];
     if (json['categories_mostSales'] != null) {
       categoriesMostSales = <CategoriesMostSales>[];
       json['categories_mostSales'].forEach((v) {
-        categoriesMostSales!.add( CategoriesMostSales.fromJson(v));
+        categoriesMostSales!.add(CategoriesMostSales.fromJson(v));
       });
     }
     if (json['categories_parents'] != null) {
       categoriesParents = <CategoriesParents>[];
       json['categories_parents'].forEach((v) {
-        categoriesParents!.add( CategoriesParents.fromJson(v));
+        categoriesParents!.add(CategoriesParents.fromJson(v));
       });
     }
   }
-
 }
+
 class CategoriesMostSales {
   int? id;
   String? title;
@@ -60,6 +55,7 @@ class CategoriesMostSales {
     image = json['image'];
   }
 }
+
 class CategoriesParents {
   int? id;
   String? title;
@@ -72,5 +68,4 @@ class CategoriesParents {
     title = json['title'];
     image = json['image'];
   }
-
 }

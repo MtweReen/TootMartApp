@@ -17,7 +17,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: customAppbar(title: translateString("shipping options","خيارات الشحن "), context: context, inLayout: false, press:()=>Navigator.pop(context)),
-        body: CheckoutBody(),
+        body: const CheckoutBody(),
 
       );
   }

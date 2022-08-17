@@ -142,7 +142,7 @@ class _GuestViewState extends State<GuestView> {
                           // kInside++;
                           // AuthCubit.get(context)
                           //     .changeUserState(AccountStates.ORDERS_VIEW);
-                          MagicRouter.navigateTo(OrdersView());
+                          MagicRouter.navigateTo(const OrdersView());
                         },
                         child: ProfileCardItem(
                           title: translateString("My orders", "طلباتي"),

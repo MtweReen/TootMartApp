@@ -178,8 +178,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         if (CasheHelper.getData(key: 'payment_type') == 1) {
           MagicRouter.navigateTo(const LayoutScreen(index: 0));
         } else {
-          MagicRouter.navigateTo(const PaymentScreen(
-            url: 'https://github.com/moshkla',
+          MagicRouter.navigateTo(PaymentScreen(
+            url: response.data.toString(),
           ));
         }
         showToast(msg: response.data["message"], state: ToastStates.SUCCESS);
