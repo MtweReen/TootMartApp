@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class FilterResultModel {
   int? code;
   bool? status;

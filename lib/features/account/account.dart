@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
@@ -17,7 +19,6 @@ class AccountScreen extends StatefulWidget {
   State<AccountScreen> createState() => _AccountScreenState();
 }
 
-// ignore: constant_identifier_names
 enum AccountStates {
   GUEST,
   LOGIN,

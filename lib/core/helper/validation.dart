@@ -1,4 +1,6 @@
 
+// ignore_for_file: unused_local_variable
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import '../../translations/locale_keys.g.dart';

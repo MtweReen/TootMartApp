@@ -48,6 +48,7 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
+//////////////////////////////////////////////////////////////////
   UserModel? RegisterUser(
       String name, String phone, String email, String password) {
     emit(RegisterUserLoadingState());
@@ -89,6 +90,7 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
+//////////////////////////////////////////////////////////
   UserModel? editProfile(
       {required String name, required String phone, required String email}) {
     emit(EditProfileLoadingState());
@@ -106,10 +108,11 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
+//////////////////////////////////////////////////////
   Future<UserModel>? SignOut() {
     AuthRepositoryImpl().SignOut().then((value) {
       if (value != []) {
-      changeUserState(AccountStates.GUEST);
+        changeUserState(AccountStates.GUEST);
         kUser = null;
         CasheHelper.removeData(key: 'User');
         showToast(
@@ -122,7 +125,8 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
-  Future<User>? changePassword({
+////////////////////////////////////////////////////////////////////////
+  Future<UserData>? changePassword({
     required String oldPassword,
     required String newPassword,
     required String newPasswordConfirmation,
@@ -140,6 +144,7 @@ class AuthCubit extends Cubit<AuthStates> {
     return null;
   }
 
+////////////////////////////////////////////////////////////////
   Future<void>? deleteAccount() {
     AuthRepositoryImpl().deleteAccount().then((value) {
       if (value != []) {
@@ -159,44 +164,10 @@ class AuthCubit extends Cubit<AuthStates> {
     currentUserState = userState;
     emit(ChangeUserState());
   }
-//
-//
 
-  // FavouritesModel? favouritesModel;
-  // List<Product>? getFavouteProducts() {
-  //   emit(FavouteProductsLoadingState());
-  //   AuthRepositoryImpl().getFavouriteProducts().then((value) {
-  //     if (value != []) {
-  //       if(favouritesModel !=null) {
-  //         favouritesModel!.data = [];
-  //       }
-  //       favouritesModel =
-  //           value.getOrElse(() => FavouritesModel.fromJson({}));
-  //       emit(FavouteProductsSuccessState());
-  //     }
-  //   });
-  //   return null;
-  // }
-
-  // RefundOrdersModel? refundOrdersModel;
-  //
-  // List<OrdersModel>? getRefundOrders() {
-  //   emit(AllRefundOrdersLoadingState());
-  //   AuthRepositoryImpl().getRefundOrders().then((value) {
-  //     if (value != []) {
-  //
-  //       refundOrdersModel = value.getOrElse(() {
-  //         emit(AllRefundOrdersErrorState());
-  //         return RefundOrdersModel.fromJson({});
-  //       });
-  //       emit(AllRefundOrdersSuccessState());
-  //     }
-  //
-  //   });
-  //   return null;
-  // }
 }
 
+///////////////////////////////////////////////////////////////////
 Future<bool>? showDeleteButton() async {
   try {
     Response response = await Dio().get(

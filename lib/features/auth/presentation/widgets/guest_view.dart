@@ -58,13 +58,18 @@ class _GuestViewState extends State<GuestView> {
                     Row(
                       children: [
                         if (kUser != null)
-                          Text(
-                            kUser!.body!.user!.name!,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: SizeConfig.defaultSize! * 3),
+                          SizedBox(
+                            width: SizeConfig.screenWidth!*0.4,
+                            child: Text(
+                              kUser!.body!.user!.name!,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: SizeConfig.defaultSize! * 3),
+                            ),
                           ),
-                        if (kUser != null) const HorizontalSpace(value: 2),
+                        if (kUser != null) const HorizontalSpace(value: 1),
                         Text(
                           translateString('Hello', 'مرحبا'),
                           style: TextStyle(

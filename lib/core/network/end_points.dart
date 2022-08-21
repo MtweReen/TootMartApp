@@ -10,7 +10,8 @@ const SIGNOUT = 'logout';
 const EDIT_PROFILE = 'edit/profile';
 const CHANGE_PASSWORD = 'change/password';
 const DELETE_ACCOUNT = 'delete_acc';
-//const FAVOURITES ='users/fav/product';
+const SOCIAL_LOGIN = 'login_social';
+
 
 //CATEGORIES
 const CATEGORIES = 'categories';

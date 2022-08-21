@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:toot_mart/features/layout/layout.dart';
@@ -22,20 +24,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     super.initState();
     flutterWebviewPlugin.onUrlChanged.listen((String url) {
       print('/////////////////////////////////////$url');
-      // List data = [];
-      // data = url.split("/");
-      // if (data[6].toString().substring(33, 52).toString() ==
-      //     "Result=NOT%20CAPTUR") {
-      //
-      // } else if (data[6].toString().substring(33, 52).toString() ==
-      //     "Result=CAPTURED&Pos") {
-      //
-      // } else if (data[6].toString().substring(33, 52).toString() ==
-      //     "Result=CANCELED&Pos") {
-      //
-      // }
-      // print(data[5].toString());
-      // print(data[6].toString().substring(33, 52).toString());
+     
     });
   }
 

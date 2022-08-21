@@ -8,6 +8,7 @@ import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/local/cache_helper.dart';
+import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
@@ -17,6 +18,7 @@ import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
 import '../../../checkout/business_logic/check_out_cubit.dart';
+import '../../../layout/layout.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
@@ -48,7 +50,6 @@ class LoginView extends StatelessWidget {
             ..getHomeItems()
             ..getRooms();
           CheckOutCubit.get(context).getAreas();
-        
         }
       },
       builder: (context, state) {
@@ -163,7 +164,18 @@ class LoginView extends StatelessWidget {
                     }),
                 const VerticalSpace(value: 3),
                 BlocConsumer<SocialCubit, SocialState>(
-                  listener: (context, state) {},
+                  listener: (context, state) {
+                    if (state is GoogleAuthniticationSuccessState) {
+                      SocialCubit.get(context).socialLoginApi(context);
+                    } else if (state is AppleAuthniticationSuccessState) {
+                      SocialCubit.get(context).socialLoginApi(context);
+                    } else if (state is SocialLoginApiSuccessState) {
+                      MagicRouter.navigateAndPopAll(const LayoutScreen(
+                        index: 0,
+                      ));
+                      AuthCubit.get(context).changeUserState(AccountStates.GUEST);
+                    }
+                  },
                   builder: (context, state) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

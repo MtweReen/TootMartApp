@@ -18,3 +18,13 @@ class AppleAuthniticationErrorState extends SocialState {
   final String error;
   AppleAuthniticationErrorState(this.error);
 }
+
+class SocialLoginApiErrorState extends SocialState {
+  final String error;
+
+  SocialLoginApiErrorState(this.error);
+}
+
+class SocialLoginApiLoadingState extends SocialState {}
+
+class SocialLoginApiSuccessState extends SocialState {}

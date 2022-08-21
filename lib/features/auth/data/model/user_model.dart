@@ -44,13 +44,13 @@ class UserModel {
 }
 
 class Body {
-  User? user;
+  UserData? user;
   String? accessToken;
 
   Body({this.user, this.accessToken});
 
   Body.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserData.fromJson(json['user']) : null;
     accessToken = json['accessToken'];
   }
 
@@ -64,15 +64,15 @@ class Body {
   }
 }
 
-class User {
+class UserData {
   String? name;
   String? email;
   String? image;
   String? phone;
 
-  User({this.name, this.email, this.image, this.phone});
+  UserData({this.name, this.email, this.image, this.phone});
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
     image = json['image'];
