@@ -55,8 +55,8 @@ class ProductCardData extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  width: w * 0.45,
-                  height: h * 0.25,
+                  width:double.infinity,
+                  height: h * 0.23,
                   color: Colors.white,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -134,7 +134,7 @@ class ProductCardData extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "$price r.s",
+                                text: "$price R.S",
                                 style: headingStyle.copyWith(
                                     color: kMainColor,
                                     fontWeight: FontWeight.w500,

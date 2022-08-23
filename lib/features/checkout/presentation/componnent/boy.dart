@@ -124,7 +124,7 @@ class _CheckoutBodyState extends State<CheckoutBody> {
               const VerticalSpace(value: 1),
               if (currentPage == 0) const AddLocationView(),
               if (currentPage == 1) const ShippingView(),
-              if (currentPage > 2) const CheckOutCompleteView(),
+              if (currentPage >= 2) const CheckOutCompleteView(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
