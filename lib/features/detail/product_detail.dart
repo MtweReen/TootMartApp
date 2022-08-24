@@ -77,15 +77,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         .id!)
               ],
             ),
-            body: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
-              children: [
-                ProductDetailBody(
-                  productImage: widget.productImage,
-                ),
-                Padding(
+            body: ProductDetailBody(
+              productImage: widget.productImage,
+            ),
+
+            bottomNavigationBar:  Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   child: BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {
                       if (state is AddtoCartSuccessState) {
@@ -157,8 +155,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     },
                   ),
                 ),
-              ],
-            ),
           ),
         );
       },

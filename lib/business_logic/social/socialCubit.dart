@@ -42,11 +42,11 @@ class SocialCubit extends Cubit<SocialState> {
           print('gggggggggggggggggggggggg  : ' + result.user!.email!);
 
           print(result.user!.uid);
-         
+
           prefs.setString('email', result.user!.email!);
           prefs.setString('uid', result.user!.uid.toString());
           prefs.setBool('social_login', true);
-         
+
           emit(GoogleAuthniticationSuccessState());
         } else {
           print('fffffffffffffffffffffffffffffffffffff');
@@ -66,9 +66,9 @@ class SocialCubit extends Cubit<SocialState> {
       final user =
           await signInWithAppleServices(scopes: [Scope.email, Scope.fullName]);
       print('uid: ${user.uid}');
-          prefs.setString('email', user.email.toString());
-          prefs.setString('uid', user.uid.toString());
-          prefs.setBool('social_login', true);
+      prefs.setString('email', user.email.toString());
+      prefs.setString('uid', user.uid.toString());
+      prefs.setBool('social_login', true);
       emit(AppleAuthniticationSuccessState());
     } catch (e) {
       emit(AppleAuthniticationErrorState(e.toString()));
@@ -77,7 +77,7 @@ class SocialCubit extends Cubit<SocialState> {
   }
 /////////////////////////////////////////////////////////////////////////
 
- UserModel? userModel;
+  UserModel? userModel;
   Future socialLoginApi(context) async {
     emit(SocialLoginApiLoadingState());
     try {
@@ -91,30 +91,25 @@ class SocialCubit extends Cubit<SocialState> {
       print(prefs.getString('email').toString());
       print(prefs.getString('uid').toString());
       if (response.statusCode == 200) {
+        prefs.setBool("is_login", true);
         showToast(
             msg: translateString("login success", "تم تسجيل الدخول بنجاح"),
             state: ToastStates.SUCCESS);
         userModel = UserModel.fromJson(response.data);
         kUser = userModel;
         CasheHelper.SaveUser(user: userModel!);
-     
         emit(SocialLoginApiSuccessState());
       }
     } catch (e) {
       showToast(
-          msg: e.toString(),
-          // translateString("there is error , please try again later",
-          //     "حدث خطأ ما , الرجاء المحاولة في وقت لاحق"),
+          msg: translateString("there is error , please try again later",
+              "حدث خطأ ما , الرجاء المحاولة في وقت لاحق"),
           state: ToastStates.ERROR);
       print(e.toString());
       emit(SocialLoginApiErrorState(e.toString()));
     }
   }
 }
-
-
-
-
 
 //////////////////////////////////////////////////////////////////////////
 final _firebaseAuth = FirebaseAuth.instance;
@@ -160,6 +155,4 @@ Future<User> signInWithAppleServices({List<Scope> scopes = const []}) async {
     default:
       throw UnimplementedError();
   }
-
-  
 }

@@ -14,9 +14,11 @@ import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
+import 'package:toot_mart/features/onboarding/onboarding.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
+import '../../../../splash.dart';
 import '../../../checkout/business_logic/check_out_cubit.dart';
 import '../../../layout/layout.dart';
 import '../../data/business_logic/auth_cubit.dart';
@@ -170,10 +172,9 @@ class LoginView extends StatelessWidget {
                     } else if (state is AppleAuthniticationSuccessState) {
                       SocialCubit.get(context).socialLoginApi(context);
                     } else if (state is SocialLoginApiSuccessState) {
-                      MagicRouter.navigateAndPopAll(const LayoutScreen(
-                        index: 0,
-                      ));
-                      AuthCubit.get(context).changeUserState(AccountStates.GUEST);
+                      MagicRouter.navigateAndPopAll(const SplshScreen());
+                      AuthCubit.get(context)
+                          .changeUserState(AccountStates.GUEST);
                     }
                   },
                   builder: (context, state) {

@@ -8,6 +8,7 @@ import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/features/layout/layout.dart';
 import 'package:toot_mart/features/onboarding/onboarding.dart';
+import 'package:toot_mart/splash.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../core/widgets/space_widget.dart';
 import 'country_select_widget.dart';
@@ -53,9 +54,7 @@ class _CountrySelectionBodyState extends State<CountrySelectionBody> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LayoutScreen(
-                                  index: 4,
-                                )),
+                            builder: (context) => const SplshScreen()),
                         (route) => false);
                   } else {
                     if (AppCubit.get(context).arLanguage == true ||
