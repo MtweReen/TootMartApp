@@ -53,11 +53,10 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         options: Options(
           headers: {
             "Accept": "application/json",
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
           },
         ),
       );
-      print(kUser!.body!.accessToken!);
       if (response.statusCode == 200) {
         for (var element in response.data['body']['products']) {
           isFavourite[element['id']] = true;          
@@ -81,9 +80,9 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
     try {
       Map<String, String> headers = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+        "Authorization": "Bearer ${kToken!}",
       };
-      print("Bearer ${kUser!.body!.accessToken!}");
+      print("Bearer ${kToken!}");
       print(productId);
       Map<String, dynamic> body = {"product_id": "$productId"};
       Response response = await Dio().post(kBaseUrl + ADD_TO_FAVOURITE,
@@ -122,7 +121,7 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         options: Options(
           headers: {
             "Accept": "application/json",
-            "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+            "Authorization": "Bearer ${kToken!}",
           },
         ),
       );

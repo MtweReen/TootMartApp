@@ -39,8 +39,8 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is LoginUserLoaded) {
-          CasheHelper.SaveUser(user: AuthCubit.get(context).user!);
-          kUser = AuthCubit.get(context).user;
+          CasheHelper.setToken(token: AuthCubit.get(context).user!.body!.accessToken!);
+          // kUser = AuthCubit.get(context).user;
           // MagicRouter.navigateTo(const LayoutScreen(index: 0,));
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
           CartCubit.get(context).getcart();

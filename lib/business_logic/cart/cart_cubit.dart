@@ -35,7 +35,7 @@ class CartCubit extends Cubit<CartState> {
         data: {"product_id": productId, 'quantity': quantity},
         options: Options(
           headers: {
-            "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+            "Authorization": "Bearer ${kToken!}",
             "Accept-Language": prefs.get("lang") ?? "ar",
           },
         ),
@@ -79,7 +79,7 @@ class CartCubit extends Cubit<CartState> {
         kBaseUrl + CART,
         options: Options(
           headers: {
-            "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+            "Authorization": "Bearer ${kToken!}",
             "Accept-Language": prefs.get("lang") ?? "ar",
           },
         ),

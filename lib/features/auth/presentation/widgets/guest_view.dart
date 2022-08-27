@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
+import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
@@ -47,7 +48,9 @@ class _GuestViewState extends State<GuestView> {
     return BlocConsumer<AuthCubit,AuthStates>(
       listener: (context,state){},
       builder: (context,state){
-        return SingleChildScrollView(
+        return kUser ==null ? SizedBox(
+            height: SizeConfig.screenHeight,
+            child: Center(child: CircularProgressIndicator(color: kMainColor,),)):SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -57,7 +60,7 @@ class _GuestViewState extends State<GuestView> {
                   children: [
                     Row(
                       children: [
-                        if (kUser != null)
+                        if (kToken  != null&&kUser!=null)
                           SizedBox(
                             width: SizeConfig.screenWidth!*0.4,
                             child: Text(
@@ -69,7 +72,7 @@ class _GuestViewState extends State<GuestView> {
                                   fontSize: SizeConfig.defaultSize! * 3),
                             ),
                           ),
-                        if (kUser != null) const HorizontalSpace(value: 1),
+                        if (kToken  != null&&kUser!=null) const HorizontalSpace(value: 1),
                         Text(
                           translateString('Hello', 'مرحبا'),
                           style: TextStyle(
@@ -89,7 +92,7 @@ class _GuestViewState extends State<GuestView> {
                   ],
                 ),
               ),
-              if (kUser == null)
+              if (kToken  == null&&kUser!=null)
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -125,7 +128,7 @@ class _GuestViewState extends State<GuestView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       InkWell(
                         onTap: () {
                           kInside++;
@@ -137,11 +140,11 @@ class _GuestViewState extends State<GuestView> {
                           translateString("Account Details", "تفاصيل الحساب"),
                         ),
                       ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       SizedBox(
                         height: h * 0.04,
                       ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       InkWell(
                         onTap: () {
                           // kInside++;
@@ -153,7 +156,7 @@ class _GuestViewState extends State<GuestView> {
                           title: translateString("My orders", "طلباتي"),
                         ),
                       ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -169,7 +172,7 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       InkWell(
                         onTap: () => Navigator.push(
                             context,
@@ -179,7 +182,7 @@ class _GuestViewState extends State<GuestView> {
                           title: translateString("Exhibition sites", "مواقع المعارض"),
                         ),
                       ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -229,7 +232,7 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kUser != null)
+                    if (kToken  != null&&kUser!=null)
                       InkWell(
                         onTap: () {
                           AuthCubit.get(context).SignOut();
@@ -242,11 +245,10 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kUser != null && isDeleted)
+                    if (kToken  != null&&kUser!=null && isDeleted)
                       InkWell(
                         onTap: () {
-                          print(kUser!.body!.accessToken);
-                          // AuthCubit.get(context).deleteAccount();
+                          print(kToken );
                           _showCustomDialog(context);
                         },
                         child: ProfileCardItem(

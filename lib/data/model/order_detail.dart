@@ -38,7 +38,7 @@ class Body {
 
 class Products {
   int? id;
-  double? price;
+  num? price;
   String? title;
   String? quantity;
   String? stock;

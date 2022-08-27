@@ -21,6 +21,28 @@ class AuthCubit extends Cubit<AuthStates> {
   UserModel? user;
 
   // ignore: non_constant_identifier_names
+
+  getUser() async{
+    if(kToken !=null){
+      emit(LoginUserLoadingstate());
+      try {
+        Response response = await Dio().get(
+          kBaseUrl + "user",
+          options: Options(headers: {
+            "Authorization": "Bearer ${kToken!}",
+          }),
+        );
+        if (response.statusCode == 200) {
+          print(response.data);
+          user=UserModel.fromJson(response.data);
+          kUser=user;
+          emit(LoginUserLoaded());
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+  }
   UserModel? LoginUser(String Username, String Password) {
     emit(LoginUserLoadingstate());
     AuthRepositoryImpl()
@@ -30,9 +52,11 @@ class AuthCubit extends Cubit<AuthStates> {
         user = value.getOrElse(() {
           return UserModel.fromJson({});
         });
+        kUser=user;
+        kToken=user!.body!.accessToken;
 
         print('skdhfbalksdfaksdf' + userModelToJson(user!));
-        if (user!.body!.accessToken == null || user!.body!.accessToken == '') {
+        if (kToken == null || kToken == '') {
           showToast(
               msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
           emit(LoginUserErrorstate());
@@ -42,7 +66,6 @@ class AuthCubit extends Cubit<AuthStates> {
               state: ToastStates.SUCCESS);
           showDeleteButton();
           emit(LoginUserLoaded());
-          print(user!.body!.accessToken);
         }
       }
     });
@@ -102,7 +125,7 @@ class AuthCubit extends Cubit<AuthStates> {
         user = value.getOrElse(() => UserModel.fromJson({}));
         showToast(msg: 'تم تعديل البيانات بنجاح', state: ToastStates.SUCCESS);
         kUser = user;
-        CasheHelper.SaveUser(user: kUser!);
+        CasheHelper.setToken(token: user!.body!.accessToken!);
         emit(EditProfileSuccessState());
       }
     });
@@ -114,7 +137,7 @@ class AuthCubit extends Cubit<AuthStates> {
     AuthRepositoryImpl().SignOut().then((value) {
       if (value != []) {
         changeUserState(AccountStates.GUEST);
-        kUser = null;
+        kToken = null;
         CasheHelper.removeData(key: 'User');
         showToast(
             msg: value.getOrElse(() => 'not signed out'),
@@ -154,7 +177,7 @@ class AuthCubit extends Cubit<AuthStates> {
         showToast(
             msg: value.getOrElse(() => 'لم يتم حزف الحساب'),
             state: ToastStates.SUCCESS);
-        kUser = null;
+        kToken = null;
         CasheHelper.removeData(key: 'user');
         emit(AccountDeletedSuccessfully());
       }
@@ -176,7 +199,7 @@ Future<bool>? showDeleteButton() async {
     Response response = await Dio().get(
       kBaseUrl + "delete_acc_button",
       options: Options(headers: {
-        "Authorization": "Bearer ${kUser!.body!.accessToken!}",
+        "Authorization": "Bearer ${kToken!}",
       }),
     );
     if (response.statusCode == 200) {

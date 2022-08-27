@@ -39,7 +39,7 @@ class _OrderCardItemState extends State<OrderCardItem> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: SizeConfig.screenWidth! * 0.25,
+            width: SizeConfig.screenWidth! *0.25 ,
             height: SizeConfig.screenHeight! * 0.2,
             child: customCachedNetworkImage(
               url: widget.image,
@@ -48,26 +48,28 @@ class _OrderCardItemState extends State<OrderCardItem> {
             ),
           ),
           const HorizontalSpace(value: 2),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                widget.name,
-                style: headingStyle,
-              ),
-              const VerticalSpace(value: 2),
-              Text(
-                translateString("Quantity : ", "الكمية : ") + widget.quantity,
-                style: headingStyle,
-              ),
-              const VerticalSpace(value: 2),
-              Text(
-                widget.price +" "+ translateString("R.S", "ر.س"),
-                style: headingStyle.copyWith(
-                    color: kMainColor, fontWeight: FontWeight.bold),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  widget.name,
+                  style: headingStyle,
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                  translateString("Quantity : ", "الكمية : ") + widget.quantity,
+                  style: headingStyle,
+                ),
+                const VerticalSpace(value: 2),
+                Text(
+                  widget.price +" "+ translateString("R.S", "ر.س"),
+                  style: headingStyle.copyWith(
+                      color: kMainColor, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ],
       ),

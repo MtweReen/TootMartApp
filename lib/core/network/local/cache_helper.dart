@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 
 import '../../../features/auth/data/model/user_model.dart';
 import '../../constants/constants.dart';
@@ -44,9 +45,24 @@ class CasheHelper {
     return await sharedPreferences.remove(key);
   }
 
-  static SaveUser({required UserModel user}) async {
-    print('User Saved ');
-    return await sharedPreferences.setString('User', userModelToJson(user));
+  // static SaveUser({required UserModel user}) async {
+  //   print('User Saved ');
+  //   return await sharedPreferences.setString('User', userModelToJson(user));
+  // }
+  static setToken({required String token}) async {
+    print('User token Saved ');
+    return await sharedPreferences.setString('token', token);
+  }
+  static getToken() async {
+    String? token= sharedPreferences.getString('token');
+    if(token == null){
+      print('No Data Saved');
+    }else{
+      print('token Passed');
+      kToken = token;
+     // AuthCubit.get(context).getUser();
+    }
+    return 'token';
   }
 
   static getUser() async {

@@ -55,7 +55,7 @@ class _RegisterViewState extends State<RegisterView> {
       listener: (context, state) {
         if (state is RegisterUserSuccessState) {
           if (AuthCubit.get(context).user != null) {
-            CasheHelper.SaveUser(user: AuthCubit.get(context).user!);
+            CasheHelper.setToken(token: AuthCubit.get(context).user!.body!.accessToken!);
             kUser = AuthCubit.get(context).user;
           }
           MagicRouter.navigateTo(const LayoutScreen(

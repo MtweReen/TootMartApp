@@ -96,7 +96,7 @@ class SocialCubit extends Cubit<SocialState> {
             state: ToastStates.SUCCESS);
         userModel = UserModel.fromJson(response.data);
         kUser = userModel;
-        CasheHelper.SaveUser(user: userModel!);
+        CasheHelper.setToken(token: userModel!.body!.accessToken!);
      
         emit(SocialLoginApiSuccessState());
       }

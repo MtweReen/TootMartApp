@@ -42,7 +42,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + GET_AREA,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
           },
         ),
       );
@@ -72,7 +72,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + FILTER_ROOM + "$areaId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
           },
         ),
       );
@@ -106,7 +106,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         },
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),
@@ -133,7 +133,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + GETUSERADDRESS,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),
@@ -161,7 +161,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + POST_CHECK_OUT,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),
@@ -175,7 +175,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
       );
       if (response.statusCode == 200) {
         if (CasheHelper.getData(key: 'payment_type') == 1) {
-          MagicRouter.navigateTo(const LayoutScreen(index: 0));
+          MagicRouter.navigateAndPopAll(const LayoutScreen(index: 0));
         } else {
           MagicRouter.navigateTo(PaymentScreen(
             url: response.data.toString(),
@@ -201,7 +201,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + ORDERS,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),
@@ -231,7 +231,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + ORDER_DETAIL + "$orderId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),
@@ -260,7 +260,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + "orders/$orderId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kUser!.body!.accessToken!,
+            "Authorization": "Bearer " + kToken!,
             "Accept": "application/json",
           },
         ),

@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    CasheHelper.getUser();
+    CasheHelper.getToken();
   }
 
   @override
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()),
-        BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()),
+        BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()..getUser()),
         BlocProvider<SocialCubit>(
             create: (BuildContext context) => SocialCubit()),
         BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),

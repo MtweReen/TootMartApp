@@ -46,54 +46,58 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: appbarNoTitle(),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        elevation: 10.0,
-        iconSize: w * 0.08,
-        selectedItemColor: kMainColor,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        unselectedLabelStyle: headingStyle.copyWith(
-            color: Colors.black, fontWeight: FontWeight.w400, fontSize: w * 0.03),
-        selectedLabelStyle: headingStyle.copyWith(
-            color: kMainColor, fontWeight: FontWeight.w400, fontSize: w * 0.03),
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            filteringData = false;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            activeIcon: Image.asset("asset/images/homecolor.png", width: 100, height: 30,),
-              icon: Image.asset("asset/images/home.png", width: 100, height: 30,),
-              label: LocaleKeys.home.tr()),
-          BottomNavigationBarItem(
-            activeIcon: Image.asset("asset/images/deps-1.png", width: 100, height: 30,),
-              icon:  Image.asset("asset/images/deps.png",  width: 100, height: 30,),
-              label: translateString("Category", "الأقسام")),
-          BottomNavigationBarItem(
-              activeIcon: Image.asset("asset/images/cartcolor.png", width: 100, height: 30,),
-              icon:  Image.asset("asset/images/cart.png",  width: 100, height: 30,),
-              
-              label: translateString("cart", "عربة التسوق"),),
-          
-          BottomNavigationBarItem(
-              activeIcon: Image.asset("asset/images/heartcolor.png", width: 100, height: 30,),
-              icon:  Image.asset("asset/images/heart.png",  width: 100, height: 30,),
-              label: translateString("favourite", "المفضلة"),),
-          BottomNavigationBarItem(
-             activeIcon: Image.asset("asset/images/profilecolor.png", width: 100, height: 30,),
-              icon:  Image.asset("asset/images/profile.png",  width: 100, height: 30,),
-              label: translateString("my account", "الحساب"),),
-        ],
-      ),
-      body: Center(
-        child:screens[currentIndex],
+    return WillPopScope(
+
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: appbarNoTitle(),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          unselectedItemColor: Colors.black,
+          elevation: 10.0,
+          iconSize: w * 0.08,
+          selectedItemColor: kMainColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          unselectedLabelStyle: headingStyle.copyWith(
+              color: Colors.black, fontWeight: FontWeight.w400, fontSize: w * 0.03),
+          selectedLabelStyle: headingStyle.copyWith(
+              color: kMainColor, fontWeight: FontWeight.w400, fontSize: w * 0.03),
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+              filteringData = false;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              activeIcon: Image.asset("asset/images/homecolor.png", width: 100, height: 30,),
+                icon: Image.asset("asset/images/home.png", width: 100, height: 30,),
+                label: LocaleKeys.home.tr()),
+            BottomNavigationBarItem(
+              activeIcon: Image.asset("asset/images/deps-1.png", width: 100, height: 30,),
+                icon:  Image.asset("asset/images/deps.png",  width: 100, height: 30,),
+                label: translateString("Category", "الأقسام")),
+            BottomNavigationBarItem(
+                activeIcon: Image.asset("asset/images/cartcolor.png", width: 100, height: 30,),
+                icon:  Image.asset("asset/images/cart.png",  width: 100, height: 30,),
+
+                label: translateString("cart", "عربة التسوق"),),
+
+            BottomNavigationBarItem(
+                activeIcon: Image.asset("asset/images/heartcolor.png", width: 100, height: 30,),
+                icon:  Image.asset("asset/images/heart.png",  width: 100, height: 30,),
+                label: translateString("favourite", "المفضلة"),),
+            BottomNavigationBarItem(
+               activeIcon: Image.asset("asset/images/profilecolor.png", width: 100, height: 30,),
+                icon:  Image.asset("asset/images/profile.png",  width: 100, height: 30,),
+                label: translateString("my account", "الحساب"),),
+          ],
+        ),
+        body: Center(
+          child:screens[currentIndex],
+        ),
       ),
     );
   }

@@ -155,8 +155,6 @@ class _CheckoutBodyState extends State<CheckoutBody> {
                           setState(() {
                             currentPage++;
                           });
-                          // CheckOutCubit.get(context)
-                          //     .moveInTimeLine(currentPage++);
                         }
                       }
 
