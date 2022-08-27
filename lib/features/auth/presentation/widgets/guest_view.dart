@@ -48,9 +48,7 @@ class _GuestViewState extends State<GuestView> {
     return BlocConsumer<AuthCubit,AuthStates>(
       listener: (context,state){},
       builder: (context,state){
-        return kUser ==null ? SizedBox(
-            height: SizeConfig.screenHeight,
-            child: Center(child: CircularProgressIndicator(color: kMainColor,),)):SingleChildScrollView(
+        return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -92,7 +90,7 @@ class _GuestViewState extends State<GuestView> {
                   ],
                 ),
               ),
-              if (kToken  == null&&kUser!=null)
+              if (kToken  == null&&kUser==null)
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
