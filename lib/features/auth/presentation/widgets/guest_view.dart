@@ -90,7 +90,7 @@ class _GuestViewState extends State<GuestView> {
                   ],
                 ),
               ),
-              if (kToken  == null&&kUser==null)
+              if (kToken  == null && kUser==null)
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),

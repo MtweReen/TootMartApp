@@ -138,6 +138,7 @@ class AuthCubit extends Cubit<AuthStates> {
       if (value != []) {
         changeUserState(AccountStates.GUEST);
         kToken = null;
+        kUser=null;
         CasheHelper.removeData(key: 'User');
         showToast(
             msg: value.getOrElse(() => 'not signed out'),
@@ -178,6 +179,7 @@ class AuthCubit extends Cubit<AuthStates> {
             msg: value.getOrElse(() => 'لم يتم حزف الحساب'),
             state: ToastStates.SUCCESS);
         kToken = null;
+        kUser=null;
         CasheHelper.removeData(key: 'user');
         emit(AccountDeletedSuccessfully());
       }

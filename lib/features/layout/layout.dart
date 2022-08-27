@@ -78,7 +78,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             BottomNavigationBarItem(
               activeIcon: Image.asset("asset/images/deps-1.png", width: 100, height: 30,),
                 icon:  Image.asset("asset/images/deps.png",  width: 100, height: 30,),
-                label: translateString("Category", "الأقسام")),
+                label: translateString('Categories', 'الأقسام')),
             BottomNavigationBarItem(
                 activeIcon: Image.asset("asset/images/cartcolor.png", width: 100, height: 30,),
                 icon:  Image.asset("asset/images/cart.png",  width: 100, height: 30,),

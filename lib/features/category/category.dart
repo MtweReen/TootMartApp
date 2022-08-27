@@ -14,7 +14,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(title: "الأقسام", context: context,inLayout:true),
+      appBar: customAppbar(title: translateString('Categories', 'الأقسام'), context: context,inLayout:true),
       body: const CategoryBody(),
       
     );

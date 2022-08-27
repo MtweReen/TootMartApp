@@ -22,7 +22,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:
-          customAppbar(title: 'عربة التسوق', context: context, inLayout: true),
+          customAppbar(title: translateString("Cart", "عربة التسوق"), context: context, inLayout: true),
       body: ShoppingCartBody(),
     );
   }
