@@ -53,88 +53,16 @@ class CasheHelper {
     print('User token Saved ');
     return await sharedPreferences.setString('token', token);
   }
+
   static getToken() async {
-    String? token= sharedPreferences.getString('token');
-    if(token == null){
+    String? token = sharedPreferences.getString('token');
+    if (token == null) {
       print('No Data Saved');
-    }else{
+    } else {
       print('token Passed');
       kToken = token;
-     // AuthCubit.get(context).getUser();
+      // AuthCubit.get(context).getUser();
     }
     return 'token';
   }
-
-  // static getUser() async {
-  //   String? json= sharedPreferences.getString('User');
-  //   if(json == null){
-  //     print('No Data Saved');
-  //   }else{
-  //     Map<String,dynamic> map=jsonDecode(json);
-  //     kUser = UserModel.fromJson(map);
-  //     print('Data Passed');
-  //   }
-  //
-  //
-  //   return 'user';
-  // }
-
-  // static SaveUserLogin({required User userData}) async {
-  //   await sharedPreferences.setString('name', userData.data!.user!.name!);
-  //   await sharedPreferences.setInt('id', userData.data!.user!.id!);
-  //   await sharedPreferences.setString('image', userData.data!.user!.image!);
-  //   await sharedPreferences.setString('email', userData.data!.user!.email!);
-  //   await sharedPreferences.setString('token', userData.data!.token!);
-  // }
-  //
-  // Future<Data> getUserLogin({required Data dataloginModel}) async {
-  //   final name = await sharedPreferences.getString('name');
-  //   final id = await sharedPreferences.getInt('id');
-  //   final token = await sharedPreferences.getString('token');
-  //   final image = await sharedPreferences.getString('image');
-  //   final email = await sharedPreferences.getString('email');
-  //
-  //   return Data();
-  // }
-
 }
-//
-//   static Future<void> inits() async => await GetStorage.init();
-//   static final GetStorage _box = GetStorage();
-//   static LoginModel? get getUserInfo {
-//     LoginModel? profileModel;
-//     if (_box.hasData('data')) {
-//       profileModel = LoginModel.fromMap(_box.read('data'));
-//     }
-//     return profileModel;
-//   }
-//   static Future<void> saveBool({
-//     required String key,
-//     required bool value
-//   }) async{
-//     return await _box.write(key, value);
-//   }
-//
-//
-//   static bool get isLogged => getUserInfo != null;
-//   //static bool get rememberMe =>  ;
-//
-//   static Future<void> cacheUserInfo(LoginModel userModel) =>
-//       _box.write('data', userModel.toMap());
-//
-//
-//   static int? get getUserId => getUserInfo?.data!.id;
-//
-//   static String? get getToken => getUserInfo?.token;
-//
-//   static User? get getUserData => getUserInfo?.data;
-//
-//
-//   static Future<void>  removeData({
-//     required String key,
-//   }) async{
-//     return await _box.remove('data');
-//   }
-// }
-//
-//
