@@ -121,10 +121,11 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         options: Options(
           headers: {
             "Accept": "application/json",
-            "Authorization": "Bearer ${kToken!}",
+            // "Authorization": "Bearer ${kToken!}",
           },
         ),
       );
+      print('ksajdflakbsdjndsf.s${response.statusCode}');
       if (response.statusCode == 200) {
         searchModel = SearchModel.fromJson(response.data);
         print(response.data);
@@ -132,7 +133,7 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         return searchModel!;
       }
     } catch (e) {
-      print(e.toString());
+      print('الايرور هنااااااااااااااااااااا'+e.toString());
       emit(SearchProductsCubitErrorState(e.toString()));
     }
     return searchModel!;

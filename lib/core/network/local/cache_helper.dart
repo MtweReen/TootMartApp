@@ -65,19 +65,19 @@ class CasheHelper {
     return 'token';
   }
 
-  static getUser() async {
-    String? json= sharedPreferences.getString('User');
-    if(json == null){
-      print('No Data Saved');
-    }else{
-      Map<String,dynamic> map=jsonDecode(json);
-      kUser = UserModel.fromJson(map);
-      print('Data Passed');
-    }
-
-
-    return 'user';
-  }
+  // static getUser() async {
+  //   String? json= sharedPreferences.getString('User');
+  //   if(json == null){
+  //     print('No Data Saved');
+  //   }else{
+  //     Map<String,dynamic> map=jsonDecode(json);
+  //     kUser = UserModel.fromJson(map);
+  //     print('Data Passed');
+  //   }
+  //
+  //
+  //   return 'user';
+  // }
 
   // static SaveUserLogin({required User userData}) async {
   //   await sharedPreferences.setString('name', userData.data!.user!.name!);
