@@ -40,13 +40,16 @@ class _SearchResultBodyState extends State<SearchResultBody> {
                               .body!
                               .products![index]
                               .id!);
-                           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>  ProductDetailScreen(productImage:   HomeCubitCubit.get(context)
-                          .searchModel!
-                          .body!
-                          .products![index].image!,)));     
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductDetailScreen(
+                                    productImage: HomeCubitCubit.get(context)
+                                        .searchModel!
+                                        .body!
+                                        .products![index]
+                                        .image!,
+                                  )));
                     },
                     leading: CircleAvatar(
                       backgroundColor: kMainColor,
@@ -77,17 +80,20 @@ class _SearchResultBodyState extends State<SearchResultBody> {
                   ),
                 )
               : Padding(
-                  padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
-                child: Center(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3),
+                  child: Center(
                     child: Text(
-                      translateString("no search result", "لا توجد نتائج للبحث"),
+                      translateString(
+                          "no search result", "لا توجد نتائج للبحث"),
                       style: headingStyle.copyWith(
                           color: kMainColor, fontWeight: FontWeight.bold),
                     ),
                   ),
-              ),
+                ),
           fallback: (BuildContext context) => Padding(
-            padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
             child: Center(
               child: CircularProgressIndicator(
                 color: kMainColor,

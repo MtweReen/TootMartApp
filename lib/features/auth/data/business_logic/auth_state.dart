@@ -7,6 +7,7 @@ class LoginUserLoadingstate extends AuthStates {}
 class LoginUserErrorstate extends AuthStates {}
 
 class LoginUserLoaded extends AuthStates {}
+class LoginUserErrorLoad extends AuthStates {}
 
 class RegisterUserLoadingState extends AuthStates {}
 

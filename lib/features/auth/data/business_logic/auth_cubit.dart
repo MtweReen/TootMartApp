@@ -49,6 +49,9 @@ class AuthCubit extends Cubit<AuthStates> {
     AuthRepositoryImpl()
         .loginWithEmailAndPassword(Username: Username, Password: Password)
         .then((value) {
+      if (value.isLeft()) {
+        emit(LoginUserErrorstate());
+      }
       if (value != []) {
         user = value.getOrElse(() {
           return UserModel.fromJson({});
@@ -56,11 +59,11 @@ class AuthCubit extends Cubit<AuthStates> {
         kUser = user;
         kToken = user!.body!.accessToken;
 
-        print('skdhfbalksdfaksdf' + userModelToJson(user!));
+        // print('skdhfbalksdfaksdf' + userModelToJson(user!));
         if (kToken == null || kToken == '') {
+          emit(LoginUserErrorstate());
           showToast(
               msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
-          emit(LoginUserErrorstate());
         } else {
           showToast(
               msg: LocaleKeys.signed_in_successfully.tr(),
@@ -189,10 +192,12 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   AccountStates? currentUserState;
+
   changeUserState(AccountStates userState) {
     currentUserState = userState;
     emit(ChangeUserState());
   }
+
 ////////////////////////////////////////////////////////////////////////
 
   Future<void> forgetPassword({required String phone}) async {
@@ -226,6 +231,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(ForgetPasswordErrorState(e.toString()));
     }
   }
+
 ////////////////////////////////////////////////////////////////
 
   Future<void> editPassword(
@@ -278,4 +284,3 @@ Future<bool>? showDeleteButton() async {
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
