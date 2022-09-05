@@ -33,4 +33,23 @@ class CheckedSuccessState extends AuthStates {}
 class ChangeUserState extends AuthStates {}
 
 
+class ChangePasswordLoadingState extends AuthStates {}
+
+class ChangePasswordSuccessState extends AuthStates {}
+
+class ChangePasswordErrorState extends AuthStates {
+  final String e;
+
+  ChangePasswordErrorState(this.e);
+}
+
+class ForgetPasswordLoadingState extends AuthStates {}
+
+class ForgetPasswordSuccessState extends AuthStates {}
+
+class ForgetPasswordErrorState extends AuthStates {
+  final String e;
+
+  ForgetPasswordErrorState(this.e);
+}
 

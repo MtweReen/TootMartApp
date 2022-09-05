@@ -26,17 +26,25 @@ class _AllProductBodyState extends State<AllProductBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        children:  [
-         const FilterProducts(),
-         const VerticalSpace(value: 4),
-         (filteringData)? BlocConsumer<CategoryCubit, CategoryState>(
-            listener: (context, state) {
-             
-            },
-            builder: (context, state) {
-              return FilterResultScreen(categoryId: CategoryCubit.get(context).subcategoryModel!.body!.category!.id!,);
-            },
-          ):ProductGridData(fromfav: false,),
+        children: [
+          const FilterProducts(),
+          const VerticalSpace(value: 4),
+          (filteringData)
+              ? BlocConsumer<CategoryCubit, CategoryState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return FilterResultScreen(
+                      categoryId: CategoryCubit.get(context)
+                          .subcategoryModel!
+                          .body!
+                          .category!
+                          .id!,
+                    );
+                  },
+                )
+              : ProductGridData(
+                  fromfav: false,
+                ),
         ],
       ),
     );

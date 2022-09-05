@@ -5,6 +5,7 @@ import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/custom_text_field.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/splash.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/constants/constants.dart';
@@ -58,12 +59,9 @@ class _RegisterViewState extends State<RegisterView> {
             CasheHelper.setToken(token: AuthCubit.get(context).user!.body!.accessToken!);
             kUser = AuthCubit.get(context).user;
           }
-          MagicRouter.navigateTo(const LayoutScreen(
-            index: 0,
-          ));
+          MagicRouter.navigateTo(const SplshScreen());
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
            CartCubit.get(context).getcart();
-
           HomeCubitCubit.get(context)
             ..getFavourites()
             ..getHomeItems()

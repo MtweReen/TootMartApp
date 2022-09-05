@@ -11,7 +11,8 @@ const EDIT_PROFILE = 'edit/profile';
 const CHANGE_PASSWORD = 'change/password';
 const DELETE_ACCOUNT = 'delete_acc';
 const SOCIAL_LOGIN = 'login_social';
-
+const CHANGE_PASSWORD_OUTSIDE = 'change/password_out';
+const FORGET_PASSWORD = 'forget-password';
 
 //CATEGORIES
 const CATEGORIES = 'categories';

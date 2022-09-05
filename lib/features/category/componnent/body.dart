@@ -41,9 +41,9 @@ class _CategoryBodyState extends State<CategoryBody> {
     try {
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "ar",
-        "paginate": "$page"
+     
       };
-      var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES), headers: headers);
+      var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES+"?page=$page"), headers: headers, );
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         categoryModel = CategoryModel.fromJson(data);
@@ -67,7 +67,7 @@ class _CategoryBodyState extends State<CategoryBody> {
      
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "en",
-        "paginate": "$page"
+      
       };
       setState(() {
         isLoadMoreRunning = true;
@@ -75,7 +75,7 @@ class _CategoryBodyState extends State<CategoryBody> {
       });
       List fetchedPosts = [];
       try {
-        var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES), headers: headers);
+        var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES+"?page=$page"), headers: headers);
         var data = jsonDecode(response.body);
         if (data['status'] == true) {
           CategoryModel categoryModel = CategoryModel.fromJson(data);

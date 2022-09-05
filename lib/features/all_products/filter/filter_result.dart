@@ -170,7 +170,7 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
                                   imge: products[index].image!,
                                   id: products[index].id!,
                                   price: products[index].price.toString(),
-                                  beforePrice: products[index].priceBefore!,
+                                  beforePrice: products[index].priceBefore ?? 0.0,
                                 );
                               },
                             );

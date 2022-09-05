@@ -160,6 +160,7 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                                           products: CategoryCubit.get(context)
                                               .subcategoryModel!
                                               .body!
+                                              .subCategories![index]
                                               .products!,
                                         )
                                       : Center(

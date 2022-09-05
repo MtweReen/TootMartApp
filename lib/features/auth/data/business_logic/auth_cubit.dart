@@ -192,6 +192,62 @@ class AuthCubit extends Cubit<AuthStates> {
     currentUserState = userState;
     emit(ChangeUserState());
   }
+////////////////////////////////////////////////////////////////////////
+
+ Future<void> forgetPassword({required String phone}) async {
+    emit(ForgetPasswordLoadingState());
+    try {
+      Response response = await Dio().post(
+        kBaseUrl + FORGET_PASSWORD,
+        data: {
+          "phone": phone,
+        },
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      print(response.data);
+      if (response.statusCode == 200) {
+        prefs.setString("phone", phone);
+        prefs.setString("code", response.data['body']['code'].toString());
+        showToast(
+            msg: translateString("code will be sent to your phone number",
+                "سوف يتم ارسال كود التفعيل الي رقم الهاتف"),
+            state: ToastStates.SUCCESS);
+        emit(ForgetPasswordSuccessState());
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(ForgetPasswordErrorState(e.toString()));
+    }
+  }
+////////////////////////////////////////////////////////////////
+
+  Future<void> editPassword(
+      {required String password, required String confirmPassword}) async {
+    emit(ChangePasswordLoadingState());
+    try {
+      Response response = await Dio().post(
+        kBaseUrl + CHANGE_PASSWORD_OUTSIDE,
+        data: {
+          "phone": prefs.getString("phone").toString(),
+          "newPassword": password,
+          "newPasswordConfirmation": confirmPassword
+        },
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      print(response.data);
+      if (response.statusCode == 200) {
+        prefs.setString("code", response.data['body']['code'].toString());
+        showToast(
+            msg: translateString(
+                "passowrd updated Successfully", "تم تحديث كلمة المرور بنجاح"),
+            state: ToastStates.SUCCESS);
+        emit(ChangePasswordSuccessState());
+      }
+    } catch (e) {
+      print(e.toString());
+      emit(ChangePasswordErrorState(e.toString()));
+    }
+  }
 
 }
 
@@ -215,3 +271,6 @@ Future<bool>? showDeleteButton() async {
   }
   return false;
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+

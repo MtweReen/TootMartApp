@@ -38,11 +38,15 @@ class ProductGridData extends StatelessWidget {
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (context, index) => ProductCardData(
-                    beforePrice: double.parse(CategoryCubit.get(context)
+                    beforePrice:(CategoryCubit.get(context)
                         .subcategoryModel!
                         .body!
                         .products![index]
-                        .priceBefore.toString()),
+                        .priceBefore != null)? double.parse(CategoryCubit.get(context)
+                        .subcategoryModel!
+                        .body!
+                        .products![index]
+                        .priceBefore.toString()):0.0,
                     fromfav: fromfav!,
                     id: CategoryCubit.get(context)
                         .subcategoryModel!

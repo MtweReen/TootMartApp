@@ -42,7 +42,7 @@ final _formKey = GlobalKey<FormState>();
               ),
               VerticalSpace(value: SizeConfig.defaultSize! * 0.5),
               Text(
-                LocaleKeys.email.tr(),
+                LocaleKeys.phone_number.tr(),
                 style: headingStyle.copyWith(color: colorGrey),
               ),
               const VerticalSpace(value: 1),

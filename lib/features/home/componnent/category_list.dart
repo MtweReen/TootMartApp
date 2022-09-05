@@ -38,6 +38,17 @@ class _CategoryListState extends State<CategoryList> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
+           
+                  gradient: const LinearGradient(
+                  
+                    end: Alignment.bottomCenter,
+                    begin: Alignment.topCenter,
+                    colors: [
+                      Colors.black,
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -45,6 +56,23 @@ class _CategoryListState extends State<CategoryList> {
                       url: widget.categories[index].image.toString(),
                       fit: BoxFit.cover,
                       context: context),
+                ),
+              ),
+              Container(
+                    width: double.infinity,
+                height: SizeConfig.screenHeight! * 0.25,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    end: Alignment.bottomCenter,
+                    begin: Alignment.topCenter,
+                    colors: [
+                      Colors.black45,
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
                 ),
               ),
               Padding(
