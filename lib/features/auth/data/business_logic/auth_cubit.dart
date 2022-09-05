@@ -1,7 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison, avoid_print, non_constant_identifier_names, duplicate_ignore
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/network/end_points.dart';
 import '../../../../../core/helper/functions/show_toast.dart';
@@ -22,8 +22,8 @@ class AuthCubit extends Cubit<AuthStates> {
 
   // ignore: non_constant_identifier_names
 
-  getUser() async{
-    if(kToken !=null){
+  getUser() async {
+    if (kToken != null) {
       emit(LoginUserLoadingstate());
       try {
         Response response = await Dio().get(
@@ -34,8 +34,8 @@ class AuthCubit extends Cubit<AuthStates> {
         );
         if (response.statusCode == 200) {
           print(response.data);
-          user=UserModel.fromJson(response.data);
-          kUser=user;
+          user = UserModel.fromJson(response.data);
+          kUser = user;
           emit(LoginUserLoaded());
         }
       } catch (e) {
@@ -43,6 +43,7 @@ class AuthCubit extends Cubit<AuthStates> {
       }
     }
   }
+
   UserModel? LoginUser(String Username, String Password) {
     emit(LoginUserLoadingstate());
     AuthRepositoryImpl()
@@ -52,8 +53,8 @@ class AuthCubit extends Cubit<AuthStates> {
         user = value.getOrElse(() {
           return UserModel.fromJson({});
         });
-        kUser=user;
-        kToken=user!.body!.accessToken;
+        kUser = user;
+        kToken = user!.body!.accessToken;
 
         print('skdhfbalksdfaksdf' + userModelToJson(user!));
         if (kToken == null || kToken == '') {
@@ -138,7 +139,7 @@ class AuthCubit extends Cubit<AuthStates> {
       if (value != []) {
         changeUserState(AccountStates.GUEST);
         kToken = null;
-        kUser=null;
+        kUser = null;
         CasheHelper.removeData(key: 'User');
         showToast(
             msg: value.getOrElse(() => 'not signed out'),
@@ -179,7 +180,7 @@ class AuthCubit extends Cubit<AuthStates> {
             msg: value.getOrElse(() => 'لم يتم حزف الحساب'),
             state: ToastStates.SUCCESS);
         kToken = null;
-        kUser=null;
+        kUser = null;
         CasheHelper.removeData(key: 'user');
         emit(AccountDeletedSuccessfully());
       }
@@ -194,7 +195,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 ////////////////////////////////////////////////////////////////////////
 
- Future<void> forgetPassword({required String phone}) async {
+  Future<void> forgetPassword({required String phone}) async {
     emit(ForgetPasswordLoadingState());
     try {
       Response response = await Dio().post(
@@ -206,6 +207,7 @@ class AuthCubit extends Cubit<AuthStates> {
       );
       print(response.data);
       if (response.statusCode == 200) {
+        print(response.data['body']['code'].toString());
         prefs.setString("phone", phone);
         prefs.setString("code", response.data['body']['code'].toString());
         showToast(
@@ -215,6 +217,11 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(ForgetPasswordSuccessState());
       }
     } catch (e) {
+      showToast(
+        msg: translateString("There is no account for this phone number",
+            "لا يوجد حساب مرتبط برقم الهاتف الذي ادخلته"),
+        state: ToastStates.ERROR,
+      );
       print(e.toString());
       emit(ForgetPasswordErrorState(e.toString()));
     }
@@ -236,7 +243,6 @@ class AuthCubit extends Cubit<AuthStates> {
       );
       print(response.data);
       if (response.statusCode == 200) {
-        prefs.setString("code", response.data['body']['code'].toString());
         showToast(
             msg: translateString(
                 "passowrd updated Successfully", "تم تحديث كلمة المرور بنجاح"),
@@ -248,7 +254,6 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(ChangePasswordErrorState(e.toString()));
     }
   }
-
 }
 
 ///////////////////////////////////////////////////////////////////

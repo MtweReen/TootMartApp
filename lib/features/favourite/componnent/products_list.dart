@@ -75,11 +75,15 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                         .products![index]
                         .price
                         .toString(),
-                    beforePrice: HomeCubitCubit.get(context)
+                    beforePrice:(HomeCubitCubit.get(context)
                         .favouriteModel!
                         .body!
                         .products![index]
-                        .priceBefore!.toString(),
+                        .priceBefore != null)? HomeCubitCubit.get(context)
+                        .favouriteModel!
+                        .body!
+                        .products![index]
+                        .priceBefore!.toString() : 0,
                   ),
                 )
               : Padding(
