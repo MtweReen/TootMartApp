@@ -28,7 +28,7 @@ class _HomeSliderState extends State<HomeSlider> {
         itemBuilder: (BuildContext context, int i) {
           return InkWell(
             child: customCachedNetworkImage(
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               context: context,
               url: widget.images[i],
             ),

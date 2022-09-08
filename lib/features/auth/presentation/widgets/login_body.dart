@@ -40,7 +40,8 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is LoginUserLoaded) {
-          CasheHelper.setToken(token: AuthCubit.get(context).user!.body!.accessToken!);
+          CasheHelper.setToken(
+              token: AuthCubit.get(context).user!.body!.accessToken!);
           MagicRouter.navigateAndPopAll(const SplshScreen());
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
           CartCubit.get(context).getcart();
@@ -121,7 +122,7 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-                const VerticalSpace(value: 2),
+                const VerticalSpace(value: 1),
                 (state is! LoginUserLoadingstate)
                     ? CustomGeneralButton(
                         text: LocaleKeys.login.tr(),
@@ -133,7 +134,7 @@ class LoginView extends StatelessWidget {
                         })
                     : Center(
                         child: CircularProgressIndicator(color: kMainColor)),
-                const VerticalSpace(value: 2),
+                const VerticalSpace(value: 1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -155,7 +156,7 @@ class LoginView extends StatelessWidget {
                     )),
                   ],
                 ),
-                const VerticalSpace(value: 2),
+                const VerticalSpace(value: 1),
                 CustomStrockButton(
                     text: LocaleKeys.sign_up.tr(),
                     onTap: () {
@@ -170,38 +171,75 @@ class LoginView extends StatelessWidget {
                     } else if (state is AppleAuthniticationSuccessState) {
                       SocialCubit.get(context).socialLoginApi(context);
                     } else if (state is SocialLoginApiSuccessState) {
-                     MagicRouter.navigateTo(const SplshScreen());
-                      AuthCubit.get(context).changeUserState(AccountStates.GUEST);
+                      MagicRouter.navigateTo(const SplshScreen());
+                      AuthCubit.get(context)
+                          .changeUserState(AccountStates.GUEST);
                     }
                   },
                   builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
                           onTap: () {
                             SocialCubit.get(context).googleSignUp(context);
                           },
-                          child: SizedBox(
-                            width: SizeConfig.screenWidth! * 0.1,
-                            height: SizeConfig.screenHeight! * 0.08,
-                            child: Image.asset(
-                              "asset/images/google.png",
-                              fit: BoxFit.contain,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.orange.shade900,
+                                borderRadius: BorderRadius.circular(20)),
+                            height: SizeConfig.screenHeight! * 0.06,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "asset/images/google.png",
+                                  color: Colors.white,
+                                  fit: BoxFit.contain,
+                                  height: SizeConfig.defaultSize! * 3,
+                                ),
+                                const HorizontalSpace(value: 1),
+                                Text(
+                                  translateString(
+                                    'Login with Google',
+                                    'سجل الدخول بواسطة جوجل',
+                                  ),
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
                             ),
                           ),
                         ),
+                        VerticalSpace(value: 1),
                         InkWell(
                           onTap: () {
                             SocialCubit.get(context).signInWithApple(context);
                           },
-                          child: SizedBox(
-                            width: SizeConfig.screenWidth! * 0.1,
-                            height: SizeConfig.screenHeight! * 0.08,
-                            child: Image.asset(
-                              "asset/images/apple.png",
-                              fit: BoxFit.contain,
+                          child: Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20)),
+                            height: SizeConfig.screenHeight! * 0.06,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "asset/images/apple.png",
+                                  color: Colors.white,
+                                  fit: BoxFit.contain,
+                                  height: SizeConfig.defaultSize! * 3,
+                                ),
+                                const HorizontalSpace(value: 1),
+                                Text(
+                                  translateString(
+                                    'Login with Apple',
+                                    'سجل الدخول بواسطة أبل',
+                                  ),
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
                             ),
                           ),
                         ),
