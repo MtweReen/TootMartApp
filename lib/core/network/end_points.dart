@@ -57,3 +57,7 @@ const FILTER_ROOM = "showrooms/area/";
 const GETUSERADDRESS = "address";
 const ADD_ADDRESS = "add-address";
 const ORDER_DETAIL = "orders/";
+
+
+const INTRO = "intros";
+

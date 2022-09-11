@@ -1,4 +1,7 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/app_cubit/app_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/utiles/size_config.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
@@ -15,27 +18,8 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentPage = 0;
   PageController? pageController;
-List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهولة الدفع"];
-  List<Map<String, String>> splashData = [
-    {
-      "text":
-          "التوظيف هو عملية البحث عن الموظفين المحتملين وتحفيزهم على التقدم بطلب للحصول على وظائف في المنظمة. عندما يتقدم عدد أكبر من الأشخاص للحصول على وظائف ، سيكون هناك مجال لتوظيف أشخاص أفضل. من ناحية أخرى ، يبحث الباحثون عن عمل أيضاً عن منظمات تقدم لهم عملاً. التوظيف هو نشاط ربط يجمع بين الوظائف والباحثين عن وظائف.",
-      "image": "asset/images/vec.png"
-    },
-    {
-      "text":
-          'التوظيف هو عملية البحث عن الموظفين المحتملين وتحفيزهم على التقدم بطلب للحصول على وظائف في المنظمة. عندما يتقدم عدد أكبر من الأشخاص للحصول على وظائف ، سيكون هناك مجال لتوظيف أشخاص أفضل. من ناحية أخرى ، يبحث الباحثون عن عمل أيضاً عن منظمات تقدم لهم عملاً. التوظيف هو نشاط ربط يجمع بين الوظائف والباحثين عن وظائف.',
-      "image": "asset/images/searchvec.png"
-    },
-    {
-      "text":
-          'التوظيف هو عملية البحث عن الموظفين المحتملين وتحفيزهم على التقدم بطلب للحصول على وظائف في المنظمة. عندما يتقدم عدد أكبر من الأشخاص للحصول على وظائف ، سيكون هناك مجال لتوظيف أشخاص أفضل. من ناحية أخرى ، يبحث الباحثون عن عمل أيضاً عن منظمات تقدم لهم عملاً. التوظيف هو نشاط ربط يجمع بين الوظائف والباحثين عن وظائف.',
-      "image": "asset/images/easypayment.png"
-    },
-  ];
 
-
-@override
+  @override
   void initState() {
     pageController = PageController(initialPage: 0);
     super.initState();
@@ -43,91 +27,123 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
 
   @override
   Widget build(BuildContext context) {
-  SizeConfig().init(context);
+    SizeConfig().init(context);
     double h = MediaQuery.of(context).size.height;
-     SizeConfig().init(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SizedBox(
-        width: double.infinity,
-        height: h,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          //  SizedBox(height: h * 0.2),
-            Expanded(
-              // flex: 7,
-              child: PageView.builder(
-                controller: pageController,
-                physics: const BouncingScrollPhysics(),
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemCount: splashData.length,
-                itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]["image"].toString(),
-                  title: title[index],
-                  text: splashData[index]['text'].toString(),
-                ),
-              ),
-            ),
-            SizedBox(height: h * 0.035),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                splashData.length,
-                (index) => buildOnBoardingDot(
-                    index: index, currentPage: currentPage, context: context),
-              ),
-            ),
-            SizedBox(
-              height: h * 0.05,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomGeneralButton(
-                textColor: Colors.white,
-                color: kMainColor,
-                onTap: () async {
-                 if(currentPage != title.length-1){
-                  setState(() {
-                    currentPage = currentPage;
-                  });
-                    pageController!.animateToPage(currentPage+1,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.fastLinearToSlowEaseIn);
-                 }else{
-                   prefs.setBool('is_onboearding', true);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LayoutScreen()));
-                 }
-                },
-                text: translateString("Next", "التالي"),
-              ),
-            ),
+    SizeConfig().init(context);
+    return BlocConsumer<AppCubit, AppState>(
+      listener: (c, s) {},
+      builder: (c, s) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: ConditionalBuilder(
+            condition: s is! IntroLoadingState || AppCubit.get(context).introModel !=null,
+            builder: (c)=>SizedBox(
+              width: double.infinity,
+              height: h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  //  SizedBox(height: h * 0.2),
+                  Expanded(
+                    // flex: 7,
+                    child: PageView.builder(
+                      controller: pageController,
+                      physics: const BouncingScrollPhysics(),
+                      onPageChanged: (value) {
+                        setState(() {
+                          currentPage = value;
+                        });
+                      },
+                      itemCount:
+                      AppCubit.get(context).introModel!.body!.intros!.length,
+                      itemBuilder: (context, index) => SplashContent(
+                        image: AppCubit.get(context)
+                            .introModel!
+                            .body!
+                            .intros![index]
+                            .image!,
+                        title: AppCubit.get(context)
+                            .introModel!
+                            .body!
+                            .intros![index]
+                            .title!,
+                        text:parseHtmlString( AppCubit.get(context)
+                            .introModel!
+                            .body!
+                            .intros![index]
+                            .description!),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: h * 0.035),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      AppCubit.get(context).introModel!.body!.intros!.length,
+                          (index) => buildOnBoardingDot(
+                          index: index,
+                          currentPage: currentPage,
+                          context: context),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 0.05,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomGeneralButton(
+                      textColor: Colors.white,
+                      color: kMainColor,
+                      onTap: () async {
+                        if (currentPage !=
+                            AppCubit.get(context)
+                                .introModel!
+                                .body!
+                                .intros!
+                                .length -
+                                1) {
+                          setState(() {
+                            currentPage = currentPage;
+                          });
+                          pageController!.animateToPage(currentPage + 1,
+                              duration: const Duration(milliseconds: 1000),
+                              curve: Curves.fastLinearToSlowEaseIn);
+                        } else {
+                          prefs.setBool('is_onboearding', true);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LayoutScreen()));
+                        }
+                      },
+                      text: translateString("Next", "التالي"),
+                    ),
+                  ),
 
-             SizedBox(
-              height: h * 0.02,
-            ),
+                  SizedBox(
+                    height: h * 0.02,
+                  ),
 
-            CustomTextButton(text: translateString("Skip", "تخطي"), onPressed: (){
-               prefs.setBool('is_onboearding', true);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LayoutScreen()));
-            },
+                  CustomTextButton(
+                    text: translateString("Skip", "تخطي"),
+                    onPressed: () {
+                      prefs.setBool('is_onboearding', true);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LayoutScreen()));
+                    },
+                  ),
+                  SizedBox(height: h * 0.02),
+                ],
+              ),
             ),
-             SizedBox(height: h * 0.02),
-          ],
-        ),
-      ),
+            fallback: (c)=>Center(child: CircularProgressIndicator(color: kMainColor,),),
+          ),
+        );
+      },
     );
   }
 }
@@ -135,7 +151,8 @@ List<String> title = ["توصيل مجانى", "ابحث واكتشف", "سهو�
 class SplashContent extends StatelessWidget {
   final String text, image, title;
 
-  const SplashContent({Key? key, required this.text, required this.image,required this.title})
+  const SplashContent(
+      {Key? key, required this.text, required this.image, required this.title})
       : super(key: key);
 
   @override
@@ -147,16 +164,16 @@ class SplashContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Image.asset(
-          image,
-          height: h * 0.3,
-          width: w * 1,
-          fit: BoxFit.contain,
-        ),
-         SizedBox(
+        Container(
+            padding: EdgeInsets.all(16),
+            height: h * 0.3,
+            width: w * 1,
+            child: customCachedNetworkImage(
+                url: image, context: context, fit: BoxFit.contain)),
+        SizedBox(
           height: h * 0.02,
         ),
-         SizedBox(
+        SizedBox(
           width: w * 0.85,
           child: Text(
             title,
@@ -190,7 +207,6 @@ class SplashContent extends StatelessWidget {
 
 AnimatedContainer buildOnBoardingDot(
     {required int index, required int currentPage, required context}) {
-
   return AnimatedContainer(
     duration: const Duration(milliseconds: 250),
     margin: const EdgeInsets.all(5),

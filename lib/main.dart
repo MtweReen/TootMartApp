@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()),
+        BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()..getIntro()),
         BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()..getUser()),
         BlocProvider<SocialCubit>(
             create: (BuildContext context) => SocialCubit()),
