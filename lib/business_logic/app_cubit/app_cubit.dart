@@ -40,7 +40,7 @@ class AppCubit extends Cubit<AppState> {
     emit(IntroLoadingState());
     try {
       Map<String, String> headers = {
-        "Accept-Language": prefs.getString("lang") ?? "en",
+        "Accept-Language": prefs.getString("lang") ?? "ar",
       };
       var response =
           await http.get(Uri.parse(kBaseUrl + INTRO), headers: headers);
