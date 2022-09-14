@@ -50,6 +50,7 @@ class AuthRepositoryImpl extends AuthRepo {
       UserModel? result;
     //  ErrorRegisterModel errorRegisterModel;
       if (response.statusCode!<500) {
+    
         result = UserModel.fromJson(response.data);
          prefs.setBool("is_login", true);
       }
