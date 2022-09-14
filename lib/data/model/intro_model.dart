@@ -2,6 +2,8 @@
 //
 //     final intoModel = intoModelFromJson(jsonString);
 
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:convert';
 
 IntroModel intoModelFromJson(String str) => IntroModel.fromJson(json.decode(str));
@@ -10,26 +12,19 @@ class IntroModel {
   IntroModel({
     this.code,
     this.status,
-    this.message,
     this.body,
-    this.strings,
-    this.info,
+
   });
 
   int? code;
   bool? status;
-  String? message;
   Body? body;
-  dynamic strings;
-  String? info;
+
 
   factory IntroModel.fromJson(Map<String, dynamic> json) => IntroModel(
-        code: json["code"] == null ? null : json["code"],
-        status: json["status"] == null ? null : json["status"],
-        message: json["message"] == null ? null : json["message"],
+        code: json["code"],
+        status: json["status"],
         body: json["body"] == null ? null : Body.fromJson(json["body"]),
-        strings: json["strings"],
-        info: json["info"] == null ? null : json["info"],
       );
 }
 

@@ -1,12 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
-
-import '../../../features/auth/data/model/user_model.dart';
 import '../../constants/constants.dart';
 
 class CasheHelper {

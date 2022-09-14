@@ -18,15 +18,17 @@ class AuthRepositoryImpl extends AuthRepo {
     try {
       UserModel? userModel;
       var response = await DioHelper.postData(
-          url: LOGIN, data: {'email': Username, 'password': Password}).then((value){
-            prefs.setBool("is_login", true);
-        userModel = UserModel.fromJson(value.data);
+          url: LOGIN, data: {'email': Username, 'password': Password});
+          
+       if(response.statusCode == 200){
+          prefs.setBool("is_login", true);
+         userModel = UserModel.fromJson(response.data);
         print(userModel);
+         return Right(userModel);
+       }else{
+        return Left(Exception("error"));
+       }
 
-      }).catchError((error){
-        print(error);
-      });
-      return Right(userModel!);
     } catch (error) {
       showToast(
           msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);

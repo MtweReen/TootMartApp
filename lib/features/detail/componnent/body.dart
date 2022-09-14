@@ -7,8 +7,6 @@ import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
-
-import '../../../business_logic/app_cubit/app_cubit.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../../core/widgets/custom_quantity.dart';
 import 'similar_product.dart';
@@ -219,11 +217,11 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                       ),
                       const VerticalSpace(value: 2),
                       Text(
-                        parseHtmlString(CategoryCubit.get(context)
+                        CategoryCubit.get(context)
                             .productDetailModel!
                             .body!
                             .products!
-                            .description!),
+                            .description!,
                         maxLines: 6,
                         overflow: TextOverflow.ellipsis,
                         style: headingStyle.copyWith(

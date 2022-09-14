@@ -173,7 +173,7 @@ class SplashContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             height: h * 0.3,
             width: w * 1,
             child: customCachedNetworkImage(

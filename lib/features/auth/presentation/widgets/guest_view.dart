@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
-import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
@@ -58,7 +57,7 @@ class _GuestViewState extends State<GuestView> {
                   children: [
                     Row(
                       children: [
-                        if (kToken  != null&&kUser!=null)
+                        if (prefs.getBool("is_login") == true)
                           SizedBox(
                             width: SizeConfig.screenWidth!*0.4,
                             child: Text(
@@ -70,7 +69,7 @@ class _GuestViewState extends State<GuestView> {
                                   fontSize: SizeConfig.defaultSize! * 3),
                             ),
                           ),
-                        if (kToken  != null&&kUser!=null) const HorizontalSpace(value: 1),
+                        if (prefs.getBool("is_login") == true) const HorizontalSpace(value: 1),
                         Text(
                           translateString('Hello', 'مرحبا'),
                           style: TextStyle(
@@ -90,7 +89,7 @@ class _GuestViewState extends State<GuestView> {
                   ],
                 ),
               ),
-              if (kToken  == null && kUser==null)
+              if (prefs.getBool("is_login") != true)
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
