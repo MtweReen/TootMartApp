@@ -61,7 +61,7 @@ class _SplshScreenState extends State<SplshScreen> {
       ..privacypolicy()
       ..refundsPolicy();
 
-    Provider.of<MapProvider>(context, listen: false).start();
+    // Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(context,

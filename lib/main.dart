@@ -29,7 +29,7 @@ Future<void> main() async {
   await DioHelper.init();
   await CasheHelper.init();
   await startShared();
-  await mapIcon();
+  // await mapIcon();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
@@ -88,8 +88,8 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => CategoryCubit(),
         ),
       ],
-      child: ChangeNotifierProvider(
-        create: (context) => MapProvider(),
+      // child: ChangeNotifierProvider(
+      //   create: (context) => MapProvider(),
         child: MaterialApp(
           navigatorKey: navigatorKey,
           onGenerateRoute: onGenerateRoute,
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: const SplshScreen(),
         ),
-      ),
+      // ),
     );
   }
 }

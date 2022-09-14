@@ -36,8 +36,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: ConditionalBuilder(
-            condition: s is! IntroLoadingState || AppCubit.get(context).introModel !=null,
-            builder: (c)=>SizedBox(
+            condition: s is! IntroLoadingState ||
+                AppCubit.get(context).introModel != null,
+            builder: (c) => SizedBox(
               width: double.infinity,
               height: h,
               child: Column(
@@ -55,8 +56,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           currentPage = value;
                         });
                       },
-                      itemCount:
-                      AppCubit.get(context).introModel!.body!.intros!.length,
+                      itemCount: AppCubit.get(context)
+                          .introModel!
+                          .body!
+                          .intros!
+                          .length,
                       itemBuilder: (context, index) => SplashContent(
                         image: AppCubit.get(context)
                             .introModel!
@@ -68,7 +72,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             .body!
                             .intros![index]
                             .title!,
-                        text:parseHtmlString( AppCubit.get(context)
+                        text: parseHtmlString(AppCubit.get(context)
                             .introModel!
                             .body!
                             .intros![index]
@@ -82,7 +86,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                       AppCubit.get(context).introModel!.body!.intros!.length,
-                          (index) => buildOnBoardingDot(
+                      (index) => buildOnBoardingDot(
                           index: index,
                           currentPage: currentPage,
                           context: context),
@@ -99,10 +103,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       onTap: () async {
                         if (currentPage !=
                             AppCubit.get(context)
-                                .introModel!
-                                .body!
-                                .intros!
-                                .length -
+                                    .introModel!
+                                    .body!
+                                    .intros!
+                                    .length -
                                 1) {
                           setState(() {
                             currentPage = currentPage;
@@ -140,7 +144,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ],
               ),
             ),
-            fallback: (c)=>Center(child: CircularProgressIndicator(color: kMainColor,),),
+            fallback: (c) => Center(
+              child: CircularProgressIndicator(
+                color: kMainColor,
+              ),
+            ),
           ),
         );
       },

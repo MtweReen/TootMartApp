@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/constants.dart';
-
 import '../../business_logic/cart/cart_cubit.dart';
 import 'componnent/shopping_cart_body.dart';
 
