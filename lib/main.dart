@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
@@ -19,7 +18,6 @@ import 'core/network/local/cache_helper.dart';
 import 'core/network/remote/dio_helper.dart';
 import 'core/router/router.dart';
 import 'core/utiles/bloc_observer.dart';
-import 'features/map/map_provider.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -29,7 +27,7 @@ Future<void> main() async {
   await DioHelper.init();
   await CasheHelper.init();
   await startShared();
-  await mapIcon();
+  // await mapIcon();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
@@ -88,8 +86,8 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => CategoryCubit(),
         ),
       ],
-      child: ChangeNotifierProvider(
-        create: (context) => MapProvider(),
+      // child: ChangeNotifierProvider(
+      //   create: (context) => MapProvider(),
         child: MaterialApp(
           navigatorKey: navigatorKey,
           onGenerateRoute: onGenerateRoute,
@@ -116,7 +114,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: const SplshScreen(),
         ),
-      ),
+      // ),
     );
   }
 }

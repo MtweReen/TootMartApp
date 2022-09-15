@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
@@ -10,7 +9,6 @@ import 'business_logic/home/home_cubit_cubit.dart';
 import 'business_logic/setting/setting_cubit.dart';
 import 'core/constants/constants.dart';
 import 'features/layout/layout.dart';
-import 'features/map/map_provider.dart';
 import 'features/onboarding/onboarding.dart';
 
 class SplshScreen extends StatefulWidget {
@@ -61,7 +59,7 @@ class _SplshScreenState extends State<SplshScreen> {
       ..privacypolicy()
       ..refundsPolicy();
 
-    Provider.of<MapProvider>(context, listen: false).start();
+    // Provider.of<MapProvider>(context, listen: false).start();
     Timer(
       const Duration(seconds: 3),
       () => Navigator.pushAndRemoveUntil(context,

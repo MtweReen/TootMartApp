@@ -9,6 +9,6 @@ class AccountBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResetPasswordBody();
+    return const ResetPasswordBody();
   }
 }

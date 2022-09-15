@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/helper/validation.dart';
-import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_state.dart';
-import 'package:toot_mart/features/layout/layout.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/utiles/size_config.dart';
 import '../../../../../core/widgets/custom_buttons_widget.dart';
@@ -91,6 +89,7 @@ class _ResetPasswordBodyState extends State<ResetPasswordBody> {
                     });
                   }
                 }
+                return null;
               },
               onEditingComplete: () {
                 codeFocusNode.unfocus();

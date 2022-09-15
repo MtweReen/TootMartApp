@@ -19,7 +19,6 @@ import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
 import '../../../checkout/business_logic/check_out_cubit.dart';
-import '../../../layout/layout.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
@@ -204,13 +203,13 @@ class LoginView extends StatelessWidget {
                                     'Login with Google',
                                     'سجل الدخول بواسطة جوجل',
                                   ),
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        VerticalSpace(value: 1),
+                        const VerticalSpace(value: 1),
                         InkWell(
                           onTap: () {
                             SocialCubit.get(context).signInWithApple(context);
@@ -237,7 +236,7 @@ class LoginView extends StatelessWidget {
                                     'Login with Apple',
                                     'سجل الدخول بواسطة أبل',
                                   ),
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 )
                               ],
                             ),

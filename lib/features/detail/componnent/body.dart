@@ -7,7 +7,6 @@ import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
-
 import '../../../core/utiles/size_config.dart';
 import '../../../core/widgets/custom_quantity.dart';
 import 'similar_product.dart';
@@ -37,7 +36,6 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
             ),
           ),
           builder: (context) => SingleChildScrollView(
-         
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,9 +66,9 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                   style: headingStyle,
                 ),
                 Padding(
-                     padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth! * 0.03,
-                vertical: SizeConfig.screenHeight! * 0.03),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth! * 0.03,
+                      vertical: SizeConfig.screenHeight! * 0.03),
                   child: Column(
                     children: [
                       const VerticalSpace(value: 2),
@@ -175,12 +173,14 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                                     ? Row(
                                         children: [
                                           CircleAvatar(
-                                            radius: SizeConfig.screenWidth! * 0.02,
+                                            radius:
+                                                SizeConfig.screenWidth! * 0.02,
                                             backgroundColor: colordeepGreen,
                                           ),
                                           const HorizontalSpace(value: 1),
                                           Text(
-                                            translateString("available", "متوفر"),
+                                            translateString(
+                                                "available", "متوفر"),
                                             style: headingStyle,
                                           ),
                                         ],
@@ -200,7 +200,8 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                                 translateString("product is unavailable",
                                     "المنتج غير متوفر حاليا "),
                                 style: headingStyle.copyWith(
-                                    color: colorRed, fontWeight: FontWeight.bold),
+                                    color: colorRed,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                       const VerticalSpace(value: 2),
@@ -230,7 +231,8 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                       ),
                       const VerticalSpace(value: 3),
                       Text(
-                        translateString("similar products", "المنتجات المشابهة"),
+                        translateString(
+                            "similar products", "المنتجات المشابهة"),
                         style: headingStyle.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: SizeConfig.screenWidth! * 0.05),

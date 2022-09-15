@@ -79,8 +79,8 @@ validateMobile(String value) {
   if (value.isEmpty) {
     return translateString('you should enter phone number', 'يجب ادخل رقم الهاتف ');
   }
-  else if (value.length != 9) {
-    return translateString("mobile phone must 9 digits", 'رقم الهاتف يجب ان يكون 9 ارقام');
+  else if (value.length != 10) {
+    return translateString("mobile phone must 10 digits", 'رقم الهاتف يجب ان يكون 10 ارقام');
   }
  else if (!regExp.hasMatch(value)) {
     return translateString("mobile phone must digits", 'رقم الهاتف يجب ان يكون ارقام');

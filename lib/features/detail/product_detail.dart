@@ -8,6 +8,7 @@ import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/custom_buttons_widget.dart';
 import 'package:toot_mart/core/widgets/favourite_button.dart';
+import 'package:toot_mart/features/layout/layout.dart';
 
 import '../../core/constants/colors.dart';
 import 'componnent/body.dart';
@@ -69,12 +70,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
               actions: [
+                InkWell(
+                  onTap: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LayoutScreen(
+                                index: 2,
+                              )),
+                      (route) => false),
+                  child: Image.asset(
+                    "asset/images/cart.png",
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
                 FavouriteButton(
                     productId: CategoryCubit.get(context)
                         .productDetailModel!
                         .body!
                         .products!
-                        .id!)
+                        .id!),
               ],
             ),
             body: Stack(
