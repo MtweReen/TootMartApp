@@ -199,10 +199,7 @@ class LoginView extends StatelessWidget {
                                 ),
                                 const HorizontalSpace(value: 1),
                                 Text(
-                                  translateString(
-                                    'Login with Google',
-                                    'سجل الدخول بواسطة جوجل',
-                                  ),
+                                  'تسجل الدخول بواسطة Google',
                                   style: const TextStyle(color: Colors.white),
                                 )
                               ],
@@ -234,7 +231,7 @@ class LoginView extends StatelessWidget {
                                 Text(
                                   translateString(
                                     'Login with Apple',
-                                    'سجل الدخول بواسطة أبل',
+                                    'تسجل الدخول بواسطة Apple',
                                   ),
                                   style: const TextStyle(color: Colors.white),
                                 )

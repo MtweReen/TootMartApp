@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1083508499008-4qtk2686lf9804lcmmdrqq4eiqrtrh20.apps.googleusercontent.com</string>
+	<string>759113208281-aedc411p8cta2k7bmldt5jdv0emk1n85.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1083508499008-4qtk2686lf9804lcmmdrqq4eiqrtrh20</string>
+	<string>com.googleusercontent.apps.759113208281-aedc411p8cta2k7bmldt5jdv0emk1n85</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>1083508499008-7duh44iq7drsfogat3lpa3441icmia4d.apps.googleusercontent.com</string>
+	<string>759113208281-m81nnh9uhosa4uf2a49dic24135cs1gh.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBEuPl4RSq-QmlOWn-12SqXAjYDqjARaxM</string>
+	<string>AIzaSyA6xp9qqVPb3KxJ2_B2Pctg3FQm6zBqRtQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1083508499008</string>
+	<string>759113208281</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mtwereen.alKheel</string>
+	<string>com.tootmart.tootmart</string>
 	<key>PROJECT_ID</key>
-	<string>alkhaleej-505e4</string>
+	<string>tootmart-5d427</string>
 	<key>STORAGE_BUCKET</key>
-	<string>alkhaleej-505e4.appspot.com</string>
+	<string>tootmart-5d427.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1083508499008:ios:d84a7403ba3eafff3d35a5</string>
+	<string>1:759113208281:ios:f486bb907f3a4d58b089c8</string>
 </dict>
 </plist>
