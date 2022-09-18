@@ -44,14 +44,15 @@ class _GuestViewState extends State<GuestView> {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return BlocConsumer<AuthCubit,AuthStates>(
-      listener: (context,state){},
-      builder: (context,state){
+    return BlocConsumer<AuthCubit, AuthStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -59,7 +60,7 @@ class _GuestViewState extends State<GuestView> {
                       children: [
                         if (prefs.getBool("is_login") == true)
                           SizedBox(
-                            width: SizeConfig.screenWidth!*0.4,
+                            width: SizeConfig.screenWidth! * 0.4,
                             child: Text(
                               kUser!.body!.user!.name!,
                               maxLines: 1,
@@ -69,7 +70,8 @@ class _GuestViewState extends State<GuestView> {
                                   fontSize: SizeConfig.defaultSize! * 3),
                             ),
                           ),
-                        if (prefs.getBool("is_login") == true) const HorizontalSpace(value: 1),
+                        if (prefs.getBool("is_login") == true)
+                          const HorizontalSpace(value: 1),
                         Text(
                           translateString('Hello', 'مرحبا'),
                           style: TextStyle(
@@ -91,8 +93,8 @@ class _GuestViewState extends State<GuestView> {
               ),
               if (prefs.getBool("is_login") != true)
                 Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -119,13 +121,13 @@ class _GuestViewState extends State<GuestView> {
                   ),
                 ),
               Padding(
-                padding:
-                EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.02),
+                padding: EdgeInsets.symmetric(
+                    vertical: h * 0.02, horizontal: w * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       InkWell(
                         onTap: () {
                           kInside++;
@@ -133,27 +135,24 @@ class _GuestViewState extends State<GuestView> {
                               .changeUserState(AccountStates.ACCOUNT_DETAILS);
                         },
                         child: ProfileCardItem(
-                          title:
-                          translateString("Account Details", "تفاصيل الحساب"),
+                          title: translateString(
+                              "Account Details", "تفاصيل الحساب"),
                         ),
                       ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       SizedBox(
                         height: h * 0.04,
                       ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       InkWell(
                         onTap: () {
-                          // kInside++;
-                          // AuthCubit.get(context)
-                          //     .changeUserState(AccountStates.ORDERS_VIEW);
                           MagicRouter.navigateTo(const OrdersView());
                         },
                         child: ProfileCardItem(
                           title: translateString("My orders", "طلباتي"),
                         ),
                       ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -169,17 +168,19 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       InkWell(
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ExhibitionsScreen())),
+                                builder: (context) =>
+                                    const ExhibitionsScreen())),
                         child: ProfileCardItem(
-                          title: translateString("Exhibition sites", "مواقع المعارض"),
+                          title: translateString(
+                              "Exhibition sites", "مواقع المعارض"),
                         ),
                       ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -195,11 +196,12 @@ class _GuestViewState extends State<GuestView> {
                                           .refundsModel!
                                           .body!
                                           .refunds!,
-                                      title: translateString('Delivery and Returns',
+                                      title: translateString(
+                                          'Delivery and Returns',
                                           'التوصيل والمرتجعات')))),
                           child: ProfileCardItem(
-                              title: translateString(
-                                  'Delivery and Returns', 'التوصيل والمرتجعات')),
+                              title: translateString('Delivery and Returns',
+                                  'التوصيل والمرتجعات')),
                         );
                       },
                     ),
@@ -218,8 +220,8 @@ class _GuestViewState extends State<GuestView> {
                                           .settingModel!
                                           .body!
                                           .privacy!,
-                                      title: translateString(
-                                          'privacy policy', 'سياسة الخصوصية')))),
+                                      title: translateString('privacy policy',
+                                          'سياسة الخصوصية')))),
                           child: ProfileCardItem(
                               title: translateString(
                                   'privacy policy', 'سياسة الخصوصية')),
@@ -229,11 +231,10 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken  != null&&kUser!=null)
+                    if (kToken != null && kUser != null)
                       InkWell(
                         onTap: () {
                           AuthCubit.get(context).SignOut();
-
                         },
                         child: ProfileCardItem(
                           title: translateString("Log Out", "تسجيل الخروج"),
@@ -242,14 +243,15 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken  != null&&kUser!=null && isDeleted)
+                    if (kToken != null && kUser != null && isDeleted)
                       InkWell(
                         onTap: () {
-                          print(kToken );
+                          print(kToken);
                           _showCustomDialog(context);
                         },
                         child: ProfileCardItem(
-                          title: translateString("Delete Account", "مسح الحساب"),
+                          title:
+                              translateString("Delete Account", "مسح الحساب"),
                           color: Colors.red,
                         ),
                       ),
