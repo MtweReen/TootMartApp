@@ -31,38 +31,38 @@ class _PaymentTypeState extends State<PaymentType> {
           borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
-          Row(
-            children: [
-              SizedBox(
-                height: SizeConfig.defaultSize! * 5,
-                width: SizeConfig.defaultSize! * 20,
-                child: SizedBox.shrink(
-                  child: RadioListTile(
-                    contentPadding: EdgeInsets.zero,
-                    activeColor: kMainColor,
-                    title: Text(LocaleKeys.cash_on_delivery.tr()),
-                    value: 0,
-                    groupValue: x,
-                    onChanged: (int? value) {
-                      setState(() {
-                        x = value!;
-                        CasheHelper.saveData(key: 'payment_type', value: 1);
-                        print(CasheHelper.getData(key: 'payment_type'));
-                        //------------------------------------------------
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Image.asset('asset/images/bank.png',
-                      height: SizeConfig.defaultSize! * 4),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     SizedBox(
+          //       height: SizeConfig.defaultSize! * 5,
+          //       width: SizeConfig.defaultSize! * 20,
+          //       child: SizedBox.shrink(
+          //         child: RadioListTile(
+          //           contentPadding: EdgeInsets.zero,
+          //           activeColor: kMainColor,
+          //           title: Text(LocaleKeys.cash_on_delivery.tr()),
+          //           value: 0,
+          //           groupValue: x,
+          //           onChanged: (int? value) {
+          //             setState(() {
+          //               x = value!;
+          //               CasheHelper.saveData(key: 'payment_type', value: 1);
+          //               print(CasheHelper.getData(key: 'payment_type'));
+          //               //------------------------------------------------
+          //             });
+          //           },
+          //         ),
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          //         child: Image.asset('asset/images/bank.png',
+          //             height: SizeConfig.defaultSize! * 4),
+          //       ),
+          //     ),
+          //   ],
+          // ),
           SizedBox(
             height: SizeConfig.defaultSize! * 5,
             width: SizeConfig.screenWidth,

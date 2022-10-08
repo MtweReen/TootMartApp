@@ -47,7 +47,7 @@ class _GuestViewState extends State<GuestView> {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return SingleChildScrollView(
+        return  SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -58,7 +58,7 @@ class _GuestViewState extends State<GuestView> {
                   children: [
                     Row(
                       children: [
-                        if (prefs.getBool("is_login") == true)
+                        if (prefs.getBool("is_login") == true&&kUser !=null)
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.4,
                             child: Text(

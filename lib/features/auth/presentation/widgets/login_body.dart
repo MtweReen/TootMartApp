@@ -22,7 +22,7 @@ import '../../../checkout/business_logic/check_out_cubit.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
-
+import 'dart:io' show Platform;
 class LoginView extends StatelessWidget {
   LoginView({
     Key? key,
@@ -179,6 +179,7 @@ class LoginView extends StatelessWidget {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        if (Platform.isAndroid)
                         InkWell(
                           onTap: () {
                             SocialCubit.get(context).googleSignUp(context);
@@ -207,7 +208,8 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
                         const VerticalSpace(value: 1),
-                        InkWell(
+                        if (Platform.isIOS)
+                          InkWell(
                           onTap: () {
                             SocialCubit.get(context).signInWithApple(context);
                           },
