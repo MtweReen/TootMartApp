@@ -47,7 +47,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Application requires user’s location for better user experience and accurate shipping</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Application requires user’s location for better user experience and accurate shipping.</string>
+	<string>Application requires user’s location for better user experience and accurate shipping</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

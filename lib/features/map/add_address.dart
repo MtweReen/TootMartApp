@@ -29,13 +29,13 @@ class _AddAddressState extends State<AddAddress> {
         .updateLat(_position.target);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return ChangeNotifierProvider(
-      create: (context) => MapProvider()..start(),
-      builder: (context, child) {
+
         MapProvider map = Provider.of<MapProvider>(context, listen: true);
         return Scaffold(
             appBar: AppBar(
@@ -226,8 +226,6 @@ class _AddAddressState extends State<AddAddress> {
                 ),
               ),
             ));
-      },
-    );
   }
 
   InputBorder form() {
