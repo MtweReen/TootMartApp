@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
@@ -18,6 +19,7 @@ import 'core/network/local/cache_helper.dart';
 import 'core/network/remote/dio_helper.dart';
 import 'core/router/router.dart';
 import 'core/utiles/bloc_observer.dart';
+import 'features/map/map_provider.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -67,8 +69,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()..getIntro()),
-        BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()..getUser()),
+        BlocProvider<AppCubit>(
+            create: (BuildContext context) => AppCubit()..getIntro()),
+        BlocProvider<AuthCubit>(
+            create: (BuildContext context) => AuthCubit()..getUser()),
         BlocProvider<SocialCubit>(
             create: (BuildContext context) => SocialCubit()),
         BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
@@ -86,8 +90,8 @@ class _MyAppState extends State<MyApp> {
           create: (BuildContext context) => CategoryCubit(),
         ),
       ],
-      // child: ChangeNotifierProvider(
-      //   create: (context) => MapProvider(),
+      child: ChangeNotifierProvider(
+        create: (context) => MapProvider()..start(),
         child: MaterialApp(
           navigatorKey: navigatorKey,
           onGenerateRoute: onGenerateRoute,
@@ -110,11 +114,13 @@ class _MyAppState extends State<MyApp> {
                   statusBarIconBrightness: Brightness.dark,
                   statusBarBrightness: Brightness.dark,
                 )),
-            primaryColor: Colors.white, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: kMainColor),
+            primaryColor: Colors.white,
+            colorScheme:
+                ColorScheme.fromSwatch().copyWith(secondary: kMainColor),
           ),
           home: const SplshScreen(),
         ),
-      // ),
+      ),
     );
   }
 }
