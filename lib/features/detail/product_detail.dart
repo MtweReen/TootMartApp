@@ -70,26 +70,34 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
               actions: [
-                InkWell(
-                  onTap: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LayoutScreen(
-                                index: 2,
-                              )),
-                      (route) => false),
-                  child: Image.asset(
-                    "asset/images/cart.png",
-                    width: 30,
-                    height: 30,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.02),
+                  child: InkWell(
+                    onTap: () => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LayoutScreen(
+                                  index: 2,
+                                )),
+                        (route) => false),
+                    child: Image.asset(
+                      "asset/images/cart.png",
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
                 ),
-                FavouriteButton(
-                    productId: CategoryCubit.get(context)
-                        .productDetailModel!
-                        .body!
-                        .products!
-                        .id!),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.02),
+                  child: FavouriteButton(
+                      productId: CategoryCubit.get(context)
+                          .productDetailModel!
+                          .body!
+                          .products!
+                          .id!),
+                ),
               ],
             ),
             body: Stack(
@@ -99,8 +107,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   productImage: widget.productImage,
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02,
+                      horizontal: MediaQuery.of(context).size.width * 0.02),
                   child: BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {
                       if (state is AddtoCartSuccessState) {

@@ -38,7 +38,7 @@ class DioHelper {
   }) async {
     var headers = {
       "device-uuid": deviceId,
-      "Authorization":kUser !=null ? "Bearer $kToken":''
+      "Authorization": kUser != null ? "Bearer $kToken" : ''
     };
 
     dio.options.headers.addAll(headers);
@@ -52,8 +52,8 @@ class DioHelper {
     Map<String, dynamic>? data,
     // Map<String, dynamic>? query,
   }) async {
-   // dio.options.headers["device-uuid"] = deviceId;
-  //  dio.options.headers["Authorization"] = "Bearer 50|o0l2ofgFUj813uzb3DFLTTijEBTFCNzyxvYtY5ci";
+    // dio.options.headers["device-uuid"] = deviceId;
+    //  dio.options.headers["Authorization"] = "Bearer 50|o0l2ofgFUj813uzb3DFLTTijEBTFCNzyxvYtY5ci";
 
     return dio.post(
       url,
@@ -73,7 +73,7 @@ class DioHelper {
     return dio.post(
       url,
       data: formData ?? data,
-      queryParameters: query??null,
+      queryParameters: query ?? null,
     );
   }
 
@@ -109,13 +109,10 @@ class DioHelper {
         print("dio TimeOut");
         break;
       case DioErrorType.receiveTimeout:
-        // TODO: Handle this case.
         break;
       case DioErrorType.cancel:
-        // TODO: Handle this case.
         break;
       case DioErrorType.other:
-        // TODO: Handle this case.
         break;
     }
   }

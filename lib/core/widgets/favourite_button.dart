@@ -43,21 +43,15 @@ class _FavouriteButtonState extends State<FavouriteButton> {
           },
           child: (HomeCubitCubit.get(context).isFavourite[widget.productId] !=
                   true)
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Icon(
-                    Icons.favorite_border_outlined,
-                    color: Colors.black87,
-                    size: w * 0.08,
-                  ),
+              ? Icon(
+                  Icons.favorite_border_outlined,
+                  color: Colors.black87,
+                  size: w * 0.08,
                 )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Icon(
-                    Icons.favorite,
-                    color: colorRed,
-                    size: w * 0.08,
-                  ),
+              : Icon(
+                  Icons.favorite,
+                  color: colorRed,
+                  size: w * 0.08,
                 ),
         );
       },

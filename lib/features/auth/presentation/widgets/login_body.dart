@@ -23,6 +23,7 @@ import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
 import 'dart:io' show Platform;
+
 class LoginView extends StatelessWidget {
   LoginView({
     Key? key,
@@ -180,67 +181,67 @@ class LoginView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (Platform.isAndroid)
-                        InkWell(
-                          onTap: () {
-                            SocialCubit.get(context).googleSignUp(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.orange.shade900,
-                                borderRadius: BorderRadius.circular(20)),
-                            height: SizeConfig.screenHeight! * 0.06,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "asset/images/google.png",
-                                  color: Colors.white,
-                                  fit: BoxFit.contain,
-                                  height: SizeConfig.defaultSize! * 3,
-                                ),
-                                const HorizontalSpace(value: 1),
-                                Text(
-                                  'تسجل الدخول بواسطة Google',
-                                  style: const TextStyle(color: Colors.white),
-                                )
-                              ],
+                          InkWell(
+                            onTap: () {
+                              SocialCubit.get(context).googleSignUp(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.orange.shade900,
+                                  borderRadius: BorderRadius.circular(20)),
+                              height: SizeConfig.screenHeight! * 0.06,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "asset/images/google.png",
+                                    color: Colors.white,
+                                    fit: BoxFit.contain,
+                                    height: SizeConfig.defaultSize! * 3,
+                                  ),
+                                  const HorizontalSpace(value: 1),
+                                  const Text(
+                                    'تسجل الدخول بواسطة Google',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
                         const VerticalSpace(value: 1),
                         if (Platform.isIOS)
                           InkWell(
-                          onTap: () {
-                            SocialCubit.get(context).signInWithApple(context);
-                          },
-                          child: Container(
-                            // padding: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(20)),
-                            height: SizeConfig.screenHeight! * 0.06,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "asset/images/apple.png",
-                                  color: Colors.white,
-                                  fit: BoxFit.contain,
-                                  height: SizeConfig.defaultSize! * 3,
-                                ),
-                                const HorizontalSpace(value: 1),
-                                Text(
-                                  translateString(
-                                    'Login with Apple',
-                                    'تسجل الدخول بواسطة Apple',
+                            onTap: () {
+                              SocialCubit.get(context).signInWithApple(context);
+                            },
+                            child: Container(
+                              // padding: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(20)),
+                              height: SizeConfig.screenHeight! * 0.06,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "asset/images/apple.png",
+                                    color: Colors.white,
+                                    fit: BoxFit.contain,
+                                    height: SizeConfig.defaultSize! * 3,
                                   ),
-                                  style: const TextStyle(color: Colors.white),
-                                )
-                              ],
+                                  const HorizontalSpace(value: 1),
+                                  Text(
+                                    translateString(
+                                      'Login with Apple',
+                                      'تسجل الدخول بواسطة Apple',
+                                    ),
+                                    style: const TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     );
                   },
