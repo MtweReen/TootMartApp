@@ -30,6 +30,12 @@ class _AddAddressState extends State<AddAddress> {
   }
 
   @override
+  void initState() {
+    Provider.of<MapProvider>(context, listen: false).clearPlaces();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
@@ -49,16 +55,13 @@ class _AddAddressState extends State<AddAddress> {
             cursorColor: Colors.black,
             readOnly: map.read,
             onChanged: (value) {
-                              map.autoCompleteSearch(value);
-
-              // if (value.isNotEmpty) {
-              //   map.autoCompleteSearch(value);
-              // } 
-              // else {
-              //   if (map.predictions.isNotEmpty) {
-              //     map.clearPlaces();
-              //   }
-              // }
+              if (value.isNotEmpty) {
+                map.autoCompleteSearch(value);
+              } else {
+                if (map.predictions.isNotEmpty) {
+                  map.clearPlaces();
+                }
+              }
             },
             onSubmitted: (val) async {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -162,8 +165,8 @@ class _AddAddressState extends State<AddAddress> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    title: Text(
-                                        map.predictions[index].toString()),
+                                    title:
+                                        Text(map.predictions[index].description!),
                                     onTap: () async {
                                       var result = await map.googlePlace.details
                                           .get(map.predictions[index].placeId!);

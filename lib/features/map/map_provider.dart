@@ -8,7 +8,7 @@ import 'package:google_place/google_place.dart';
 import 'package:location/location.dart' as lo;
 import 'package:toot_mart/core/constants/constants.dart';
 
-const kGoogleApiKey = "AIzaSyBxCWZSLFx6zvcjHUGC268Mrkw0EREsyb8";
+const kGoogleApiKey = "AIzaSyAWPcZQCK7DB-B8GhQRnFwiHDSssMwAHuc";
 
 class MapProvider extends ChangeNotifier {
   List<AutocompletePrediction> predictions = [];
@@ -125,12 +125,10 @@ class MapProvider extends ChangeNotifier {
 
   void autoCompleteSearch(String value) async {
     var result = await googlePlace.autocomplete.get(value,
-        language: "ar",
-        radius: 100000,
-        location: LatLon(latLng!.latitude, latLng!.longitude));
+        );
     print(result!.status);
-    if (result != null || result.predictions != null) {
-      predictions.addAll(result.predictions!);
+    if (result != null && result.predictions != null) {
+      predictions = result.predictions!;
       // print(predictions);
       notifyListeners();
     }
