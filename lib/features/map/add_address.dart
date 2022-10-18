@@ -49,13 +49,16 @@ class _AddAddressState extends State<AddAddress> {
             cursorColor: Colors.black,
             readOnly: map.read,
             onChanged: (value) {
-              if (value.isNotEmpty) {
-                map.autoCompleteSearch(value);
-              } else {
-                if (map.predictions.isNotEmpty) {
-                  map.clearPlaces();
-                }
-              }
+                              map.autoCompleteSearch(value);
+
+              // if (value.isNotEmpty) {
+              //   map.autoCompleteSearch(value);
+              // } 
+              // else {
+              //   if (map.predictions.isNotEmpty) {
+              //     map.clearPlaces();
+              //   }
+              // }
             },
             onSubmitted: (val) async {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -160,7 +163,7 @@ class _AddAddressState extends State<AddAddress> {
                                       ),
                                     ),
                                     title: Text(
-                                        map.predictions[index].description!),
+                                        map.predictions[index].toString()),
                                     onTap: () async {
                                       var result = await map.googlePlace.details
                                           .get(map.predictions[index].placeId!);

@@ -12,14 +12,16 @@ const kGoogleApiKey = "AIzaSyBxCWZSLFx6zvcjHUGC268Mrkw0EREsyb8";
 
 class MapProvider extends ChangeNotifier {
   List<AutocompletePrediction> predictions = [];
-  GooglePlace googlePlace = GooglePlace(kGoogleApiKey);
+  GooglePlace googlePlace = GooglePlace(
+    kGoogleApiKey,
+  );
   lo.Location location = lo.Location();
   bool read = true;
   double op = 0.3;
   LatLng? latLng;
   String? country, street;
   BitmapDescriptor? icon;
-  
+
   Future start() async {
     try {
       BitmapDescriptor.fromAssetImage(
@@ -122,10 +124,14 @@ class MapProvider extends ChangeNotifier {
   }
 
   void autoCompleteSearch(String value) async {
-    var result = await googlePlace.autocomplete.get(value);
-
-    if (result != null && result.predictions != null) {
-      predictions = result.predictions!;
+    var result = await googlePlace.autocomplete.get(value,
+        language: "ar",
+        radius: 100000,
+        location: LatLon(latLng!.latitude, latLng!.longitude));
+    print(result!.status);
+    if (result != null || result.predictions != null) {
+      predictions.addAll(result.predictions!);
+      // print(predictions);
       notifyListeners();
     }
   }
