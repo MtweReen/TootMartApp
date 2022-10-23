@@ -165,8 +165,8 @@ class _AddAddressState extends State<AddAddress> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    title:
-                                        Text(map.predictions[index].description!),
+                                    title: Text(
+                                        map.predictions[index].description!),
                                     onTap: () async {
                                       var result = await map.googlePlace.details
                                           .get(map.predictions[index].placeId!);
@@ -285,6 +285,8 @@ class _AddAddressState extends State<AddAddress> {
                                 if (AreasSelection.areaId != null) {
                                   CheckOutCubit.get(context).addUserAddress(
                                       address: map.street.toString(),
+                                      latitude: map.latLng!.latitude,
+                                      longtitude: map.latLng!.longitude,
                                       areaId: AreasSelection.areaId!);
                                 } else {
                                   Fluttertoast.showToast(
