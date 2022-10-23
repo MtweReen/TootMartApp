@@ -20,12 +20,9 @@ class ExhibtionMapLocation extends StatefulWidget {
 }
 
 class _ExhibtionMapLocationState extends State<ExhibtionMapLocation> {
-  GoogleMapController? mapController; //contrller for Google map
+  GoogleMapController? mapController; 
   List<Polyline> myPolyline = [];
   Set<Marker> markers = {};
-  // LatLng startLocation =
-  //     LatLng(SplashScreen.startLatitude!, SplashScreen.startLongitude!);
-
   String? lang;
   getLanguage() async {
     final String language = prefs.getString('lang') ?? 'ar';
@@ -45,32 +42,15 @@ class _ExhibtionMapLocationState extends State<ExhibtionMapLocation> {
                   double.parse(widget.longtitude))
               .toString()),
           position: LatLng(double.parse(widget.latitiude),
-              double.parse(widget.longtitude)), //position of marker
+              double.parse(widget.longtitude)),
           infoWindow: InfoWindow(
             title: widget.name,
             snippet: widget.city,
           ),
-          icon: BitmapDescriptor.defaultMarker //Icon for Marker
+          icon: BitmapDescriptor.defaultMarker 
           ),
     );
   }
-
-  // createPolyline() {
-  //   myPolyline.add(
-  //     Polyline(
-  //         polylineId: const PolylineId('1'),
-  //         color: const Color(0xff3366cc),
-  //         width: 5,
-  //         points: [
-  //           LatLng(startLocation.latitiude, startLocation.longitude),
-  //           LatLng(
-  //             double.parse(widget.latitiude),
-  //             double.parse(widget.longtitude),
-  //           ),
-  //         ]),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -152,7 +132,6 @@ class _ExhibtionMapLocationState extends State<ExhibtionMapLocation> {
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
             onMapCreated: (GoogleMapController controller) async {},
-            // polylines: myPolyline.toSet(),
           ),
         ),
       ],
