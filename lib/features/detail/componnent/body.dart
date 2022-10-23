@@ -83,16 +83,17 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                               fit: BoxFit.contain),
                         ),
                       ),
-                const VerticalSpace(value: 3),
-                Text(
-                  "شحن مجانى عند تسوقك ب 350 رس واكثر",
-                  style: headingStyle,
-                ),
+                // const VerticalSpace(value: 3),
+                // Text(
+                //   "شحن مجانى عند تسوقك ب 350 رس واكثر",
+                //   style: headingStyle,
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth! * 0.03,
                       vertical: SizeConfig.screenHeight! * 0.03),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const VerticalSpace(value: 2),
                       Text(

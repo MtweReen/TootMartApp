@@ -10,13 +10,14 @@ import '../../../../core/constants/constants.dart';
 import '../../../checkout/business_logic/check_out_states.dart';
 
 class AreasSelection extends StatefulWidget {
+  final bool? fromProfile;
   static int? areaId;
   const AreasSelection(
       {Key? key,
       this.text = '',
       this.fillColor = Colors.white,
       // this.onSave,
-      this.borderColor,
+      this.borderColor, this.fromProfile,
       // this.validator
       })
       : super(key: key);
@@ -81,7 +82,7 @@ Areas? chosenValue;
                 );
               }).toList(),
               hint: Text(
-               translateString("All Area", "جميع المناطق"),
+              (widget.fromProfile == true)?translateString("All area", "جميع المناطق") :translateString("Select Shipping area", "اختر منطقة الشحن"),
                 style: headingStyle.copyWith(color: colorGrey, fontSize: 14),
               ),
               onChanged: (value) {
