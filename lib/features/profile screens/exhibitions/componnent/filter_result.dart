@@ -6,8 +6,10 @@ import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/router/router.dart';
 import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/space_widget.dart';
+import 'exhibtion_map_location.dart';
 
 class AreaFilterringResult extends StatefulWidget {
   const AreaFilterringResult({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class AreaFilterringResult extends StatefulWidget {
 class _AreaFilterringResultState extends State<AreaFilterringResult> {
   @override
   Widget build(BuildContext context) {
-        SizeConfig().init(context);
+    SizeConfig().init(context);
     return BlocConsumer<CheckOutCubit, CheckOutStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -49,7 +51,25 @@ class _AreaFilterringResultState extends State<AreaFilterringResult> {
                     color: colorGrey,
                   ),
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {},
+                    onTap: () => MagicRouter.navigateTo(
+                      ExhibtionMapLocation(
+                          latitiude: CheckOutCubit.get(context)
+                              .areaFilterResult!
+                              .body!
+                              .showrooms![index]
+                              .lat!,
+                          longtitude: CheckOutCubit.get(context)
+                              .areaFilterResult!
+                              .body!
+                              .showrooms![index]
+                              .lng!,
+                          city: CheckOutCubit.get(context)
+                              .areaFilterResult!
+                              .body!
+                              .showrooms![index]
+                              .address!,
+                          name: ""),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth! * 0.02,

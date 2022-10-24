@@ -8,18 +8,20 @@ import 'package:google_place/google_place.dart';
 import 'package:location/location.dart' as lo;
 import 'package:toot_mart/core/constants/constants.dart';
 
-const kGoogleApiKey = "AIzaSyBxCWZSLFx6zvcjHUGC268Mrkw0EREsyb8";
+const kGoogleApiKey = "AIzaSyAWPcZQCK7DB-B8GhQRnFwiHDSssMwAHuc";
 
 class MapProvider extends ChangeNotifier {
   List<AutocompletePrediction> predictions = [];
-  GooglePlace googlePlace = GooglePlace(kGoogleApiKey);
+  GooglePlace googlePlace = GooglePlace(
+    kGoogleApiKey,
+  );
   lo.Location location = lo.Location();
   bool read = true;
   double op = 0.3;
   LatLng? latLng;
   String? country, street;
   BitmapDescriptor? icon;
-  
+
   Future start() async {
     try {
       BitmapDescriptor.fromAssetImage(
@@ -122,10 +124,12 @@ class MapProvider extends ChangeNotifier {
   }
 
   void autoCompleteSearch(String value) async {
-    var result = await googlePlace.autocomplete.get(value);
-
+    var result = await googlePlace.autocomplete.get(value,
+        );
+    print(result!.status);
     if (result != null && result.predictions != null) {
       predictions = result.predictions!;
+      // print(predictions);
       notifyListeners();
     }
   }

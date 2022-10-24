@@ -95,7 +95,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addUserAddress(
-      {required String address, required int areaId}) async {
+      {required String address, required int areaId,required double latitude, required double longtitude }) async {
     emit(AddUserAddressLoadingState());
     try {
       Response response = await Dio().post(
@@ -103,6 +103,8 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         data: {
           "area_id": areaId,
           "address": address,
+          'lat':latitude,
+          'lon':longtitude,
         },
         options: Options(
           headers: {

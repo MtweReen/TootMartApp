@@ -52,110 +52,109 @@ class ProductCardData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: w * 0.45,
-                  height: h * 0.23,
-                  color: Colors.white,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: customCachedNetworkImage(
-                          url: imge, fit: BoxFit.cover, context: context)),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: w * 0.02, vertical: h * 0.01),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FavouriteButton(
-                        productId: id,
-                      ),
-                      (beforePrice != 0)
-                          ? Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: w * 0.02, vertical: h * 0.003),
-                              decoration: BoxDecoration(
-                                color: kMainColor,
-                                borderRadius: BorderRadius.circular(3),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  translateString("discount", "تخفيض"),
-                                  style: headingStyle.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: w * 0.04),
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-                    ],
-                  ),
-                ),
-              ],
+            Container(
+              width: w * 0.45,
+              height: h * 0.23,
+              color: Colors.white,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: customCachedNetworkImage(
+                      url: imge, fit: BoxFit.cover, context: context)),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  bottom: h * 0.015, left: w * 0.02, right: w * 0.02),
-              child: SizedBox(
-                width: w * 0.45,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: h * 0.01,
-                    ),
-                    Container(
-                      constraints: BoxConstraints(
-                          maxHeight: h * 0.07, maxWidth: w * 0.4),
-                      child: Text(name,
+                bottom: h * 0.015,
+                left: w * 0.015,
+                right: w * 0.015,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.topEnd,
+                    child: (beforePrice != 0)
+                        ? Container(
+                            width: w * 0.17,
+                            height: h * 0.04,
+                            // padding: EdgeInsets.symmetric(
+                            //     horizontal: w * 0.02, vertical: h * 0.003),
+                            decoration: BoxDecoration(
+                              color: kMainColor,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: Center(
+                              child: Text(
+                                translateString("discount", "تخفيض"),
+                                style: headingStyle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: w * 0.035,
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+                  (beforePrice != 0)
+                      ? SizedBox(
+                          height: h * 0.015,
+                        )
+                      : const SizedBox(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxWidth: w * 0.3),
+                        child: Text(
+                          name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: headingStyle.copyWith(
                               color: colordeepGrey,
+                              decoration: TextDecoration.none,
                               fontWeight: FontWeight.w500,
-                              fontSize: w * 0.04)),
-                    ),
-                    SizedBox(
-                      height: h * 0.002,
-                    ),
-                    SizedBox(
-                      height: h * 0.005,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "$price r.s",
-                                style: headingStyle.copyWith(
-                                    color: kMainColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: w * 0.04),
-                              ),
-                            ],
-                          ),
+                              fontSize: w * 0.04),
                         ),
-                        (beforePrice != 0)
-                            ? Text("$beforePrice R.S",
-                                style: headingStyle.copyWith(
-                                    color: colorGrey,
-                                    decoration: TextDecoration.lineThrough,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: w * 0.04,
-                                    decorationColor: colordeepGrey))
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      FavouriteButton(
+                        productId: id,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: h * 0.005,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "$price r.s",
+                              style: headingStyle.copyWith(
+                                  color: kMainColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: w * 0.04),
+                            ),
+                          ],
+                        ),
+                      ),
+                      (beforePrice != 0)
+                          ? Text("$beforePrice R.S",
+                              style: headingStyle.copyWith(
+                                  color: colorGrey,
+                                  decoration: TextDecoration.lineThrough,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: w * 0.04,
+                                  decorationColor: colordeepGrey))
+                          : const SizedBox(),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

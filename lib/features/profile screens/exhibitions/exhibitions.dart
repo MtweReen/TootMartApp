@@ -38,7 +38,7 @@ class ExhibitionsScreen extends StatelessWidget {
                   fontSize: SizeConfig.screenWidth! * 0.045),
             ),
             const VerticalSpace(value: 1.5),
-            const AreasSelection(),
+            const AreasSelection(fromProfile: true,),
             const VerticalSpace(value: 1.5),
             BlocConsumer<CheckOutCubit, CheckOutStates>(
               builder: (context, state) =>

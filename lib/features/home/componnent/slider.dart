@@ -6,7 +6,9 @@ import '../../../core/constants/constants.dart';
 
 class HomeSlider extends StatefulWidget {
   final List<String> images;
-  const HomeSlider({Key? key, required this.images}) : super(key: key);
+  final VoidCallback? press;
+  const HomeSlider({Key? key, required this.images, this.press})
+      : super(key: key);
 
   @override
   State<HomeSlider> createState() => _HomeSliderState();
@@ -26,17 +28,10 @@ class _HomeSliderState extends State<HomeSlider> {
                 color: kMainColor.withOpacity(0.3), activeColor: kMainColor),
             alignment: Alignment.bottomCenter),
         itemBuilder: (BuildContext context, int i) {
-          return InkWell(
-            child: customCachedNetworkImage(
-              fit: BoxFit.fitHeight,
-              context: context,
-              url: widget.images[i],
-            ),
-            focusColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            // overlayColor: ,
-            onTap: () async {},
+          return customCachedNetworkImage(
+            fit: BoxFit.fitHeight,
+            context: context,
+            url: widget.images[i],
           );
         },
         itemCount: widget.images.length,

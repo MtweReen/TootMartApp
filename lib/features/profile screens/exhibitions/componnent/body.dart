@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
+import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/profile%20screens/exhibitions/componnent/exhibtion_map_location.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utiles/size_config.dart';
 
@@ -47,7 +49,25 @@ class _GalleryListDataState extends State<GalleryListData> {
                     color: colorGrey,
                   ),
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {},
+                    onTap: () => MagicRouter.navigateTo(
+                      ExhibtionMapLocation(
+                          latitiude: HomeCubitCubit.get(context)
+                              .roomModel!
+                              .body!
+                              .showrooms![index]
+                              .lat!,
+                          longtitude: HomeCubitCubit.get(context)
+                              .roomModel!
+                              .body!
+                              .showrooms![index]
+                              .lng!,
+                          city: HomeCubitCubit.get(context)
+                              .roomModel!
+                              .body!
+                              .showrooms![index]
+                              .address!,
+                          name: ""),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth! * 0.02,

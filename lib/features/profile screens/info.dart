@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
@@ -42,14 +43,15 @@ class _InformationScreenState extends State<InformationScreen> {
               ),
             ),
             const VerticalSpace(value: 3),
-            Text(
-              widget.body,
-              style: headingStyle.copyWith(
-                  color: colorGrey,
-                  fontWeight: FontWeight.w400,
-                  height: 1.5,
-                  fontSize: SizeConfig.screenWidth! * 0.04),
-            )
+            HtmlWidget(widget.body),
+            // Text(
+            //   widget.body,
+            //   style: headingStyle.copyWith(
+            //       color: colorGrey,
+            //       fontWeight: FontWeight.w400,
+            //       height: 1.5,
+            //       fontSize: SizeConfig.screenWidth! * 0.04),
+            // )
           ],
         ),
       ),

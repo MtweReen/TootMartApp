@@ -5,7 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toot_mart/business_logic/category/category_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
+import 'package:toot_mart/core/router/router.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
+import 'package:toot_mart/features/detail/componnent/product_image_zoom.dart';
 import 'package:toot_mart/features/home/componnent/slider.dart';
 import '../../../core/utiles/size_config.dart';
 import '../../../core/widgets/custom_quantity.dart';
@@ -45,31 +47,53 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
                         .products!
                         .images!
                         .isNotEmpty)
-                    ? HomeSlider(
-                        images: CategoryCubit.get(context)
-                            .productDetailModel!
-                            .body!
-                            .products!
-                            .images!,
+                    ? InkWell(
+                        onTap: () => MagicRouter.navigateTo(
+                          ProductImageZoom(
+                            images: CategoryCubit.get(context)
+                                .productDetailModel!
+                                .body!
+                                .products!
+                                .images!,
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: HomeSlider(
+                            images: CategoryCubit.get(context)
+                                .productDetailModel!
+                                .body!
+                                .products!
+                                .images!,
+                          ),
+                        ),
                       )
-                    : SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        child: customCachedNetworkImage(
-                            url: widget.productImage,
-                            context: context,
-                            fit: BoxFit.contain),
+                    : InkWell(
+                        onTap: () => MagicRouter.navigateTo(
+                          ProductImageZoom(
+                            src: widget.productImage,
+                          ),
+                        ),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: customCachedNetworkImage(
+                              url: widget.productImage,
+                              context: context,
+                              fit: BoxFit.contain),
+                        ),
                       ),
-                const VerticalSpace(value: 3),
-                Text(
-                  "شحن مجانى عند تسوقك ب 350 رس واكثر",
-                  style: headingStyle,
-                ),
+                // const VerticalSpace(value: 3),
+                // Text(
+                //   "شحن مجانى عند تسوقك ب 350 رس واكثر",
+                //   style: headingStyle,
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth! * 0.03,
                       vertical: SizeConfig.screenHeight! * 0.03),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const VerticalSpace(value: 2),
                       Text(
