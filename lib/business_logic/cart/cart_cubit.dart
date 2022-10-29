@@ -23,6 +23,7 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
 
   AddtoCartModel? addtoCartModel;
+  Map<int, bool> isinCart = {};
   Future<AddtoCartModel>? addtocart(
       {required int productId, required int quantity}) async {
     emit(AddtoCartLoadingState());
@@ -40,13 +41,15 @@ class CartCubit extends Cubit<CartState> {
         ),
       );
       if (response.statusCode == 200) {
+        isinCart[productId] = true;
         print(response.data);
         addtoCartModel = AddtoCartModel.fromJson(response.data);
         emit(AddtoCartSuccessState());
         return addtoCartModel!;
       } else if (response.statusCode == 400) {
         Fluttertoast.showToast(
-            msg: response.data['message'].toString(),
+            msg: translateString(response.data['message'].toString(),
+                "تم اضافة المنتج الي عربة التسوق"),
             backgroundColor: colorRed,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.CENTER,
@@ -54,8 +57,8 @@ class CartCubit extends Cubit<CartState> {
       }
     } catch (e) {
       Fluttertoast.showToast(
-          msg: translateString("product already in your cart",
-              "المنتج موجود بالفعل في عربة التسوق"),
+          msg: translateString(
+              "already in your cart!", "المنتج موجود بالفعل في عربة التسوق"),
           backgroundColor: colorRed,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
@@ -83,8 +86,19 @@ class CartCubit extends Cubit<CartState> {
       );
       print(response.data);
       if (response.statusCode == 200) {
+        print('askldjfbasdkljbfalsdf');
+
         print(response.data);
         cartModel = CartModel.fromJson(response.data);
+        if(cartModel!.body!.carts!.isNotEmpty){
+          for (var element in cartModel!.body!.carts!) {
+            isinCart[element.id!] = true;
+            emit(GetCartSuccessState());
+          }
+        }else{
+          isinCart.clear();
+        }
+        print(isinCart);
         emit(GetCartSuccessState());
         return cartModel!;
       }
@@ -120,14 +134,6 @@ class CartCubit extends Cubit<CartState> {
       if (response.statusCode == 200) {
         getcart();
         print(response.data);
-      } else if (response.statusCode == 400) {
-        Fluttertoast.showToast(
-          msg: response.data['message'].toString(),
-          textColor: Colors.white,
-          backgroundColor: Colors.red,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-        );
       }
     } catch (e) {
       print(e.toString());

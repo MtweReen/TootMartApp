@@ -49,7 +49,7 @@ class _OrdersBodyState extends State<OrdersBody> {
               ),
             ),
             builder: (context) => SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
+
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(),

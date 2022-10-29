@@ -70,34 +70,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
               actions: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.02),
-                  child: InkWell(
-                    onTap: () => Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LayoutScreen(
-                                  index: 2,
-                                )),
-                        (route) => false),
-                    child: Image.asset(
-                      "asset/images/cart.png",
-                      width: 30,
-                      height: 30,
-                    ),
+                InkWell(
+                  onTap: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LayoutScreen(
+                                index: 2,
+                              )),
+                      (route) => false),
+                  child: Image.asset(
+                    "asset/images/cart.png",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.02),
-                  child: FavouriteButton(
-                      productId: CategoryCubit.get(context)
-                          .productDetailModel!
-                          .body!
-                          .products!
-                          .id!),
-                ),
+                FavouriteButton(
+                    productId: CategoryCubit.get(context)
+                        .productDetailModel!
+                        .body!
+                        .products!
+                        .id!),
               ],
             ),
             body: Stack(
@@ -107,9 +99,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   productImage: widget.productImage,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02,
-                      horizontal: MediaQuery.of(context).size.width * 0.02),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   child: BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {
                       if (state is AddtoCartSuccessState) {
@@ -125,49 +116,59 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       }
                     },
                     builder: (context, state) {
-                      return CustomGeneralButton(
-                        text: translateString(
-                            "Add to cart", "إضافة الي عربة التسوق"),
-                        onTap: () {
-                          if (prefs.getBool("is_login") == true) {
-                            if (CategoryCubit.get(context)
-                                    .productDetailModel!
-                                    .body!
-                                    .products!
-                                    .stock !=
-                                "0") {
-                              CartCubit.get(context).addtocart(
-                                  productId: CategoryCubit.get(context)
+                      return (CartCubit.get(context).isinCart[
+                                  CategoryCubit.get(context)
                                       .productDetailModel!
                                       .body!
                                       .products!
-                                      .id!,
-                                  quantity: ProductDetailBody.counter);
-                            } else if (CategoryCubit.get(context)
-                                    .productDetailModel!
-                                    .body!
-                                    .products!
-                                    .stock ==
-                                "0") {
-                              Fluttertoast.showToast(
-                                  msg: translateString("product is unavailable",
-                                      "المنتج غير متوفر حاليا "),
-                                  backgroundColor: colorRed,
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.CENTER,
-                                  textColor: Colors.white);
-                            }
-                          } else {
-                            Fluttertoast.showToast(
-                                msg: translateString("you must Login first ",
-                                    "يجب تسجيل الدخول اولا "),
-                                backgroundColor: colorRed,
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                textColor: Colors.white);
-                          }
-                        },
-                      );
+                                      .id!] !=
+                              true)
+                          ? CustomGeneralButton(
+                              text: translateString(
+                                  "Add to cart", "إضافة الي عربة التسوق"),
+                              onTap: () {
+                                if (prefs.getBool("is_login") == true) {
+                                  if (CategoryCubit.get(context)
+                                          .productDetailModel!
+                                          .body!
+                                          .products!
+                                          .stock !=
+                                      "0") {
+                                    CartCubit.get(context).addtocart(
+                                        productId: CategoryCubit.get(context)
+                                            .productDetailModel!
+                                            .body!
+                                            .products!
+                                            .id!,
+                                        quantity: ProductDetailBody.counter);
+                                  } else if (CategoryCubit.get(context)
+                                          .productDetailModel!
+                                          .body!
+                                          .products!
+                                          .stock ==
+                                      "0") {
+                                    Fluttertoast.showToast(
+                                        msg: translateString(
+                                            "product is unavailable",
+                                            "المنتج غير متوفر حاليا "),
+                                        backgroundColor: colorRed,
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.CENTER,
+                                        textColor: Colors.white);
+                                  }
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: translateString(
+                                          "you must Login first ",
+                                          "يجب تسجيل الدخول اولا "),
+                                      backgroundColor: colorRed,
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.CENTER,
+                                      textColor: Colors.white);
+                                }
+                              },
+                            )
+                          : const SizedBox();
                     },
                   ),
                 ),
