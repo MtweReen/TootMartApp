@@ -29,7 +29,7 @@ Future<void> main() async {
   await DioHelper.init();
   await CasheHelper.init();
   await startShared();
-  // await mapIcon();
+  await mapIcon();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
@@ -67,59 +67,59 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AppCubit>(
-            create: (BuildContext context) => AppCubit()..getIntro()),
-        BlocProvider<AuthCubit>(
-            create: (BuildContext context) => AuthCubit()..getUser()),
-        BlocProvider<SocialCubit>(
-            create: (BuildContext context) => SocialCubit()),
-        BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
-        BlocProvider<CheckOutCubit>(
-            create: (BuildContext context) => CheckOutCubit()..getAreas()),
-        BlocProvider<SettingCubit>(
-            create: (BuildContext context) => SettingCubit()
-              ..privacypolicy()
-              ..refundsPolicy()),
-        BlocProvider<HomeCubitCubit>(
-            create: (BuildContext context) => HomeCubitCubit()
-              ..getHomeItems()
-              ..getRooms()),
-        BlocProvider(
-          create: (BuildContext context) => CategoryCubit(),
-        ),
-      ],
-      child: ChangeNotifierProvider(
-        create: (context) => MapProvider()..start(),
-        child: MaterialApp(
-          navigatorKey: navigatorKey,
-          onGenerateRoute: onGenerateRoute,
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: ThemeData(
-            fontFamily: 'URW DIN Arabic',
-            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                backgroundColor: Colors.white),
-            scaffoldBackgroundColor: Colors.white,
-            backgroundColor: Colors.white,
-            // ignore: prefer_const_constructors
-            appBarTheme: AppBarTheme(
+    return  ChangeNotifierProvider(
+      create: (context) => MapProvider()..start(),
+      builder:(context,child)=> MultiBlocProvider(
+          providers: [
+            BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()..getIntro()),
+            BlocProvider<AuthCubit>(create: (BuildContext context) => AuthCubit()..getUser()),
+            BlocProvider<SocialCubit>(
+                create: (BuildContext context) => SocialCubit()),
+            BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
+            BlocProvider<CheckOutCubit>(
+                create: (BuildContext context) => CheckOutCubit()..getAreas()),
+            BlocProvider<SettingCubit>(
+                create: (BuildContext context) => SettingCubit()
+                  ..privacypolicy()
+                  ..refundsPolicy()),
+            BlocProvider<HomeCubitCubit>(
+                create: (BuildContext context) => HomeCubitCubit()
+                  ..getHomeItems()
+                  ..getRooms()),
+            BlocProvider(
+              create: (BuildContext context) => CategoryCubit(),
+            ),
+          ],
+          // child: ChangeNotifierProvider(
+          //   create: (context) => MapProvider(),
+            child: MaterialApp(
+              navigatorKey: navigatorKey,
+              onGenerateRoute: onGenerateRoute,
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              theme: ThemeData(
+                fontFamily: 'URW DIN Arabic',
+                bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                    backgroundColor: Colors.white),
+                scaffoldBackgroundColor: Colors.white,
                 backgroundColor: Colors.white,
-                iconTheme: IconThemeData(color: kMainColor),
-                systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: Colors.white,
-                  statusBarIconBrightness: Brightness.dark,
-                  statusBarBrightness: Brightness.dark,
-                )),
-            primaryColor: Colors.white,
-            colorScheme:
-                ColorScheme.fromSwatch().copyWith(secondary: kMainColor),
-          ),
-          home: const SplshScreen(),
-        ),
+                // ignore: prefer_const_constructors
+                appBarTheme: AppBarTheme(
+                    backgroundColor: Colors.white,
+                    iconTheme: IconThemeData(color: kMainColor),
+                    systemOverlayStyle: const SystemUiOverlayStyle(
+                      statusBarColor: Colors.white,
+                      statusBarIconBrightness: Brightness.dark,
+                      statusBarBrightness: Brightness.dark,
+                    )),
+                primaryColor: Colors.white, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: kMainColor),
+              ),
+              home: const SplshScreen(),
+            ),
+          // ),
+        
       ),
     );
   }
