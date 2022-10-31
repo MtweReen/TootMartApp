@@ -43,6 +43,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         options: Options(
           headers: {
             "Authorization": "Bearer " + kToken!,
+            "Accept-Language":prefs.getString("lang") ??"ar"
           },
         ),
       );
@@ -73,6 +74,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         options: Options(
           headers: {
             "Authorization": "Bearer " + kToken!,
+             "Accept-Language":prefs.getString("lang") ??"ar"
           },
         ),
       );
