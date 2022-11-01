@@ -44,14 +44,7 @@ class _InformationScreenState extends State<InformationScreen> {
             ),
             const VerticalSpace(value: 3),
             HtmlWidget(widget.body),
-            // Text(
-            //   widget.body,
-            //   style: headingStyle.copyWith(
-            //       color: colorGrey,
-            //       fontWeight: FontWeight.w400,
-            //       height: 1.5,
-            //       fontSize: SizeConfig.screenWidth! * 0.04),
-            // )
+          
           ],
         ),
       ),

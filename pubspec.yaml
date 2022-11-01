@@ -60,7 +60,7 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   flutter_webview_plugin: ^0.4.0
   flutter_widget_from_html: ^0.6.0
-  # flutter_google_places: ^0.3.0
+ 
 
 
 dev_dependencies:
