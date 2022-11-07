@@ -34,16 +34,18 @@ class _CategoryBodyState extends State<CategoryBody> {
 
   void firstLoad() async {
     CategoryModel? categoryModel;
-   
+
     setState(() {
       isFirstLoadRunning = true;
     });
     try {
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "ar",
-     
       };
-      var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES+"?page=$page"), headers: headers, );
+      var response = await http.get(
+        Uri.parse(kBaseUrl + CATEGORIES + "?page=$page"),
+        headers: headers,
+      );
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         categoryModel = CategoryModel.fromJson(data);
@@ -64,10 +66,8 @@ class _CategoryBodyState extends State<CategoryBody> {
         isFirstLoadRunning == false &&
         isLoadMoreRunning == false &&
         scrollController.position.extentAfter < 15) {
-     
       Map<String, String> headers = {
         "Accept-Language": prefs.getString("lang") ?? "en",
-      
       };
       setState(() {
         isLoadMoreRunning = true;
@@ -75,7 +75,9 @@ class _CategoryBodyState extends State<CategoryBody> {
       });
       List fetchedPosts = [];
       try {
-        var response = await http.get(Uri.parse(kBaseUrl+CATEGORIES+"?page=$page"), headers: headers);
+        var response = await http.get(
+            Uri.parse(kBaseUrl + CATEGORIES + "?page=$page"),
+            headers: headers);
         var data = jsonDecode(response.body);
         if (data['status'] == true) {
           CategoryModel categoryModel = CategoryModel.fromJson(data);
@@ -111,118 +113,113 @@ class _CategoryBodyState extends State<CategoryBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return isFirstLoadRunning
-        ? Center(
-            child: CircularProgressIndicator(
-              color: kMainColor,
-            ),
-          )
-        : Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth! * 0.03,
-                vertical: SizeConfig.screenHeight! * 0.03),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Text(
-                //   translateString("formations", "تشكيلات"),
-                //   style: headingStyle.copyWith(
-                //       fontWeight: FontWeight.w700,
-                //       color: colordeepGrey,
-                //       fontSize: SizeConfig.screenWidth! * 0.05),
-                // ),
-                // const VerticalSpace(value: 2),
-                (categories.isNotEmpty)
-                    ? Expanded(
-                        child: GridView.builder(
-                          controller: scrollController,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 3,
-                          ),
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          itemCount: categories.length,
-                          itemBuilder: ((ctx, index) {
-                            return BlocConsumer<CategoryCubit, CategoryState>(
-                              listener: (context, state) {
-                               
-                              },
-                              builder: (context, state) {
-                                return ProductItem(
-                                  name: categories[index].title!,
-                                  image: categories[index].image!,
-                                  index: index,
-                                  press: () {
-                                    setState(() {
-                                      filteringData = false;
-                                    });
-                                    CategoryCubit.get(context).getSubsCategory(id: categories[index].id!);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => SubCategoryScreen(
-                                          id: categories[index].id!,
-                                          name: categories[index].title!,
-                                          image: categories[index].image!,
-                                        ),
-                                      ),
+    return RefreshIndicator(
+        child: isFirstLoadRunning
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: kMainColor,
+                ),
+              )
+            : Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth! * 0.03,
+                    vertical: SizeConfig.screenHeight! * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                  
+                    (categories.isNotEmpty)
+                        ? Expanded(
+                            child: GridView.builder(
+                              controller: scrollController,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.8,
+                                crossAxisSpacing: 15,
+                                mainAxisSpacing: 3,
+                              ),
+                              physics: const BouncingScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              itemCount: categories.length,
+                              itemBuilder: ((ctx, index) {
+                                return BlocConsumer<CategoryCubit,
+                                    CategoryState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    return ProductItem(
+                                      name: categories[index].title!,
+                                      image: categories[index].image!,
+                                      index: index,
+                                      press: () {
+                                        setState(() {
+                                          filteringData = false;
+                                        });
+                                        CategoryCubit.get(context)
+                                            .getSubsCategory(
+                                                id: categories[index].id!);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SubCategoryScreen(
+                                              id: categories[index].id!,
+                                              name: categories[index].title!,
+                                              image: categories[index].image!,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 );
-                              },
-                            );
-                          }),
-                        ),
-                      )
-                    : Padding(
+                              }),
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(
+                                top: SizeConfig.screenHeight! * 0.3),
+                            child: Center(
+                              child: Text(
+                                translateString(
+                                    "No products here", "لا توجد منتجات"),
+                                style: TextStyle(
+                                    color: kMainColor,
+                                    fontSize: SizeConfig.screenWidth! * 0.05,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                    if (isLoadMoreRunning == true)
+                      Padding(
                         padding: EdgeInsets.only(
-                            top: SizeConfig.screenHeight! * 0.3),
+                            top: SizeConfig.screenHeight! * 0.01,
+                            bottom: SizeConfig.screenHeight! * 0.01),
                         child: Center(
-                          child: Text(
-                            translateString(
-                                "No products here", "لا توجد منتجات"),
-                            style: TextStyle(
-                                color: kMainColor,
-                             
-                                fontSize: SizeConfig.screenWidth! * 0.05,
-                                fontWeight: FontWeight.bold),
+                          child: CircularProgressIndicator(
+                            color: kMainColor,
                           ),
                         ),
                       ),
-                if (isLoadMoreRunning == true)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: SizeConfig.screenHeight! * 0.01,
-                        bottom: SizeConfig.screenHeight! * 0.01),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: kMainColor,
-                      ),
-                    ),
-                  ),
 
-                // When nothing else to load
-                if (hasNextPage == false)
-                  Container(
-                    padding: EdgeInsets.only(
-                        top: SizeConfig.screenHeight! * 0.01,
-                        bottom: SizeConfig.screenHeight! * 0.01),
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        translateString(
-                            "no more products", "لا يوجد مزيد من المنتجات "),
-                       
+                    // When nothing else to load
+                    if (hasNextPage == false)
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: SizeConfig.screenHeight! * 0.01,
+                            bottom: SizeConfig.screenHeight! * 0.01),
+                        color: Colors.white,
+                        child: Center(
+                          child: Text(
+                            translateString("no more products",
+                                "لا يوجد مزيد من المنتجات "),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-              ],
-            ),
-          );
+                  ],
+                ),
+              ),
+        onRefresh: () async => firstLoad());
   }
 }

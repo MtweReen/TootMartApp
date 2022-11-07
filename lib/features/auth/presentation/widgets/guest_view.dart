@@ -7,6 +7,7 @@ import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_state.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/layout/layout.dart';
 import 'package:toot_mart/features/orders/presentation/orders_view.dart';
 import 'package:toot_mart/features/profile%20screens/contact_us.dart';
@@ -47,7 +48,7 @@ class _GuestViewState extends State<GuestView> {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return  SingleChildScrollView(
+        return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -58,7 +59,7 @@ class _GuestViewState extends State<GuestView> {
                   children: [
                     Row(
                       children: [
-                        if (prefs.getBool("is_login") == true&&kUser !=null)
+                        if (prefs.getBool("is_login") == true && kUser != null)
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.4,
                             child: Text(
@@ -170,11 +171,13 @@ class _GuestViewState extends State<GuestView> {
                     ),
                     if (kToken != null && kUser != null)
                       InkWell(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ExhibitionsScreen())),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ExhibitionsScreen()));
+                        },
                         child: ProfileCardItem(
                           title: translateString(
                               "Exhibition sites", "مواقع المعارض"),

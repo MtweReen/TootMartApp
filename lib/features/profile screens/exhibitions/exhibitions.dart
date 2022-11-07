@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
@@ -38,7 +39,9 @@ class ExhibitionsScreen extends StatelessWidget {
                   fontSize: SizeConfig.screenWidth! * 0.045),
             ),
             const VerticalSpace(value: 1.5),
-            const AreasSelection(fromProfile: true,),
+            const AreasSelection(
+              fromProfile: true,
+            ),
             const VerticalSpace(value: 1.5),
             BlocConsumer<CheckOutCubit, CheckOutStates>(
               builder: (context, state) =>

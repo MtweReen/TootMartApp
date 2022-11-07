@@ -12,15 +12,15 @@ import '../../../checkout/business_logic/check_out_states.dart';
 class AreasSelection extends StatefulWidget {
   final bool? fromProfile;
   static int? areaId;
-  const AreasSelection(
-      {Key? key,
-      this.text = '',
-      this.fillColor = Colors.white,
-      // this.onSave,
-      this.borderColor, this.fromProfile,
-      // this.validator
-      })
-      : super(key: key);
+  const AreasSelection({
+    Key? key,
+    this.text = '',
+    this.fillColor = Colors.white,
+    // this.onSave,
+    this.borderColor,
+    this.fromProfile,
+    // this.validator
+  }) : super(key: key);
 
   final String text;
   final Color? fillColor;
@@ -33,25 +33,26 @@ class AreasSelection extends StatefulWidget {
 }
 
 class _AreasSelectionState extends State<AreasSelection> {
-
-Areas? chosenValue;
-  // List<String>? categories = widget.items;
+  Areas? chosenValue;
+ 
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CheckOutCubit, CheckOutStates>(
       listener: (context, state) {
-        if(state is GetAreasFilterSuccessState){
+        if (state is GetAreasFilterSuccessState) {
           CheckOutCubit.get(context).isfilterring = true;
-        }else{
-           CheckOutCubit.get(context).isfilterring = true;
+        } else {
+          CheckOutCubit.get(context).isfilterring = true;
         }
       },
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is! GetAreasLoadingState,
-          fallback: (context) => LinearProgressIndicator(color: kMainColor,),
-          builder:(context)=> Container(
+          condition: CheckOutCubit.get(context).areasModel != null,
+          fallback: (context) => LinearProgressIndicator(
+            color: kMainColor,
+          ),
+          builder: (context) => Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               border: (widget.borderColor == null)
@@ -71,18 +72,25 @@ Areas? chosenValue;
                 border: InputBorder.none,
               ),
               value: chosenValue,
-              items: CheckOutCubit.get(context).areasModel!.body!.areas!.map<DropdownMenuItem<Areas>>((value) {
+              items: CheckOutCubit.get(context)
+                  .areasModel!
+                  .body!
+                  .areas!
+                  .map<DropdownMenuItem<Areas>>((value) {
                 return DropdownMenuItem(
                   value: value,
                   child: Text(
                     value.title.toString(),
-                    style:
-                        headingStyle.copyWith(color: colordeepGrey, fontSize: 12),
+                    style: headingStyle.copyWith(
+                        color: colordeepGrey, fontSize: 12),
                   ),
                 );
               }).toList(),
               hint: Text(
-              (widget.fromProfile == true)?translateString("All area", "جميع المناطق") :translateString("Select Shipping area", "اختر منطقة الشحن"),
+                (widget.fromProfile == true)
+                    ? translateString("All area", "جميع المناطق")
+                    : translateString(
+                        "Select Shipping area", "اختر منطقة الشحن"),
                 style: headingStyle.copyWith(color: colorGrey, fontSize: 14),
               ),
               onChanged: (value) {
@@ -92,7 +100,7 @@ Areas? chosenValue;
                   chosenValue = value;
                   AreasSelection.areaId = value.id;
                 });
-               chosenValue = value;
+                chosenValue = value;
               },
               // onSaved: widget.onSave,
               // validator: widget.validator,

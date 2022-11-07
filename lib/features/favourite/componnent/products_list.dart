@@ -20,16 +20,7 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubitCubit, HomeCubitState>(
-      listener: (context, state) {
-        if (state is FavouriteCubitSuccessState) {
-        //  if(HomeCubitCubit.get(context).favouriteModel!.body!.products!.isNotEmpty){
-        //    for (var element
-        //       in HomeCubitCubit.get(context).favouriteModel!.body!.products!) {
-        //     HomeCubitCubit.get(context).isFavourite[element.id!] = true;
-        //   }
-        //  }
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
           builder: (context) => (HomeCubitCubit.get(context)
@@ -38,7 +29,7 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                   .products!
                   .isNotEmpty)
               ? GridView.builder(
-                padding:  const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   itemCount: HomeCubitCubit.get(context)
                       .favouriteModel!
                       .body!
@@ -46,7 +37,8 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                       .length,
                   shrinkWrap: true,
                   primary: false,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 0.6,
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 20,
@@ -75,20 +67,25 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                         .products![index]
                         .price
                         .toString(),
-                    beforePrice:(HomeCubitCubit.get(context)
-                        .favouriteModel!
-                        .body!
-                        .products![index]
-                        .priceBefore != null)? HomeCubitCubit.get(context)
-                        .favouriteModel!
-                        .body!
-                        .products![index]
-                        .priceBefore!.toString() : 0,
+                    beforePrice: (HomeCubitCubit.get(context)
+                                .favouriteModel!
+                                .body!
+                                .products![index]
+                                .priceBefore !=
+                            null)
+                        ? HomeCubitCubit.get(context)
+                            .favouriteModel!
+                            .body!
+                            .products![index]
+                            .priceBefore!
+                            .toString()
+                        : 0,
                   ),
                 )
               : Padding(
-                padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
-                child: Center(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3),
+                  child: Center(
                     child: Text(
                       translateString("No products here", "لا توجد منتجات"),
                       style: TextStyle(
@@ -97,10 +94,11 @@ class _FavouriteProductListState extends State<FavouriteProductList> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-              ),
+                ),
           condition: state is! FavouriteCubitLoadingState,
           fallback: (BuildContext context) => Padding(
-             padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.3),
             child: Center(
               child: CircularProgressIndicator(
                 color: kMainColor,

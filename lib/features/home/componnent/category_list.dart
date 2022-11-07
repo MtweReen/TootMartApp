@@ -28,7 +28,7 @@ class _CategoryListState extends State<CategoryList> {
             CategoryCubit.get(context)
                 .getSubsCategory(id: widget.categories[index].id!);
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AllProducts()));
+                MaterialPageRoute(builder: (context) =>  AllProducts(categoryId: widget.categories[index].id!,)));
           },
           child: Stack(
             children: [

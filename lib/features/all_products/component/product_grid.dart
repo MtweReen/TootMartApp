@@ -10,7 +10,8 @@ import '../../../core/constants/constants.dart';
 
 class ProductGridData extends StatelessWidget {
   bool? fromfav;
-  ProductGridData({Key? key, this.fromfav}) : super(key: key);
+  final int categoryId;
+  ProductGridData({Key? key, this.fromfav, required this.categoryId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

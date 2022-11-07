@@ -15,7 +15,8 @@ FocusNode maxFocuse = FocusNode();
 bool filteringData = false;
 
 class FilterProducts extends StatefulWidget {
-  const FilterProducts({Key? key}) : super(key: key);
+  final int categoryId;
+  const FilterProducts({Key? key, required this.categoryId}) : super(key: key);
 
   @override
   State<FilterProducts> createState() => _FilterProductsState();
@@ -118,7 +119,7 @@ class _FilterProductsState extends State<FilterProducts> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AllProducts()));
+                              builder: (context) =>  AllProducts(categoryId: widget.categoryId,)));
                       setState(() {
                         filteringData = true;
                         selectedOrdering = "asc";
@@ -134,7 +135,7 @@ class _FilterProductsState extends State<FilterProducts> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AllProducts()));
+                              builder: (context) =>  AllProducts(categoryId: widget.categoryId,)));
                       setState(() {
                         filteringData = true;
                         selectedOrdering = "desc";
@@ -277,7 +278,7 @@ class _FilterProductsState extends State<FilterProducts> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const AllProducts()));
+                                           AllProducts(categoryId: widget.categoryId,)));
                               setState(() {
                                 filteringData = false;
                                 minPrice.clear();
@@ -299,7 +300,7 @@ class _FilterProductsState extends State<FilterProducts> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const AllProducts()));
+                                             AllProducts(categoryId: widget.categoryId,)));
                               });
                             },
                             color: kMainColor,

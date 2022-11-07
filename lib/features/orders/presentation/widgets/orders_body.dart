@@ -40,82 +40,85 @@ class _OrdersBodyState extends State<OrdersBody> {
               press: () {
                 MagicRouter.pop();
               }),
-          body: ConditionalBuilder(
-            condition: state is! GetOrderDetailLoadingState ||
-                CheckOutCubit.get(context).orderModel != null,
-            fallback: (context) => Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
+          body: RefreshIndicator(
+            onRefresh: () async=> await CheckOutCubit.get(context).getOrders(),
+            child: ConditionalBuilder(
+              condition: state is! GetOrderDetailLoadingState &&
+                  CheckOutCubit.get(context).orderModel != null,
+              fallback: (context) => Center(
+                child: CircularProgressIndicator(
+                  color: kMainColor,
+                ),
               ),
-            ),
-            builder: (context) => SingleChildScrollView(
-
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(),
-                child: Column(
-                  children: [
-                    const VerticalSpace(value: 2),
-                    Text(
-                      LocaleKeys.orders.tr(),
-                      style: headingStyle.copyWith(color: Colors.black),
-                    ),
-                    const VerticalSpace(value: 3),
-                    DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: SizeConfig.defaultSize! * 6.5,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(
-                                  30.0,
-                                ),
-                                border: Border.all(color: Colors.grey)),
-                            child: TabBar(
-                              labelColor: Colors.white,
-                              labelStyle:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                              indicatorColor: Colors.white,
-                              indicator: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: kMainColor),
-                              unselectedLabelColor: Colors.black,
-                              tabs: [
-                                Tab(
-                                  text: LocaleKeys.current_orders.tr(),
-                                ),
-                                Tab(
-                                  text: LocaleKeys.finished_orders.tr(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const VerticalSpace(value: 2),
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 1.1,
-                            child: TabBarView(
-                              children: [
-                                CurrentOrders(
-                                  orders: CheckOutCubit.get(context)
-                                      .orderModel!
-                                      .body!
-                                      .ordersUnderProcess!,
-                                ),
-                                FinishedOrders(
-                                  order: CheckOutCubit.get(context)
-                                      .orderModel!
-                                      .body!
-                                      .ordersCompleted!,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+              builder: (context) => SingleChildScrollView(
+          
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(),
+                  child: Column(
+                    children: [
+                      const VerticalSpace(value: 2),
+                      Text(
+                        LocaleKeys.orders.tr(),
+                        style: headingStyle.copyWith(color: Colors.black),
                       ),
-                    ),
-                  ],
+                      const VerticalSpace(value: 3),
+                      DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: SizeConfig.defaultSize! * 6.5,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(
+                                    30.0,
+                                  ),
+                                  border: Border.all(color: Colors.grey)),
+                              child: TabBar(
+                                labelColor: Colors.white,
+                                labelStyle:
+                                    const TextStyle(fontWeight: FontWeight.bold),
+                                indicatorColor: Colors.white,
+                                indicator: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: kMainColor),
+                                unselectedLabelColor: Colors.black,
+                                tabs: [
+                                  Tab(
+                                    text: LocaleKeys.current_orders.tr(),
+                                  ),
+                                  Tab(
+                                    text: LocaleKeys.finished_orders.tr(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const VerticalSpace(value: 2),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 1.1,
+                              child: TabBarView(
+                                children: [
+                                  CurrentOrders(
+                                    orders: CheckOutCubit.get(context)
+                                        .orderModel!
+                                        .body!
+                                        .ordersUnderProcess!,
+                                  ),
+                                  FinishedOrders(
+                                    order: CheckOutCubit.get(context)
+                                        .orderModel!
+                                        .body!
+                                        .ordersCompleted!,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

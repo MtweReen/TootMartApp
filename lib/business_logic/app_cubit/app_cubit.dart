@@ -47,6 +47,8 @@ class AppCubit extends Cubit<AppState> {
       var response =
           await http.get(Uri.parse(kBaseUrl + INTRO), headers: headers);
       var data = jsonDecode(response.body);
+      print(data);
+      print(response.statusCode);
       if (data['status'] == true) {
         introModel = IntroModel.fromJson(data);
         print(response.body);

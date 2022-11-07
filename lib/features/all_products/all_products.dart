@@ -5,7 +5,8 @@ import 'package:toot_mart/features/all_products/component/filter_row.dart';
 import 'component/body.dart';
 
 class AllProducts extends StatefulWidget {
-  const AllProducts({ Key? key }) : super(key: key);
+  final int categoryId;
+  const AllProducts({ Key? key, required this.categoryId }) : super(key: key);
 
   @override
   State<AllProducts> createState() => _AllProductsState();
@@ -21,7 +22,7 @@ class _AllProductsState extends State<AllProducts> {
         });
         Navigator.pop(context);
       }),
-      body:const  AllProductBody(),
+      body:  AllProductBody(categoryId: widget.categoryId,),
     );
   }
 }

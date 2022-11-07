@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,22 +32,26 @@ class _HomeBodyState extends State<HomeBody> {
     return BlocConsumer<HomeCubitCubit, HomeCubitState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ConditionalBuilder(
-          condition: HomeCubitCubit.get(context).homeModel != null ,
-          fallback: (context) => Center(
-            child: CircularProgressIndicator(
-              color: kMainColor,
+        return RefreshIndicator(
+          onRefresh: () async =>
+              await HomeCubitCubit.get(context).getHomeItems(),
+          child: ConditionalBuilder(
+            condition: HomeCubitCubit.get(context).homeModel != null,
+            fallback: (context) => Center(
+              child: CircularProgressIndicator(
+                color: kMainColor,
+              ),
             ),
-          ),
-          builder: (context) => SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth! * 0.03,
-                vertical: SizeConfig.screenHeight! * 0.03),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomTextFormField(
+            builder: (BuildContext context) {
+              return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth! * 0.03,
+                    vertical: SizeConfig.screenHeight! * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CustomTextFormField(
                       label: "",
                       onChanged: (value) {
                         if (value.isNotEmpty) {
@@ -54,7 +60,7 @@ class _HomeBodyState extends State<HomeBody> {
                           setState(() {
                             isSearching = true;
                           });
-                        }else{
+                        } else {
                           setState(() {
                             isSearching = false;
                           });
@@ -63,8 +69,6 @@ class _HomeBodyState extends State<HomeBody> {
                       onEditingComplete: () {},
                       onSaved: (value) {
                         if (value.isNotEmpty) {
-                          // HomeCubitCubit.get(context)
-                          //     .getSearchResult(keyword: value);
                         } else {
                           setState(() {
                             isSearching = false;
@@ -78,55 +82,56 @@ class _HomeBodyState extends State<HomeBody> {
                         height: 20,
                       ),
                     ),
-                  
-                (!isSearching)
-                    ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const VerticalSpace(value: 2),
-                          (HomeCubitCubit.get(context)
-                                  .homeModel!
-                                  .body!
-                                  .images!
-                                  .isNotEmpty)
-                              ? HomeSlider(
-                                  images: HomeCubitCubit.get(context)
+                    (!isSearching)
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const VerticalSpace(value: 2),
+                              (HomeCubitCubit.get(context)
                                       .homeModel!
                                       .body!
-                                      .images!,
-                                )
-                              : const SizedBox(),
-                          const VerticalSpace(value: 2),
-                          (HomeCubitCubit.get(context)
-                                  .homeModel!
-                                  .body!
-                                  .categoriesParents!
-                                  .isNotEmpty)
-                              ? CategoryList(
-                                  categories: HomeCubitCubit.get(context)
+                                      .images!
+                                      .isNotEmpty)
+                                  ? HomeSlider(
+                                      images: HomeCubitCubit.get(context)
+                                          .homeModel!
+                                          .body!
+                                          .images!,
+                                    )
+                                  : const SizedBox(),
+                              const VerticalSpace(value: 2),
+                              (HomeCubitCubit.get(context)
                                       .homeModel!
                                       .body!
-                                      .categoriesParents!,
-                                )
-                              : const SizedBox(),
-                          const VerticalSpace(value: 4),
-                          Text(
-                            translateString("Best Selling Categories",
-                                "الفئات الأكثر مبيعا"),
-                            style: headingStyle.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: colordeepGrey,
-                                fontSize: SizeConfig.screenWidth! * 0.05),
-                          ),
-                          const VerticalSpace(value: 4),
-                          const BestSellerHome(
-                            isScrollable: false,
-                          ),
-                        ],
-                      )
-                    : const SearchResultBody(),
-              ],
-            ),
+                                      .categoriesParents!
+                                      .isNotEmpty)
+                                  ? CategoryList(
+                                      categories: HomeCubitCubit.get(context)
+                                          .homeModel!
+                                          .body!
+                                          .categoriesParents!,
+                                    )
+                                  : const SizedBox(),
+                              const VerticalSpace(value: 4),
+                              Text(
+                                translateString("Best Selling Categories",
+                                    "الفئات الأكثر مبيعا"),
+                                style: headingStyle.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: colordeepGrey,
+                                    fontSize: SizeConfig.screenWidth! * 0.05),
+                              ),
+                              const VerticalSpace(value: 4),
+                              const BestSellerHome(
+                                isScrollable: false,
+                              ),
+                            ],
+                          )
+                        : const SearchResultBody(),
+                  ],
+                ),
+              );
+            },
           ),
         );
       },

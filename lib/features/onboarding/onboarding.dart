@@ -22,6 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     pageController = PageController(initialPage: 0);
+    AppCubit.get(context).getIntro();
     super.initState();
   }
 
@@ -36,8 +37,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: ConditionalBuilder(
-            condition: s is! IntroLoadingState ||
-                AppCubit.get(context).introModel != null,
+            condition: AppCubit.get(context).introModel != null,
             builder: (c) => SizedBox(
               width: double.infinity,
               height: h,

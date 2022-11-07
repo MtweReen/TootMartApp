@@ -65,7 +65,13 @@ class _BestSellerHomeState extends State<BestSellerHome> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AllProducts(),
+                        builder: (context) => AllProducts(
+                          categoryId: HomeCubitCubit.get(context)
+                              .homeModel!
+                              .body!
+                              .categoriesMostSales![index]
+                              .id!,
+                        ),
                       ));
                 },
               );
