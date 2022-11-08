@@ -30,12 +30,12 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         homeModel = HomeModel.fromJson(data);
-        print(response.body);
+   
         emit(HomeCubitSuccessState());
         return homeModel!;
       }
     } catch (e) {
-      print(e.toString());
+    
       emit(HomeCubitErrorState(e.toString()));
     }
     return homeModel!;
@@ -53,21 +53,23 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         options: Options(
           headers: {
             "Accept": "application/json",
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " +  prefs.getString('token').toString(),
           },
         ),
       );
+
       if (response.statusCode == 200) {
         for (var element in response.data['body']['products']) {
           isFavourite[element['id']] = true;          
         }
         favouriteModel = FavouriteModel.fromJson(response.data);
-        print(isFavourite);
         emit(FavouriteCubitSuccessState());
         return favouriteModel!;
       }
+      if(response.statusCode == 503){
+        print(response.data);
+      }
     } catch (e) {
-      print(e.toString());
       emit(FavouriteCubitErrorState(e.toString()));
     }
     return favouriteModel!;
@@ -80,10 +82,8 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
     try {
       Map<String, String> headers = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${kToken!}",
+        "Authorization": "Bearer ${prefs.getString('token').toString()}",
       };
-      print("Bearer ${kToken!}");
-      print(productId);
       Map<String, dynamic> body = {"product_id": "$productId"};
       Response response = await Dio().post(kBaseUrl + ADD_TO_FAVOURITE,
           options: Options(headers: headers), data: body);
@@ -91,17 +91,14 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
       if (response.data['status'] == true) {
         if (response.data['message'] == "added to favourites successfully !") {
           isFavourite[productId] = true;
-          print(response.data);
           emit(AddFavouriteCubitSuccessState());
         } else if (response.data['message'] ==
             "removed from from favourites successfully !") {
           isFavourite[productId] = false;
-          print(response.data);
           emit(AddFavouriteCubitSuccessState());
         }
       }
     } catch (e) {
-      print(e.toString());
       emit(AddFavouriteCubitErrorState(e.toString()));
     }
   }
@@ -121,19 +118,17 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         options: Options(
           headers: {
             "Accept": "application/json",
-            // "Authorization": "Bearer ${kToken!}",
+            
           },
         ),
       );
-      print('ksajdflakbsdjndsf.s${response.statusCode}');
+
       if (response.statusCode == 200) {
         searchModel = SearchModel.fromJson(response.data);
-        print(response.data);
         emit(SearchProductsCubitSuccessState());
         return searchModel!;
       }
     } catch (e) {
-      print('الايرور هنااااااااااااااااااااا'+e.toString());
       emit(SearchProductsCubitErrorState(e.toString()));
     }
     return searchModel!;
@@ -148,8 +143,8 @@ class HomeCubitCubit extends Cubit<HomeCubitState> {
         kBaseUrl + ROOM,
         options: Options(headers: {"Accept": "application/json"}),
       );
+  
       if(response.statusCode == 200){
-        print(response.data);
         roomModel = RoomModel.fromJson(response.data);
         emit(RoomsCubitSuccessState());
         return roomModel!;

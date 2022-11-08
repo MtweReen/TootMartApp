@@ -126,7 +126,7 @@ class MapProvider extends ChangeNotifier {
   void autoCompleteSearch(String value) async {
     var result = await googlePlace.autocomplete.get(value);
     print(result!.status);
-    if (result != null && result.predictions != null) {
+    if (result.predictions != null) {
       predictions = result.predictions!;
       
       notifyListeners();

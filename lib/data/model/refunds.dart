@@ -1,29 +1,29 @@
-class RefundsModel {
-  int? code;
-  bool? status;
+// class RefundsModel {
+//   int? code;
+//   bool? status;
 
-  Body? body;
+//   Body? body;
 
-  RefundsModel({
-    this.code,
-    this.status,
-    this.body,
-  });
+//   RefundsModel({
+//     this.code,
+//     this.status,
+//     this.body,
+//   });
 
-  RefundsModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    status = json['status'];
+//   RefundsModel.fromJson(Map<String, dynamic> json) {
+//     code = json['code'];
+//     status = json['status'];
 
-    body = json['body'] != null ? Body.fromJson(json['body']) : null;
-  }
-}
+//     body = json['body'] != null ? Body.fromJson(json['body']) : null;
+//   }
+// }
 
-class Body {
-  String? refunds;
+// class Body {
+//   String? refunds;
 
-  Body({this.refunds});
+//   Body({this.refunds});
 
-  Body.fromJson(Map<String, dynamic> json) {
-    refunds = json['refunds'];
-  }
-}
+//   Body.fromJson(Map<String, dynamic> json) {
+//     refunds = json['refunds'];
+//   }
+// }

@@ -29,13 +29,13 @@ class AuthCubit extends Cubit<AuthStates> {
         Response response = await Dio().get(
           kBaseUrl + "user",
           options: Options(headers: {
-            "Authorization": "Bearer ${kToken!}",
+            "Authorization": "Bearer ${prefs.getString('token').toString()}",
           }),
         );
         if (response.statusCode == 200) {
-          print(response.data);
           user = UserModel.fromJson(response.data);
           kUser = user;
+          prefs.setString('token', response.data['body']['accessToken']);
           emit(LoginUserLoaded());
         }
       } catch (e) {
@@ -57,10 +57,8 @@ class AuthCubit extends Cubit<AuthStates> {
           return UserModel.fromJson({});
         });
         kUser = user;
-        kToken = user!.body!.accessToken;
-
-        // print('skdhfbalksdfaksdf' + userModelToJson(user!));
-        if (kToken == null || kToken == '') {
+        // kToken = user!.body!.accessToken;
+        if (prefs.getString('token') == null || prefs.getString('token') == '') {
           emit(LoginUserErrorstate());
           showToast(
               msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
@@ -108,8 +106,6 @@ class AuthCubit extends Cubit<AuthStates> {
           }
           emit(RegisterUserErrorState());
         }
-
-        print(value);
       } else {
         showToast(msg: ' خطأ في تسجيل الدخول', state: ToastStates.ERROR);
         emit(RegisterUserErrorState());
@@ -130,6 +126,7 @@ class AuthCubit extends Cubit<AuthStates> {
         showToast(msg: 'تم تعديل البيانات بنجاح', state: ToastStates.SUCCESS);
         kUser = user;
         CasheHelper.setToken(token: user!.body!.accessToken!);
+        
         emit(EditProfileSuccessState());
       }
     });
@@ -210,9 +207,7 @@ class AuthCubit extends Cubit<AuthStates> {
         },
         options: Options(headers: {"Accept": "application/json"}),
       );
-      print(response.data);
       if (response.statusCode == 200) {
-        print(response.data['body']['code'].toString());
         prefs.setString("phone", phone);
         prefs.setString("code", response.data['body']['code'].toString());
         showToast(
@@ -227,7 +222,6 @@ class AuthCubit extends Cubit<AuthStates> {
             "لا يوجد حساب مرتبط برقم الهاتف الذي ادخلته"),
         state: ToastStates.ERROR,
       );
-      print(e.toString());
       emit(ForgetPasswordErrorState(e.toString()));
     }
   }
@@ -247,7 +241,6 @@ class AuthCubit extends Cubit<AuthStates> {
         },
         options: Options(headers: {"Accept": "application/json"}),
       );
-      print(response.data);
       if (response.statusCode == 200) {
         showToast(
             msg: translateString(
@@ -256,7 +249,6 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(ChangePasswordSuccessState());
       }
     } catch (e) {
-      print(e.toString());
       emit(ChangePasswordErrorState(e.toString()));
     }
   }
@@ -272,7 +264,6 @@ Future<bool>? showDeleteButton() async {
       }),
     );
     if (response.statusCode == 200) {
-      print(response.data);
       if (response.data['body']['delete_account_button_status'] == true) {
         return true;
       }

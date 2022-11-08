@@ -10,12 +10,9 @@ import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/helper/validation.dart';
-import '../../../../business_logic/cart/cart_cubit.dart';
-import '../../../../business_logic/home/home_cubit_cubit.dart';
 import '../../../../core/network/local/cache_helper.dart';
 import '../../../../core/router/router.dart';
 import '../../../account/account.dart';
-import '../../../checkout/business_logic/check_out_cubit.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 
@@ -60,12 +57,12 @@ class _RegisterViewState extends State<RegisterView> {
           }
           MagicRouter.navigateTo(const SplshScreen());
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
-           CartCubit.get(context).getcart();
-          HomeCubitCubit.get(context)
-            ..getFavourites()
-            ..getHomeItems()
-            ..getRooms();
-          CheckOutCubit.get(context).getAreas();
+          //  CartCubit.get(context).getcart();
+          // HomeCubitCubit.get(context)
+          //   ..getFavourites()
+          //   ..getHomeItems()
+          //   ..getRooms();
+          // CheckOutCubit.get(context).getAreas();
         }
       },
       builder: (context, state) {

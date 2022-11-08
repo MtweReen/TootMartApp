@@ -14,21 +14,21 @@ class AuthRepositoryImpl extends AuthRepo {
   @override
   Future<Either<Exception, UserModel>> loginWithEmailAndPassword(
       // ignore: non_constant_identifier_names
-      {required String Username, required String Password}) async {
+      {required String Username,
+      required String Password}) async {
     try {
       UserModel? userModel;
       var response = await DioHelper.postData(
           url: LOGIN, data: {'email': Username, 'password': Password});
-          
-       if(response.statusCode == 200){
-          prefs.setBool("is_login", true);
-         userModel = UserModel.fromJson(response.data);
-        print(userModel);
-         return Right(userModel);
-       }else{
+    print(response.data);
+      if (response.statusCode == 200) {
+        prefs.setBool("is_login", true);
+        prefs.setString('token', response.data['body']['accessToken']);
+        userModel = UserModel.fromJson(response.data);
+        return Right(userModel);
+      } else {
         return Left(Exception("error"));
-       }
-
+      }
     } catch (error) {
       showToast(
           msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
@@ -50,30 +50,28 @@ class AuthRepositoryImpl extends AuthRepo {
         'password': password
       });
       UserModel? result;
-    //  ErrorRegisterModel errorRegisterModel;
-      if (response.statusCode!<500) {
-    
+      if (response.statusCode == 200) {
         result = UserModel.fromJson(response.data);
-         prefs.setBool("is_login", true);
+        prefs.setBool("is_login", true);
+        prefs.setString('token', response.data['body']['accessToken']);
       }
       return Right(result!);
     } catch (error) {
       return Left(Exception(error));
     }
   }
+
   @override
   Future<Either<Exception, UserModel>> editProfile(
       {required String name,
-        required String phone,
-        required String email}) async {
+      required String phone,
+      required String email}) async {
     try {
       var response = await DioHelper.postLoggedUser(url: EDIT_PROFILE, data: {
         'name': name,
         'phone': phone,
         'email': email,
       });
-
-      print(response);
       UserModel? result;
       if (response.statusCode == 200) {
         result = UserModel.fromJson(response.data);
@@ -106,7 +104,6 @@ class AuthRepositoryImpl extends AuthRepo {
         'newPassword': newPassword,
         'newPasswordConfirmation': newPasswordConfirmation,
       });
-      print(response);
       return const Right('تم تغير كلمة السر بنجاح');
     } catch (error) {
       return Left(Exception(error));
@@ -114,46 +111,14 @@ class AuthRepositoryImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Exception, String>> deleteAccount() async{
+  Future<Either<Exception, String>> deleteAccount() async {
     try {
-      var response =
-          await DioHelper.postLoggedUser(url: DELETE_ACCOUNT,);
-      print(response);
+      var response = await DioHelper.postLoggedUser(
+        url: DELETE_ACCOUNT,
+      );
       return const Right('تم حزف الحساب بنجاح . نتمني أن نلتقي مجددا');
     } catch (error) {
       return Left(Exception(error));
     }
   }
-
-  // @override
-  // Future<Either<Exception, FavouritesModel>> getFavouriteProducts() async {
-  //   try {
-  //     var response = await DioHelper.getLoggedUserData(url: FAVOURITES);
-  //
-  //     FavouritesModel? result;
-  //     if (response.statusCode! < 500) {
-  //       result = FavouritesModel.fromJson(response.data);
-  //     }
-  //     return Right(result!);
-  //   } catch (error) {
-  //     return Left(Exception(error));
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Exception, RefundOrdersModel>> getRefundOrders() async {
-  //   try {
-  //     var response = await DioHelper.getLoggedUserData(url: REFUND_ORDERS);
-  //     RefundOrdersModel? refundOrdersModel;
-  //     if (response.statusCode! < 500) {
-  //       refundOrdersModel = RefundOrdersModel.fromJson(response.data);
-  //     }
-  //     return Right(refundOrdersModel!);
-  //   } catch (error) {
-  //     return Left(Exception(error));
-  //   }
-  // }
-
-
-
 }

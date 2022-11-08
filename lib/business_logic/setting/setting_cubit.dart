@@ -6,8 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/end_points.dart';
-import '../../data/model/refunds.dart';
-import '../../data/model/setting.dart';
 part 'setting_state.dart';
 
 class SettingCubit extends Cubit<SettingState> {
@@ -49,51 +47,50 @@ class SettingCubit extends Cubit<SettingState> {
         emit(ContactusSuccessState());
       }
     } catch (e) {
-      print(e.toString());
       emit(ContactusErrorState(e.toString()));
     }
   }
 
   /////////////////////////////////////////////////////////////////////////////////////
-  RefundsModel? refundsModel;
-  Future<RefundsModel> refundsPolicy() async {
-    emit(SettingLoadingState());
-    try {
-      Response response = await Dio().get(
-        kBaseUrl + SETTINGS,
-        queryParameters: {"rule": "refunds"},
-      );
-      if (response.statusCode == 200) {
-        refundsModel = RefundsModel.fromJson(response.data);
-        emit(SettingSuccessState());
-        return refundsModel!;
-      }
-    } catch (e) {
-      print(e.toString());
-      emit(SettingErrorState(e.toString()));
-    }
-    return refundsModel!;
-  }
+  // RefundsModel? refundsModel;
+  // Future<RefundsModel> refundsPolicy() async {
+  //   emit(SettingLoadingState());
+  //   try {
+  //     Response response = await Dio().get(
+  //       kBaseUrl + SETTINGS,
+  //       queryParameters: {"rule": "refunds"},
+  //     );
+  //     if (response.statusCode == 200) {
+  //       refundsModel = RefundsModel.fromJson(response.data);
+  //       emit(SettingSuccessState());
+  //       return refundsModel!;
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     emit(SettingErrorState(e.toString()));
+  //   }
+  //   return refundsModel!;
+  // }
 
-  ///////////////////////////////////////////////////////////////////////////////////
-    SettingModel? settingModel;
-  Future<SettingModel>? privacypolicy() async {
-    emit(PrivacypolicyLoadingState());
-    try {
-      Response response = await Dio().get(
-        kBaseUrl + SETTINGS,
-        queryParameters: {"rule": "privacy"},
-      );
-      if (response.statusCode == 200) {
-        settingModel = SettingModel.fromJson(response.data);
-        emit(PrivacypolicySuccessState());
-        return settingModel!;
-      }
-    } catch (e) {
-      print(e.toString());
-      emit(PrivacypolicyErrorState(e.toString()));
-    }
-    return settingModel!;
-  }
+  // ///////////////////////////////////////////////////////////////////////////////////
+  //   SettingModel? settingModel;
+  // Future<SettingModel>? privacypolicy() async {
+  //   emit(PrivacypolicyLoadingState());
+  //   try {
+  //     Response response = await Dio().get(
+  //       kBaseUrl + SETTINGS,
+  //       queryParameters: {"rule": "privacy"},
+  //     );
+  //     if (response.statusCode == 200) {
+  //       settingModel = SettingModel.fromJson(response.data);
+  //       emit(PrivacypolicySuccessState());
+  //       return settingModel!;
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //     emit(PrivacypolicyErrorState(e.toString()));
+  //   }
+  //   return settingModel!;
+  // }
 
 }

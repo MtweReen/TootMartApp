@@ -1,7 +1,6 @@
 class RoomModel {
   int? code;
   bool? status;
-
   Body? body;
 
   RoomModel({

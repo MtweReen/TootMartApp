@@ -37,7 +37,6 @@ class CategoryCubit extends Cubit<CategoryState> {
         return categoryModel!;
       }
     } catch (e) {
-      print(e.toString());
       emit(CategoryErrorState(e.toString()));
     }
     return categoryModel!;
@@ -58,12 +57,10 @@ class CategoryCubit extends Cubit<CategoryState> {
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         subcategoryModel = SubcategoryModel.fromJson(data);
-        print(response.body);
         emit(SubCategorySuccessState());
         return subcategoryModel!;
       }
     } catch (e) {
-      print(e.toString());
       emit(SubCategoryErrorState(e.toString()));
     }
     return subcategoryModel!;
@@ -84,12 +81,10 @@ class CategoryCubit extends Cubit<CategoryState> {
       var data = jsonDecode(response.body);
       if (data['status'] == true) {
         productDetailModel = ProductDetailModel.fromJson(data);
-        print(response.body);
         emit(ProductDetailSuccessState());
         return productDetailModel!;
       }
     } catch (e) {
-      print(e.toString());
       emit(ProductDetailErrorState(e.toString()));
     }
     return productDetailModel!;

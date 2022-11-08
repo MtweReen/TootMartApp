@@ -42,7 +42,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + GET_AREA,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            // "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept-Language":prefs.getString("lang") ??"ar"
           },
         ),
@@ -73,7 +73,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + FILTER_ROOM + "$areaId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
              "Accept-Language":prefs.getString("lang") ??"ar"
           },
         ),
@@ -110,7 +110,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         },
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),
@@ -137,7 +137,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + GETUSERADDRESS,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),
@@ -165,7 +165,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + POST_CHECK_OUT,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),
@@ -205,7 +205,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + ORDERS,
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),
@@ -235,7 +235,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + ORDER_DETAIL + "$orderId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),
@@ -264,7 +264,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         kBaseUrl + "orders/$orderId",
         options: Options(
           headers: {
-            "Authorization": "Bearer " + kToken!,
+            "Authorization": "Bearer " + prefs.getString('token').toString(),
             "Accept": "application/json",
           },
         ),

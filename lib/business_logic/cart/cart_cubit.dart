@@ -23,47 +23,41 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
 
   AddtoCartModel? addtoCartModel;
-  Map<int, bool> isinCart = {};
   Future<AddtoCartModel>? addtocart(
       {required int productId, required int quantity}) async {
     emit(AddtoCartLoadingState());
-    print(productId);
-    print(quantity);
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_TO_CART,
         data: {"product_id": productId, 'quantity': quantity},
         options: Options(
           headers: {
-            "Authorization": "Bearer ${kToken!}",
+            "Authorization": "Bearer ${prefs.getString('token').toString()}",
             "Accept-Language": prefs.get("lang") ?? "ar",
           },
         ),
       );
       if (response.statusCode == 200) {
-        isinCart[productId] = true;
-        print(response.data);
         addtoCartModel = AddtoCartModel.fromJson(response.data);
         emit(AddtoCartSuccessState());
         return addtoCartModel!;
       } else if (response.statusCode == 400) {
         Fluttertoast.showToast(
-            msg: translateString(response.data['message'].toString(),
-                "تم اضافة المنتج الي عربة التسوق"),
+            msg: response.data['message'].toString(),
             backgroundColor: colorRed,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.CENTER,
             textColor: Colors.white);
+          emit(AddtoCartSuccessState());   
       }
     } catch (e) {
       Fluttertoast.showToast(
-          msg: translateString(
-              "already in your cart!", "المنتج موجود بالفعل في عربة التسوق"),
+          msg: translateString("there is error , please try again later ...",
+              "حدث خطأ ما الرجاء المحاولة مرة اخري"),
           backgroundColor: colorRed,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           textColor: Colors.white);
-      print(e.toString());
       emit(AddtoCartErrorState(e.toString()));
     }
     return addtoCartModel!;
@@ -79,31 +73,18 @@ class CartCubit extends Cubit<CartState> {
         kBaseUrl + CART,
         options: Options(
           headers: {
-            "Authorization": "Bearer ${kToken!}",
+            "Authorization": "Bearer ${prefs.getString('token').toString()}",
             "Accept-Language": prefs.get("lang") ?? "ar",
           },
         ),
       );
-      print(response.data);
-      if (response.statusCode == 200) {
-        print('askldjfbasdkljbfalsdf');
 
-        print(response.data);
+      if (response.statusCode == 200) {
         cartModel = CartModel.fromJson(response.data);
-        if(cartModel!.body!.carts!.isNotEmpty){
-          for (var element in cartModel!.body!.carts!) {
-            isinCart[element.id!] = true;
-            emit(GetCartSuccessState());
-          }
-        }else{
-          isinCart.clear();
-        }
-        print(isinCart);
         emit(GetCartSuccessState());
         return cartModel!;
       }
     } catch (e) {
-      print(e.toString());
       emit(GetCartErrorState(e.toString()));
     }
     return cartModel!;
@@ -128,15 +109,12 @@ class CartCubit extends Cubit<CartState> {
       }
       Response response = await DioHelper.postLoggedUser(
           url: CONTROL_CART_ITEM + '?action=' + action!,
-          // query: {'action': action},
+          
           data: {'cart_id': cartId});
-      print(response.data);
       if (response.statusCode == 200) {
         getcart();
-        print(response.data);
       }
     } catch (e) {
-      print(e.toString());
       emit(UpdateCartErrorState());
     }
   }
@@ -150,7 +128,6 @@ class CartCubit extends Cubit<CartState> {
         'total': total,
         'code': code,
       });
-      print(response.data);
       if (response.statusCode == 200) {
         showToast(
             msg: response.data["message"].toString(),
@@ -161,13 +138,11 @@ class CartCubit extends Cubit<CartState> {
         prefs.setString(
             "coupon_total", response.data["body"]["total"].toString());
         emit(CouponAppliedSuccessState());
-        print(response.data);
       } else if (response.statusCode == 400) {
         showToast(
             msg: response.data["message"].toString(), state: ToastStates.ERROR);
       }
     } catch (e) {
-      print(e.toString());
       emit(CouponAppliedErrorState());
     }
   } //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,16 +155,14 @@ class CartCubit extends Cubit<CartState> {
         'total': total,
         'code': code,
       });
-      print(response.data);
+
       if (response.statusCode == 200) {
         showToast(msg: 'تم حزف الكوبون', state: ToastStates.SUCCESS);
         emit(CouponRemovedSuccessState());
-        print(response.data);
       } else if (response.statusCode == 400) {
         showToast(msg: 'هذا الكوبون غير متاح', state: ToastStates.ERROR);
       }
     } catch (e) {
-      print(e.toString());
       emit(CouponRemovedErrorState());
     }
   }

@@ -10,7 +10,6 @@ import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import '../../core/constants/constants.dart';
 import '../../core/helper/functions/show_toast.dart';
 import '../../core/network/end_points.dart';
-import '../../core/network/local/cache_helper.dart';
 import '../../features/auth/data/model/user_model.dart';
 part 'socialState.dart';
 
@@ -88,8 +87,6 @@ class SocialCubit extends Cubit<SocialState> {
           "password": prefs.getString('uid').toString(),
         },
       );
-      print(prefs.getString('email').toString());
-      print(prefs.getString('uid').toString());
       if (response.statusCode == 200) {
         prefs.setBool("is_login", true);
         showToast(
@@ -97,17 +94,14 @@ class SocialCubit extends Cubit<SocialState> {
             state: ToastStates.SUCCESS);
         userModel = UserModel.fromJson(response.data);
         kUser = userModel;
-        kToken = userModel!.body!.accessToken!;
-        CasheHelper.setToken(token: userModel!.body!.accessToken!);
-
-        emit(SocialLoginApiSuccessState());
+        prefs.setString('token', response.data['body']['accessToken']);
+          emit(SocialLoginApiSuccessState());
       }
     } catch (e) {
       showToast(
           msg: translateString("there is error , please try again later",
               "حدث خطأ ما , الرجاء المحاولة في وقت لاحق"),
           state: ToastStates.ERROR);
-      print(e.toString());
       emit(SocialLoginApiErrorState(e.toString()));
     }
   }
@@ -143,7 +137,6 @@ Future<User> signInWithAppleServices({List<Scope> scopes = const []}) async {
 
       return firebaseUser;
     case AuthorizationStatus.error:
-      print(result.error.toString());
       throw PlatformException(
         code: 'ERROR_AUTHORIZATION_DENIED',
         message: result.error.toString(),

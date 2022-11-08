@@ -116,59 +116,49 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       }
                     },
                     builder: (context, state) {
-                      return (CartCubit.get(context).isinCart[
-                                  CategoryCubit.get(context)
+                      return CustomGeneralButton(
+                        text: translateString(
+                            "Add to cart", "إضافة الي عربة التسوق"),
+                        onTap: () {
+                          if (prefs.getBool("is_login") == true) {
+                            if (CategoryCubit.get(context)
+                                    .productDetailModel!
+                                    .body!
+                                    .products!
+                                    .stock !=
+                                "0") {
+                              CartCubit.get(context).addtocart(
+                                  productId: CategoryCubit.get(context)
                                       .productDetailModel!
                                       .body!
                                       .products!
-                                      .id!] !=
-                              true)
-                          ? CustomGeneralButton(
-                              text: translateString(
-                                  "Add to cart", "إضافة الي عربة التسوق"),
-                              onTap: () {
-                                if (prefs.getBool("is_login") == true) {
-                                  if (CategoryCubit.get(context)
-                                          .productDetailModel!
-                                          .body!
-                                          .products!
-                                          .stock !=
-                                      "0") {
-                                    CartCubit.get(context).addtocart(
-                                        productId: CategoryCubit.get(context)
-                                            .productDetailModel!
-                                            .body!
-                                            .products!
-                                            .id!,
-                                        quantity: ProductDetailBody.counter);
-                                  } else if (CategoryCubit.get(context)
-                                          .productDetailModel!
-                                          .body!
-                                          .products!
-                                          .stock ==
-                                      "0") {
-                                    Fluttertoast.showToast(
-                                        msg: translateString(
-                                            "product is unavailable",
-                                            "المنتج غير متوفر حاليا "),
-                                        backgroundColor: colorRed,
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.CENTER,
-                                        textColor: Colors.white);
-                                  }
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg: translateString(
-                                          "you must Login first ",
-                                          "يجب تسجيل الدخول اولا "),
-                                      backgroundColor: colorRed,
-                                      toastLength: Toast.LENGTH_LONG,
-                                      gravity: ToastGravity.CENTER,
-                                      textColor: Colors.white);
-                                }
-                              },
-                            )
-                          : const SizedBox();
+                                      .id!,
+                                  quantity: ProductDetailBody.counter);
+                            } else if (CategoryCubit.get(context)
+                                    .productDetailModel!
+                                    .body!
+                                    .products!
+                                    .stock ==
+                                "0") {
+                              Fluttertoast.showToast(
+                                  msg: translateString("product is unavailable",
+                                      "المنتج غير متوفر حاليا "),
+                                  backgroundColor: colorRed,
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.CENTER,
+                                  textColor: Colors.white);
+                            }
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: translateString("you must Login first ",
+                                    "يجب تسجيل الدخول اولا "),
+                                backgroundColor: colorRed,
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.CENTER,
+                                textColor: Colors.white);
+                          }
+                        },
+                      );
                     },
                   ),
                 ),

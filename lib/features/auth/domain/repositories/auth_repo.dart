@@ -25,8 +25,4 @@ abstract class AuthRepo {
 
   Future<Either<Exception, String>> changePassword(String oldPassword,String newPassword,String newPasswordConfirmation);
   Future<Either<Exception, String>> deleteAccount();
-
-  // Future<Either<Exception, FavouritesModel>> getFavouriteProducts();
-
-  // Future<Either<Exception, RefundOrdersModel>> getRefundOrders();
 }

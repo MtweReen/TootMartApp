@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/features/favourite/componnent/products_list.dart';
-import '../../../business_logic/home/home_cubit_cubit.dart';
 import '../../../core/utiles/size_config.dart';
 
 class FavouriteBody extends StatefulWidget {
@@ -16,25 +15,22 @@ class _FavouriteBodyState extends State<FavouriteBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return RefreshIndicator(
-      onRefresh: () async => HomeCubitCubit.get(context).getFavourites(),
-      child: SingleChildScrollView(
-        child: (prefs.getBool("is_login") == true)
-            ? FavouriteProductList(
-                fromfav: true,
-              )
-            : Padding(
-                padding: EdgeInsets.only(top: SizeConfig.screenHeight! * 0.3),
-                child: Center(
-                  child: Text(
-                    translateString(
-                        "you must login first", "يجب تسجيل الدخول اولا "),
-                    style: headingStyle.copyWith(
-                        color: kMainColor, fontWeight: FontWeight.bold),
-                  ),
+    return SingleChildScrollView(
+      child: (prefs.getBool("is_login") == true)
+          ? FavouriteProductList(
+              fromfav: true,
+            )
+          : Padding(
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight! * 0.3),
+              child: Center(
+                child: Text(
+                  translateString(
+                      "you must login first", "يجب تسجيل الدخول اولا "),
+                  style: headingStyle.copyWith(
+                      color: kMainColor, fontWeight: FontWeight.bold),
                 ),
               ),
-      ),
+            ),
     );
   }
 }

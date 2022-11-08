@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toot_mart/business_logic/setting/setting_cubit.dart';
+
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_cubit.dart';
 import 'package:toot_mart/features/auth/data/business_logic/auth_state.dart';
 import 'package:toot_mart/features/checkout/business_logic/check_out_cubit.dart';
+import 'package:toot_mart/features/checkout/business_logic/check_out_states.dart';
 import 'package:toot_mart/features/layout/layout.dart';
 import 'package:toot_mart/features/orders/presentation/orders_view.dart';
 import 'package:toot_mart/features/profile%20screens/contact_us.dart';
@@ -17,6 +18,7 @@ import 'package:toot_mart/features/profile%20screens/setting.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../../core/network/end_points.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utiles/size_config.dart';
 import '../../../../core/widgets/custom_buttons_widget.dart';
@@ -59,7 +61,7 @@ class _GuestViewState extends State<GuestView> {
                   children: [
                     Row(
                       children: [
-                        if (prefs.getBool("is_login") == true && kUser != null)
+                        if (prefs.getBool("is_login") == true)
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.4,
                             child: Text(
@@ -128,7 +130,7 @@ class _GuestViewState extends State<GuestView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (kToken != null && kUser != null)
+                     if (prefs.getBool("is_login") == true)
                       InkWell(
                         onTap: () {
                           kInside++;
@@ -140,11 +142,11 @@ class _GuestViewState extends State<GuestView> {
                               "Account Details", "تفاصيل الحساب"),
                         ),
                       ),
-                    if (kToken != null && kUser != null)
+                      if (prefs.getBool("is_login") == true)
                       SizedBox(
                         height: h * 0.04,
                       ),
-                    if (kToken != null && kUser != null)
+                    if (prefs.getBool("is_login") == true)
                       InkWell(
                         onTap: () {
                           MagicRouter.navigateTo(const OrdersView());
@@ -153,7 +155,7 @@ class _GuestViewState extends State<GuestView> {
                           title: translateString("My orders", "طلباتي"),
                         ),
                       ),
-                    if (kToken != null && kUser != null)
+                      if (prefs.getBool("is_login") == true)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -169,72 +171,76 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken != null && kUser != null)
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ExhibitionsScreen()));
+                      BlocConsumer<CheckOutCubit, CheckOutStates>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return InkWell(
+                            onTap: () {
+                              CheckOutCubit.get(context).isfilterring = false;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ExhibitionsScreen()));
+                            },
+                            child: ProfileCardItem(
+                              title: translateString(
+                                  "Exhibition sites", "مواقع المعارض"),
+                            ),
+                          );
                         },
-                        child: ProfileCardItem(
-                          title: translateString(
-                              "Exhibition sites", "مواقع المعارض"),
-                        ),
                       ),
-                    if (kToken != null && kUser != null)
+                    if (prefs.getBool("is_login") == true)
                       SizedBox(
                         height: h * 0.04,
                       ),
-                    BlocConsumer<SettingCubit, SettingState>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        return InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InformationScreen(
-                                      body: SettingCubit.get(context)
-                                          .refundsModel!
-                                          .body!
-                                          .refunds!,
-                                      title: translateString(
-                                          'Delivery and Returns',
-                                          'التوصيل والمرتجعات')))),
-                          child: ProfileCardItem(
-                              title: translateString('Delivery and Returns',
-                                  'التوصيل والمرتجعات')),
-                        );
-                      },
+                    // BlocConsumer<SettingCubit, SettingState>(
+                    //   listener: (context, state) {},
+                    //   builder: (context, state) {
+                    //     return
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InformationScreen(
+                                  link: kBaseUrl + 'refunds',
+                                  // body: SettingCubit.get(context)
+                                  //     .refundsModel!
+                                  //     .body!
+                                  //     .refunds!,
+                                  title: translateString('Delivery and Returns',
+                                      'التوصيل والمرتجعات')))),
+                      child: ProfileCardItem(
+                          title: translateString(
+                              'Delivery and Returns', 'التوصيل والمرتجعات')),
                     ),
+                    //   },
+                    // ),
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    BlocConsumer<SettingCubit, SettingState>(
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        return InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InformationScreen(
-                                      body: SettingCubit.get(context)
-                                          .settingModel!
-                                          .body!
-                                          .privacy!,
-                                      title: translateString('privacy policy',
-                                          'سياسة الخصوصية')))),
-                          child: ProfileCardItem(
-                              title: translateString(
-                                  'privacy policy', 'سياسة الخصوصية')),
-                        );
-                      },
+                    // BlocConsumer<SettingCubit, SettingState>(
+                    //   listener: (context, state) {},
+                    //   builder: (context, state) {
+                    // return
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InformationScreen(
+                                  link: kBaseUrl + 'privacy',
+                                  title: translateString(
+                                      'privacy policy', 'سياسة الخصوصية')))),
+                      child: ProfileCardItem(
+                          title: translateString(
+                              'privacy policy', 'سياسة الخصوصية')),
                     ),
+                    //   },
+                    // ),
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken != null && kUser != null)
+                      if (prefs.getBool("is_login") == true)
                       InkWell(
                         onTap: () {
                           AuthCubit.get(context).SignOut();
@@ -246,10 +252,10 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    if (kToken != null && kUser != null && isDeleted)
+                    if (prefs.getBool("is_login") == true && isDeleted)
                       InkWell(
                         onTap: () {
-                          print(kToken);
+                        
                           _showCustomDialog(context);
                         },
                         child: ProfileCardItem(

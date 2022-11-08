@@ -3,8 +3,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toot_mart/business_logic/cart/cart_cubit.dart';
-import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 import 'package:toot_mart/core/constants/colors.dart';
 import 'package:toot_mart/core/constants/constants.dart';
 import 'package:toot_mart/core/network/local/cache_helper.dart';
@@ -18,7 +16,6 @@ import 'package:toot_mart/splash.dart';
 import 'package:toot_mart/translations/locale_keys.g.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../business_logic/social/socialCubit.dart';
-import '../../../checkout/business_logic/check_out_cubit.dart';
 import '../../data/business_logic/auth_cubit.dart';
 import '../../data/business_logic/auth_state.dart';
 import 'check_box_with_text.dart';
@@ -44,13 +41,13 @@ class LoginView extends StatelessWidget {
               token: AuthCubit.get(context).user!.body!.accessToken!);
           MagicRouter.navigateAndPopAll(const SplshScreen());
           AuthCubit.get(context).changeUserState(AccountStates.GUEST);
-          CartCubit.get(context).getcart();
+          // CartCubit.get(context).getcart();
 
-          HomeCubitCubit.get(context)
-            ..getFavourites()
-            ..getHomeItems()
-            ..getRooms();
-          CheckOutCubit.get(context).getAreas();
+          // HomeCubitCubit.get(context)
+          //   ..getFavourites()
+          //   ..getHomeItems()
+          //   ..getRooms();
+          // CheckOutCubit.get(context).getAreas();
         }
       },
       builder: (context, state) {

@@ -56,6 +56,7 @@ class CasheHelper {
     } else {
       print('token Passed');
       kToken = token;
+      print(token);
       // AuthCubit.get(context).getUser();
     }
     return 'token';

@@ -15,22 +15,22 @@ class ContactusErrorState extends SettingState {
   ContactusErrorState(this.error);
 }
 
-class SettingLoadingState extends SettingState {}
+// class SettingLoadingState extends SettingState {}
 
-class SettingSuccessState extends SettingState {}
+// class SettingSuccessState extends SettingState {}
 
-class SettingErrorState extends SettingState {
-  final String error;
+// class SettingErrorState extends SettingState {
+//   final String error;
 
-  SettingErrorState(this.error);
-}
+//   SettingErrorState(this.error);
+// }
 
-class PrivacypolicyLoadingState extends SettingState {}
+// class PrivacypolicyLoadingState extends SettingState {}
 
-class PrivacypolicySuccessState extends SettingState {}
+// class PrivacypolicySuccessState extends SettingState {}
 
-class PrivacypolicyErrorState extends SettingState {
-  final String error;
+// class PrivacypolicyErrorState extends SettingState {
+//   final String error;
 
-  PrivacypolicyErrorState(this.error);
-}
+//   PrivacypolicyErrorState(this.error);
+// }

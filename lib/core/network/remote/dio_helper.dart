@@ -38,7 +38,7 @@ class DioHelper {
   }) async {
     var headers = {
       "device-uuid": deviceId,
-      "Authorization": kUser != null ? "Bearer $kToken" : ''
+      "Authorization": kUser != null ? "Bearer ${prefs.getString('token').toString()}" : ''
     };
 
     dio.options.headers.addAll(headers);
@@ -50,14 +50,10 @@ class DioHelper {
     required String url,
     FormData? formData,
     Map<String, dynamic>? data,
-    // Map<String, dynamic>? query,
+   
   }) async {
-    // dio.options.headers["device-uuid"] = deviceId;
-    //  dio.options.headers["Authorization"] = "Bearer 50|o0l2ofgFUj813uzb3DFLTTijEBTFCNzyxvYtY5ci";
-
     return dio.post(
       url,
-      //  queryParameters: query,
       data: formData ?? data,
     );
   }
@@ -69,7 +65,7 @@ class DioHelper {
     Map<String, dynamic>? query,
   }) async {
     dio.options.headers["device-uuid"] = deviceId;
-    dio.options.headers["Authorization"] = "Bearer $kToken";
+    dio.options.headers["Authorization"] = "Bearer ${prefs.getString('token').toString()}";
     return dio.post(
       url,
       data: formData ?? data,

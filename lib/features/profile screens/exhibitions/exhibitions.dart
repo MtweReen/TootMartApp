@@ -23,34 +23,37 @@ class ExhibitionsScreen extends StatelessWidget {
         context: context,
         press: () => Navigator.pop(context),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.screenWidth! * 0.03,
-            vertical: SizeConfig.screenHeight! * 0.03),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              translateString("Show gallery from", "اظهار المعرض من"),
-              style: headingStyle.copyWith(
-                  color: colordeepGrey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: SizeConfig.screenWidth! * 0.045),
-            ),
-            const VerticalSpace(value: 1.5),
-            const AreasSelection(
-              fromProfile: true,
-            ),
-            const VerticalSpace(value: 1.5),
-            BlocConsumer<CheckOutCubit, CheckOutStates>(
-              builder: (context, state) =>
-                  (CheckOutCubit.get(context).isfilterring == true)
-                      ? const AreaFilterringResult()
-                      : const GalleryListData(),
-              listener: (context, state) {},
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async => await HomeCubitCubit.get(context).getRooms(),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.screenWidth! * 0.03,
+              vertical: SizeConfig.screenHeight! * 0.03),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                translateString("Show gallery from", "اظهار المعرض من"),
+                style: headingStyle.copyWith(
+                    color: colordeepGrey,
+                    fontWeight: FontWeight.w500,
+                    fontSize: SizeConfig.screenWidth! * 0.045),
+              ),
+              const VerticalSpace(value: 1.5),
+              const AreasSelection(
+                fromProfile: true,
+              ),
+              const VerticalSpace(value: 1.5),
+              BlocConsumer<CheckOutCubit, CheckOutStates>(
+                builder: (context, state) =>
+                    (CheckOutCubit.get(context).isfilterring == true)
+                        ? const AreaFilterringResult()
+                        : const GalleryListData(),
+                listener: (context, state) {},
+              ),
+            ],
+          ),
         ),
       ),
     );
