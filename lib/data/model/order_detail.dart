@@ -106,7 +106,8 @@ class Address {
       this.shipping,
       this.area,
       this.areaId,
-      this.userId});
+      this.userId
+      });
 
   Address.fromJson(Map<String, dynamic> json) {
     id = json['id'];

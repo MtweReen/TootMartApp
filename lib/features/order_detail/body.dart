@@ -99,13 +99,20 @@ class _OrderDetailBodyState extends State<OrderDetailBody> {
                               .body!
                               .address !=
                           null)
-                      ? CheckOutCubit.get(context)
-                          .singleOrderModel!
-                          .body!
-                          .address!
-                          .shipping!
-                          .price!
-                          .toString()
+                      ? (CheckOutCubit.get(context)
+                                  .singleOrderModel!
+                                  .body!
+                                  .address!
+                                  .shipping !=
+                              null)
+                          ? CheckOutCubit.get(context)
+                              .singleOrderModel!
+                              .body!
+                              .address!
+                              .shipping!
+                              .price!
+                              .toString()
+                          : ""
                       : "",
                 ),
                 const VerticalSpace(value: 2),
@@ -124,12 +131,19 @@ class _OrderDetailBodyState extends State<OrderDetailBody> {
                     : const SizedBox(),
                 (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
                         null)
-                    ? Text(CheckOutCubit.get(context)
-                        .singleOrderModel!
-                        .body!
-                        .address!
-                        .shipping!
-                        .area!)
+                    ? (CheckOutCubit.get(context)
+                                .singleOrderModel!
+                                .body!
+                                .address!
+                                .shipping !=
+                            null)
+                        ? Text(CheckOutCubit.get(context)
+                            .singleOrderModel!
+                            .body!
+                            .address!
+                            .shipping!
+                            .area!)
+                        : const Text("")
                     : const Text(""),
                 const VerticalSpace(value: 2),
                 (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
