@@ -36,6 +36,7 @@ class AuthCubit extends Cubit<AuthStates> {
           user = UserModel.fromJson(response.data);
           kUser = user;
           prefs.setString('token', response.data['body']['accessToken']);
+          prefs.setString("user_name", response.data['body']['user']['name']);
           emit(LoginUserLoaded());
         }
       } catch (e) {
@@ -58,7 +59,8 @@ class AuthCubit extends Cubit<AuthStates> {
         });
         kUser = user;
         // kToken = user!.body!.accessToken;
-        if (prefs.getString('token') == null || prefs.getString('token') == '') {
+        if (prefs.getString('token') == null ||
+            prefs.getString('token') == '') {
           emit(LoginUserErrorstate());
           showToast(
               msg: LocaleKeys.error_in_sign_in.tr(), state: ToastStates.ERROR);
@@ -122,11 +124,8 @@ class AuthCubit extends Cubit<AuthStates> {
         .editProfile(name: name, phone: phone, email: email)
         .then((value) {
       if (value != []) {
-        user = value.getOrElse(() => UserModel.fromJson({}));
+        getUser();
         showToast(msg: 'تم تعديل البيانات بنجاح', state: ToastStates.SUCCESS);
-        kUser = user;
-        CasheHelper.setToken(token: user!.body!.accessToken!);
-        
         emit(EditProfileSuccessState());
       }
     });

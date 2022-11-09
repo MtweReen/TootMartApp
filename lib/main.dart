@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
                 create: (BuildContext context) => SocialCubit()),
             BlocProvider<CartCubit>(create: (BuildContext context) => CartCubit()),
             BlocProvider<CheckOutCubit>(
-                create: (BuildContext context) => CheckOutCubit()),
+                create: (BuildContext context) =>   CheckOutCubit()..getAreas()),
             BlocProvider<SettingCubit>(
                 create: (BuildContext context) => SettingCubit()),
             BlocProvider<HomeCubitCubit>(

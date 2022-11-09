@@ -24,6 +24,7 @@ class AuthRepositoryImpl extends AuthRepo {
       if (response.statusCode == 200) {
         prefs.setBool("is_login", true);
         prefs.setString('token', response.data['body']['accessToken']);
+        prefs.setString("user_name",response.data['body']['user']['name'] );
         userModel = UserModel.fromJson(response.data);
         return Right(userModel);
       } else {
@@ -54,6 +55,8 @@ class AuthRepositoryImpl extends AuthRepo {
         result = UserModel.fromJson(response.data);
         prefs.setBool("is_login", true);
         prefs.setString('token', response.data['body']['accessToken']);
+        
+        prefs.setString("user_name",response.data['body']['user']['name'] );
       }
       return Right(result!);
     } catch (error) {

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toot_mart/business_logic/home/home_cubit_cubit.dart';
 
 import 'package:toot_mart/core/widgets/space_widget.dart';
 import 'package:toot_mart/features/account/account.dart';
@@ -65,7 +66,7 @@ class _GuestViewState extends State<GuestView> {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.4,
                             child: Text(
-                              kUser!.body!.user!.name!,
+                              prefs.getString("user_name")?? "",
                               maxLines: 1,
                               overflow: TextOverflow.fade,
                               style: TextStyle(
@@ -176,6 +177,7 @@ class _GuestViewState extends State<GuestView> {
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
+                              HomeCubitCubit.get(context).getRooms();
                               CheckOutCubit.get(context).isfilterring = false;
                               Navigator.push(
                                   context,
