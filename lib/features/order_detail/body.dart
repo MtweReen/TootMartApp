@@ -94,35 +94,56 @@ class _OrderDetailBodyState extends State<OrderDetailBody> {
                       .order!
                       .total!
                       .toString(),
-                  shipping: CheckOutCubit.get(context)
-                      .singleOrderModel!
-                      .body!
-                      .address!
-                      .shipping!
-                      .price!
-                      .toString(),
+                  shipping: (CheckOutCubit.get(context)
+                              .singleOrderModel!
+                              .body!
+                              .address !=
+                          null)
+                      ? CheckOutCubit.get(context)
+                          .singleOrderModel!
+                          .body!
+                          .address!
+                          .shipping!
+                          .price!
+                          .toString()
+                      : "",
                 ),
                 const VerticalSpace(value: 2),
-                Text(
-                  translateString("Shipping to : ", "الشحن إلي : "),
-                  style: headingStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
+                        null)
+                    ? Text(
+                        translateString("Shipping to : ", "الشحن إلي : "),
+                        style: headingStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const SizedBox(),
+                (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
+                        null)
+                    ? const VerticalSpace(value: 2)
+                    : const SizedBox(),
+                (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
+                        null)
+                    ? Text(CheckOutCubit.get(context)
+                        .singleOrderModel!
+                        .body!
+                        .address!
+                        .shipping!
+                        .area!)
+                    : const Text(""),
                 const VerticalSpace(value: 2),
-                Text(CheckOutCubit.get(context)
-                    .singleOrderModel!
-                    .body!
-                    .address!
-                    .shipping!
-                    .area!),
-                const VerticalSpace(value: 2),
-                Text(CheckOutCubit.get(context)
-                    .singleOrderModel!
-                    .body!
-                    .address!
-                    .address!),
-                const VerticalSpace(value: 2),
+                (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
+                        null)
+                    ? Text(CheckOutCubit.get(context)
+                        .singleOrderModel!
+                        .body!
+                        .address!
+                        .address!)
+                    : const Text(""),
+                (CheckOutCubit.get(context).singleOrderModel!.body!.address !=
+                        null)
+                    ? const VerticalSpace(value: 2)
+                    : const SizedBox(),
                 Text(
                   translateString("Order Status : ", "حالة الطلب : ") +
                       " " +

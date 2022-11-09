@@ -128,7 +128,6 @@ class _CategoryBodyState extends State<CategoryBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                  
                     (categories.isNotEmpty)
                         ? Expanded(
                             child: GridView.builder(
@@ -183,7 +182,7 @@ class _CategoryBodyState extends State<CategoryBody> {
                             child: Center(
                               child: Text(
                                 translateString(
-                                    "No products here", "لا توجد منتجات"),
+                                    "No Category here", "لا توجد اقسام بعد"),
                                 style: TextStyle(
                                     color: kMainColor,
                                     fontSize: SizeConfig.screenWidth! * 0.05,
@@ -212,8 +211,8 @@ class _CategoryBodyState extends State<CategoryBody> {
                         color: Colors.white,
                         child: Center(
                           child: Text(
-                            translateString("no more products",
-                                "لا يوجد مزيد من المنتجات "),
+                            translateString(
+                                "no more Category", "لا يوجد مزيد من الاقسام "),
                           ),
                         ),
                       ),

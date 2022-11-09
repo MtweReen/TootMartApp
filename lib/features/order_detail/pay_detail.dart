@@ -39,13 +39,15 @@ class PaymentDetailCard extends StatelessWidget {
               ],
             ),
             const VerticalSpace(value: 1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(translateString("Shipping coast", "تكاليف الشحن ")),
-                Text(shipping + " " + translateString("R.S", "ر.س"))
-              ],
-            ),
+            (shipping != "")
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(translateString("Shipping coast", "تكاليف الشحن ")),
+                      Text(shipping + " " + translateString("R.S", "ر.س"))
+                    ],
+                  )
+                : const SizedBox(),
             const VerticalSpace(value: 1),
             (prefs.getString("coupon_value") != null)
                 ? Row(
@@ -86,8 +88,13 @@ class PaymentDetailCard extends StatelessWidget {
   }
 
   String getTotalPrice() {
-    num totalPrice =
-        (num.parse(subtotal) + num.parse(shipping)) - num.parse(discount);
+    num totalPrice = num.parse(subtotal);
+    if (shipping != "") {
+      totalPrice =
+          (num.parse(subtotal) + num.parse(shipping)) - num.parse(discount);
+    } else {
+      totalPrice = num.parse(subtotal) - num.parse(discount);
+    }
 
     return totalPrice.toStringAsFixed(2).toString();
   }

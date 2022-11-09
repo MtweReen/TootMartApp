@@ -230,6 +230,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
   Future<SingleOrderModel>? getOrderDetail(
       {required int orderId, required context}) async {
     emit(GetOrderDetailLoadingState());
+    print(orderId);
     try {
       Response response = await Dio().get(
         kBaseUrl + ORDER_DETAIL + "$orderId",

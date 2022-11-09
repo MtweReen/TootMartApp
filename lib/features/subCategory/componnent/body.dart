@@ -176,7 +176,7 @@ class _SubCategoryBodyState extends State<SubCategoryBody> {
                                         : Center(
                                             child: Text(
                                               translateString("no products here",
-                                                  "لا توجد منتجات بعد"),
+                                                  "لا توجد اقسام بعد"),
                                               style: headingStyle.copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: kMainColor,
