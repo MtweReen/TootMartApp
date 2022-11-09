@@ -24,7 +24,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           appBar: customAppbar(
               title: translateString("Order detail", "تفاصيل الطلب"),
               context: context,
-              press: () => Navigator.pop(context),
+              press: () {
+                 CheckOutCubit.get(context).getOrders();
+                Navigator.pop(context);
+                },
               inLayout: false),
           body: ConditionalBuilder(
             condition: state is! GetOrderDetailLoadingState,
