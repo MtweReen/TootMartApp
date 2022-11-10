@@ -34,7 +34,6 @@ class AreasSelection extends StatefulWidget {
 
 class _AreasSelectionState extends State<AreasSelection> {
   Areas? chosenValue;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +93,12 @@ class _AreasSelectionState extends State<AreasSelection> {
                 style: headingStyle.copyWith(color: colorGrey, fontSize: 14),
               ),
               onChanged: (value) {
-                CheckOutCubit.get(context).getFilterArea(areaId: value!.id!);
                 print(value);
                 setState(() {
                   chosenValue = value;
-                  AreasSelection.areaId = value.id;
+                  AreasSelection.areaId = value!.id!.toInt();
                 });
-                chosenValue = value;
+                print(AreasSelection.areaId);
               },
               // onSaved: widget.onSave,
               // validator: widget.validator,

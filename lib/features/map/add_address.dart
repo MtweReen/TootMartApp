@@ -44,39 +44,39 @@ class _AddAddressState extends State<AddAddress> {
             color: kMainColor,
           ),
           elevation: 0,
-           title: SizedBox(
-              height: h * 0.065,
-              child: TextField(
-                cursorColor: Colors.black,
-                readOnly: map.read,
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    map.autoCompleteSearch(value);
-                  } else {
-                    if (map.predictions.isNotEmpty) {
-                      map.clearPlaces();
-                    }
+          title: SizedBox(
+            height: h * 0.065,
+            child: TextField(
+              cursorColor: Colors.black,
+              readOnly: map.read,
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  map.autoCompleteSearch(value);
+                } else {
+                  if (map.predictions.isNotEmpty) {
+                    map.clearPlaces();
                   }
-                },
-                onSubmitted: (val) async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                decoration: InputDecoration(
-                  focusedBorder: form(),
-                  enabledBorder: form(),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  hintText: "بحث",
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ),
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  contentPadding: EdgeInsets.zero,
+                }
+              },
+              onSubmitted: (val) async {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              decoration: InputDecoration(
+                focusedBorder: form(),
+                enabledBorder: form(),
+                filled: true,
+                fillColor: Colors.grey[200],
+                hintText: "بحث",
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.grey,
                 ),
+                hintStyle: const TextStyle(color: Colors.grey),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                contentPadding: EdgeInsets.zero,
               ),
             ),
+          ),
         ),
         body: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -134,8 +134,7 @@ class _AddAddressState extends State<AddAddress> {
                                     _updatePosition(_position, context)),
                               ),
                       ),
-
-                        if (map.predictions.isNotEmpty)
+                      if (map.predictions.isNotEmpty)
                         Positioned(
                           top: h * 0.02,
                           right: w * 0.1,
@@ -196,10 +195,9 @@ class _AddAddressState extends State<AddAddress> {
                           ),
                         ),
                     ],
-
                   ),
                 ),
-                   Expanded(
+                Expanded(
                   child: SizedBox(
                     width: w,
                     child: Padding(
@@ -287,10 +285,11 @@ class _AddAddressState extends State<AddAddress> {
                                 onTap: () {
                                   if (AreasSelection.areaId != null) {
                                     CheckOutCubit.get(context).addUserAddress(
-                                        address: map.street.toString(),
-                                        areaId: AreasSelection.areaId!,
-                                        latitude: map.latLng!.latitude,
-                                        longtitude: map.latLng!.longitude);
+                                      address: map.street.toString(),
+                                      areaId: AreasSelection.areaId!,
+                                      latitude: map.latLng!.latitude,
+                                      longtitude: map.latLng!.longitude,
+                                    );
                                   } else {
                                     Fluttertoast.showToast(
                                       msg: translateString(

@@ -43,7 +43,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         options: Options(
           headers: {
             // "Authorization": "Bearer " + prefs.getString('token').toString(),
-            "Accept-Language":prefs.getString("lang") ??"ar"
+            "Accept-Language": prefs.getString("lang") ?? "ar"
           },
         ),
       );
@@ -74,7 +74,7 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
         options: Options(
           headers: {
             "Authorization": "Bearer " + prefs.getString('token').toString(),
-             "Accept-Language":prefs.getString("lang") ??"ar"
+            "Accept-Language": prefs.getString("lang") ?? "ar"
           },
         ),
       );
@@ -97,16 +97,22 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> addUserAddress(
-      {required String address, required int areaId,required double latitude, required double longtitude }) async {
+      {required String address,
+      required int areaId,
+      required double latitude,
+      required double longtitude}) async {
     emit(AddUserAddressLoadingState());
+    print(areaId);
+    print(latitude);
+    print(longtitude);
     try {
       Response response = await Dio().post(
         kBaseUrl + ADD_ADDRESS,
         data: {
           "area_id": areaId,
           "address": address,
-          'lat':latitude,
-          'lon':longtitude,
+          'lat': latitude,
+          'lon': longtitude,
         },
         options: Options(
           headers: {
@@ -115,7 +121,6 @@ class CheckOutCubit extends Cubit<CheckOutStates> {
           },
         ),
       );
-
       if (response.statusCode == 200) {
         print(response.data);
         emit(AddUserAddressSuccessState());

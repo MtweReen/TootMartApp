@@ -66,7 +66,7 @@ class _GuestViewState extends State<GuestView> {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.4,
                             child: Text(
-                              prefs.getString("user_name")?? "",
+                              prefs.getString("user_name") ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.fade,
                               style: TextStyle(
@@ -131,7 +131,7 @@ class _GuestViewState extends State<GuestView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                     if (prefs.getBool("is_login") == true)
+                    if (prefs.getBool("is_login") == true)
                       InkWell(
                         onTap: () {
                           kInside++;
@@ -143,7 +143,7 @@ class _GuestViewState extends State<GuestView> {
                               "Account Details", "تفاصيل الحساب"),
                         ),
                       ),
-                      if (prefs.getBool("is_login") == true)
+                    if (prefs.getBool("is_login") == true)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -156,7 +156,7 @@ class _GuestViewState extends State<GuestView> {
                           title: translateString("My orders", "طلباتي"),
                         ),
                       ),
-                      if (prefs.getBool("is_login") == true)
+                    if (prefs.getBool("is_login") == true)
                       SizedBox(
                         height: h * 0.04,
                       ),
@@ -172,59 +172,45 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                      BlocConsumer<CheckOutCubit, CheckOutStates>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          return InkWell(
-                            onTap: () {
-                              HomeCubitCubit.get(context).getRooms();
-                              CheckOutCubit.get(context).isfilterring = false;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ExhibitionsScreen()));
-                            },
-                            child: ProfileCardItem(
-                              title: translateString(
-                                  "Exhibition sites", "مواقع المعارض"),
-                            ),
-                          );
-                        },
-                      ),
-                    if (prefs.getBool("is_login") == true)
-                      SizedBox(
-                        height: h * 0.04,
-                      ),
-                    // BlocConsumer<SettingCubit, SettingState>(
-                    //   listener: (context, state) {},
-                    //   builder: (context, state) {
-                    //     return
+                    BlocConsumer<CheckOutCubit, CheckOutStates>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return InkWell(
+                          onTap: () {
+                            HomeCubitCubit.get(context).getRooms();
+                            CheckOutCubit.get(context).isfilterring = false;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ExhibitionsScreen()));
+                          },
+                          child: ProfileCardItem(
+                            title: translateString(
+                                "Exhibition sites", "مواقع المعارض"),
+                          ),
+                        );
+                      },
+                    ),
+
+                    SizedBox(
+                      height: h * 0.04,
+                    ),
                     InkWell(
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => InformationScreen(
                                   link: kBaseUrl + 'refunds',
-                                  // body: SettingCubit.get(context)
-                                  //     .refundsModel!
-                                  //     .body!
-                                  //     .refunds!,
                                   title: translateString('Delivery and Returns',
                                       'التوصيل والمرتجعات')))),
                       child: ProfileCardItem(
                           title: translateString(
                               'Delivery and Returns', 'التوصيل والمرتجعات')),
                     ),
-                    //   },
-                    // ),
                     SizedBox(
                       height: h * 0.04,
                     ),
-                    // BlocConsumer<SettingCubit, SettingState>(
-                    //   listener: (context, state) {},
-                    //   builder: (context, state) {
-                    // return
                     InkWell(
                       onTap: () => Navigator.push(
                           context,
@@ -242,7 +228,7 @@ class _GuestViewState extends State<GuestView> {
                     SizedBox(
                       height: h * 0.04,
                     ),
-                      if (prefs.getBool("is_login") == true)
+                    if (prefs.getBool("is_login") == true)
                       InkWell(
                         onTap: () {
                           AuthCubit.get(context).SignOut();
@@ -257,7 +243,6 @@ class _GuestViewState extends State<GuestView> {
                     if (prefs.getBool("is_login") == true && isDeleted)
                       InkWell(
                         onTap: () {
-                        
                           _showCustomDialog(context);
                         },
                         child: ProfileCardItem(
