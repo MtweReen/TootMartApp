@@ -48,16 +48,17 @@ class CartCubit extends Cubit<CartState> {
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.CENTER,
             textColor: Colors.white);
-          emit(AddtoCartSuccessState());   
+        emit(AddtoCartErrorState(""));
       }
     } catch (e) {
       Fluttertoast.showToast(
-          msg: translateString("there is error , please try again later ...",
-              "حدث خطأ ما الرجاء المحاولة مرة اخري"),
-          backgroundColor: colorRed,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          textColor: Colors.white);
+        msg: translateString("there is error , please try again later ...",
+            "حدث خطأ ما الرجاء المحاولة مرة اخري"),
+        backgroundColor: colorRed,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        textColor: Colors.white,
+      );
       emit(AddtoCartErrorState(e.toString()));
     }
     return addtoCartModel!;
@@ -109,10 +110,18 @@ class CartCubit extends Cubit<CartState> {
       }
       Response response = await DioHelper.postLoggedUser(
           url: CONTROL_CART_ITEM + '?action=' + action!,
-          
           data: {'cart_id': cartId});
       if (response.statusCode == 200) {
         getcart();
+      } else {
+        Fluttertoast.showToast(
+          msg: response.data['message'],
+          textColor: Colors.white,
+          backgroundColor: Colors.red,
+          gravity: ToastGravity.CENTER,
+          toastLength: Toast.LENGTH_SHORT,
+        );
+        emit(UpdateCartErrorState());
       }
     } catch (e) {
       emit(UpdateCartErrorState());

@@ -43,23 +43,23 @@ class SettingScreen extends StatelessWidget {
                     ),
                     const VerticalSpace(value: 1.5),
                     BlocConsumer<AppCubit, AppState>(
-                      listener: (context, state) {
-                        
-                      },
+                      listener: (context, state) {},
                       builder: (context, state) {
-                        return (AppCubit.get(context).arLanguage == true)?Text(
-                          "اللغه العربية",
-                          style: headingStyle.copyWith(
-                              color: colordeepGrey,
-                              fontWeight: FontWeight.w500,
-                              fontSize: SizeConfig.screenWidth! * 0.045),
-                        ):Text(
-                          "English",
-                          style: headingStyle.copyWith(
-                              color: colordeepGrey,
-                              fontWeight: FontWeight.w500,
-                              fontSize: SizeConfig.screenWidth! * 0.045),
-                        );
+                        return (prefs.getString("lang") == "ar")
+                            ? Text(
+                                "اللغه العربية",
+                                style: headingStyle.copyWith(
+                                    color: colordeepGrey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: SizeConfig.screenWidth! * 0.045),
+                              )
+                            : Text(
+                                "English",
+                                style: headingStyle.copyWith(
+                                    color: colordeepGrey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: SizeConfig.screenWidth! * 0.045),
+                              );
                       },
                     ),
                   ],
